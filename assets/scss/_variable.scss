@@ -18,56 +18,67 @@
 
 // font
 .h1-heading {
+  font-family: var(--font-primary);
   font-size: 80px;
   line-height: 88px;
   font-weight: 100;
 }
 .h2-heading {
+  font-family: var(--font-primary);
   font-size: 48px;
   line-height: 56px;
   font-weight: 300;
 }
 .h3-heading {
+  font-family: var(--font-primary);
   font-size: 40px;
   line-height: 48px;
   font-weight: 300;
 }
 .sub-title-1 {
+  font-family: var(--font-primary);
   font-size: 32px;
   line-height: 40px;
   font-weight: 300;
 }
 .sub-title-2 {
+  font-family: var(--font-primary);
   font-size: 20px;
   line-height: 28px;
   font-weight: 300;
 }
 .body-medium {
+  font-family: var(--font-primary);
   font-size: 16px;
   line-height: 24px;
   font-weight: 300;
 }
 .body-medium-regular {
+  font-family: var(--font-primary);
   font-size: 16px;
   line-height: 24px;
   font-weight: 400;
 }
 .body-sm {
+  font-family: var(--font-primary);
   font-size: 14px;
   line-height: 20px;
   font-weight: 300;
 }
 .body-sm-regular {
+  font-family: var(--font-primary);
   font-size: 14px;
   line-height: 20px;
   font-weight: 400;
 }
 .button-typo {
+  font-family: var(--font-primary);
   font-size: 12px;
   line-height: 20px;
   font-weight: bold;
 }
 .tag-typo {
+  font-family: var(--font-primary);
   font-size: 12px;
   line-height: 20px;
   font-weight: 500;
