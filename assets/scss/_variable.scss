@@ -1,0 +1,74 @@
+:root {
+  --font-primary: "SVN-AlphaCreative", sans-serif;
+  --color-black: #010101;
+  --color-white: #ffffff;
+  --color-primary: #dac396;
+  --color-gradient: linear-gradient(90deg, #ffffff 27%, #d1b57e 89%);
+}
+// color
+.color-black {
+  color: var(--color-black);
+}
+.color-white {
+  color: var(--color-white);
+}
+.color-priary {
+  color: var(--color-primary);
+}
+
+// font
+.h1-heading {
+  font-size: 80px;
+  line-height: 88px;
+  font-weight: 100;
+}
+.h2-heading {
+  font-size: 48px;
+  line-height: 56px;
+  font-weight: 300;
+}
+.h3-heading {
+  font-size: 40px;
+  line-height: 48px;
+  font-weight: 300;
+}
+.sub-title-1 {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 300;
+}
+.sub-title-2 {
+  font-size: 20px;
+  line-height: 28px;
+  font-weight: 300;
+}
+.body-medium {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 300;
+}
+.body-medium-regular {
+  font-size: 16px;
+  line-height: 24px;
+  font-weight: 400;
+}
+.body-sm {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 300;
+}
+.body-sm-regular {
+  font-size: 14px;
+  line-height: 20px;
+  font-weight: 400;
+}
+.button-typo {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: bold;
+}
+.tag-typo {
+  font-size: 12px;
+  line-height: 20px;
+  font-weight: 500;
+}
