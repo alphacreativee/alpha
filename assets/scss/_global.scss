@@ -35,6 +35,10 @@
   position: relative;
   overflow: hidden;
   &:hover {
+    .button-text {
+      display: inline-block;
+      animation: MoveScaleUpInitial 0.3s forwards;
+    }
     span {
       color: var(--color-black);
     }
@@ -42,7 +46,42 @@
       animation-play-state: running;
       opacity: 1;
       transition-duration: 0.4s;
+      transition-delay: 0.3s;
     }
+    &::before {
+      transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+      transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
+    }
+    &::after {
+      transform: translate3d(0, 0, 0);
+      transition-duration: 0.05s;
+      transition-delay: 0.4s;
+      transition-timing-function: linear;
+    }
+  }
+  &::before {
+    content: "";
+    position: absolute;
+    background: var(--color-primary);
+    width: 120%;
+    height: 0;
+    padding-bottom: 120%;
+    top: -110%;
+    left: -10%;
+    border-radius: 50%;
+    transform: translate3d(0, 68%, 0) scale3d(0, 0, 0);
+  }
+  &::after {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    content: "";
+    background: var(--color-primary);
+    transform: translate3d(0, -100%, 0);
+    transition: transform 0.4s cubic-bezier(0.1, 0, 0.3, 1);
   }
   .marquee {
     position: absolute;
@@ -52,6 +91,7 @@
     height: 100%;
     overflow: hidden;
     pointer-events: none;
+    z-index: 4;
     &-inner {
       --offset: 16px;
       --move-initial: calc(-25% + var(--offset));
@@ -60,7 +100,6 @@
       position: relative;
       display: flex;
       width: fit-content;
-      background-color: var(--color-primary);
       transform: translate3d(var(--move-initial), 0, 0);
       animation: marquee 1s linear infinite;
       animation-play-state: paused;
@@ -79,5 +118,11 @@
   }
   100% {
     transform: translate3d(var(--move-final), 0, 0);
+  }
+}
+@keyframes MoveScaleUpInitial {
+  100% {
+    transform: translate3d(0, -105%, 0);
+    opacity: 0;
   }
 }
