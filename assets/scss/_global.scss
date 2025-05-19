@@ -118,12 +118,26 @@
 .rolling-text {
   position: relative;
   overflow: hidden;
+  &.rolling-padding-16 {
+    &:hover {
+      &::before {
+        transform: translate3d(0, 16px, 0);
+      }
+    }
+  }
+  &.rolling-padding-12 {
+    &:hover {
+      &::before {
+        transform: translate3d(0, 12px, 0);
+      }
+    }
+  }
   &:hover {
     &::before {
       transform: translate3d(0, 0, 0);
     }
     span {
-      transform: translate3d(0, -100%, 0);
+      transform: translate3d(0, -200%, 0);
       color: var(--color-white);
     }
   }
@@ -136,7 +150,7 @@
     height: 100%;
     color: var(--color-white);
     transform-origin: 50% 100%;
-    transform: translate3d(0, 100%, 0);
+    transform: translate3d(0, 150%, 0);
     transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
   }
 
@@ -249,4 +263,7 @@
     transform: translate3d(0, -105%, 0);
     opacity: 0;
   }
+}
+.spacing {
+  height: 100vh;
 }

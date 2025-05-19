@@ -63,9 +63,44 @@ function customDropdown() {
     }
   });
 }
+function header() {
+  let btnMenuOpen = $(".header-hambuger");
+  let subMenu = $(".header-sub-container");
+  let menuOverlay = $(".header-sub");
+  let btnMenuClose = $(".header-icon-close");
+  let body = $("body");
+  let subEmpty = $(".header-sub-empty");
 
+  btnMenuOpen.on("click", function () {
+    $(this).addClass("active");
+    menuOverlay.addClass("active");
+    body.addClass("overflow-hidden");
+    setTimeout(function () {
+      subMenu.addClass("active");
+    }, 100);
+  });
+
+  btnMenuClose.on("click", function () {
+    subMenu.removeClass("active");
+    setTimeout(function () {
+      btnMenuClose.removeClass("active");
+      menuOverlay.removeClass("active");
+      body.removeClass("overflow-hidden");
+    }, 300);
+  });
+
+  subEmpty.on("click", function () {
+    subMenu.removeClass("active");
+    setTimeout(function () {
+      btnMenuClose.removeClass("active");
+      menuOverlay.removeClass("active");
+      body.removeClass("overflow-hidden");
+    }, 300);
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+  header();
   customDropdown();
 };
 preloadImages("img").then(() => {
