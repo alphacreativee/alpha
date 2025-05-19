@@ -120,13 +120,15 @@
                   </p>
                   <a
                     href="tel:+8466829902"
-                    class="body-medium-regular link-hover color-black"
-                    >+84 6682 9902</a
+                    class="body-medium-regular rolling-text color-black"
+                    data-replace="+84 6682 9902"
+                    ><span>+84 6682 9902</span></a
                   >
                   <a
                     href="mailto:hello@alphacreative.vn"
-                    class="body-medium-regular link-hover color-black"
-                    >hello@alphacreative.vn</a
+                    class="body-medium-regular rolling-text color-black"
+                    data-replace="hello@alphacreative.vn"
+                    ><span>hello@alphacreative.vn</span></a
                   >
                 </div>
               </div>
@@ -218,7 +220,20 @@
                       By submitting, I certify that I have read & accepted the
                       Privacy Policy.
                     </p>
-                    <button type="submit" class="">SEND</button>
+                    <button
+                      type="submit"
+                      class="button-general button-typo color-black"
+                    >
+                      <span>SEND</span>
+                      <div class="marquee">
+                        <div class="marquee-inner">
+                          <span>SEND</span>
+                          <span>SEND</span>
+                          <span>SEND</span>
+                          <span>SEND</span>
+                        </div>
+                      </div>
+                    </button>
                   </div>
                 </form>
               </div>
@@ -227,7 +242,26 @@
         </div>
       </section>
     </main>
-    <footer></footer>
+    <footer>
+      <div class="container-fluid p-0">
+        <div class="footer-ovl"></div>
+        <div class="footer-wrapper">
+          <div class="footer-title color-white">Ready to Evolve?</div>
+          <div class="footer-bottom">
+            <p></p>
+            <p class="copyright body-sm color-white">
+              © 2025 Alpha Creative • Agency in Vietnam
+            </p>
+            <a
+              href="#"
+              class="body-sm color-white rolling-text policy"
+              data-replace="Privacy Policy"
+              ><span>Privacy Policy</span></a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
     <!-- end layout -->
 
     <script src="./assets/libs/jquery-3.7.1.js"></script>

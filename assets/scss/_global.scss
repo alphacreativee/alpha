@@ -2,6 +2,12 @@
   padding: 0 80px;
 }
 
+a {
+  &.color-white {
+    color: var(--color-white);
+  }
+}
+
 .link-hover {
   transition: all 0.4s ease-in-out;
   position: relative;
@@ -19,6 +25,10 @@
         transform-origin: bottom right;
       }
     }
+  }
+
+  &.color-white {
+    color: var(--color-white);
   }
 
   &::before {
@@ -140,6 +150,12 @@
     transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
   }
 
+  &.color-black {
+    &::before {
+      color: var(--color-black);
+    }
+  }
+
   span {
     display: inline-block;
     transition: transform 0.4s cubic-bezier(0.76, 0, 0.24, 1);
@@ -204,4 +220,9 @@
   100% {
     transform: translate3d(var(--move-final), 0, 0);
   }
+}
+
+main {
+  position: relative;
+  z-index: 2;
 }
