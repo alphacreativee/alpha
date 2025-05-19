@@ -271,4 +271,11 @@ a {
 main {
   position: relative;
   z-index: 2;
+  background-color: var(--color-black);
+}
+
+.section-title {
+  max-width: 55%;
+  text-align: center;
+  margin: 0 auto;
 }
