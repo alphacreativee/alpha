@@ -159,18 +159,18 @@ function effectText() {
         {
           "will-change": "opacity, transform",
           opacity: 0,
-          y: 20,
+          y: 20
         },
         {
           scrollTrigger: {
             trigger: element,
             start: "top 75%",
-            end: "bottom 75%",
+            end: "bottom 75%"
           },
           opacity: 1,
           y: 0,
           duration: 0.3,
-          ease: "sine.out",
+          ease: "sine.out"
         }
       );
     });
@@ -182,7 +182,7 @@ function effectText() {
       let splitBlur = SplitText.create(elementBlur, {
         type: "words, chars",
         charsClass: "split-char",
-        wordsClass: "split-word",
+        wordsClass: "split-word"
       });
       gsap.fromTo(
         splitBlur.chars,
@@ -190,7 +190,7 @@ function effectText() {
           filter: "blur(10px) ",
           y: 10,
           willChange: "filter, transform",
-          opacity: 0,
+          opacity: 0
         },
         {
           ease: "none",
@@ -202,8 +202,8 @@ function effectText() {
             trigger: elementBlur.classList.contains("footer-effect-text")
               ? ".footer-ovl"
               : elementBlur,
-            start: "top 90%",
-          },
+            start: "top 90%"
+          }
         }
       );
     });
@@ -304,12 +304,74 @@ function sectionSpecialize() {
   }
 }
 
+function clientInsight() {
+  if ($(".client-insight").length < 1) return;
+
+  const wrapper = document.querySelector(".client-insight .client-wrapper");
+  let scrollAmount = 0;
+  let isHovering = false;
+  let tween = null;
+
+  function handleScroll(e) {
+    if (!isHovering) return;
+
+    const style = getComputedStyle(wrapper);
+    const paddingLeft = parseInt(style.paddingLeft, 10);
+    const paddingRight = parseInt(style.paddingRight, 10);
+
+    const containerWidth = wrapper.offsetWidth;
+    const contentWidth = wrapper.scrollWidth;
+    const maxScroll =
+      contentWidth - containerWidth + paddingLeft + paddingRight;
+
+    const rect = wrapper.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+
+    const triggerZone = 200;
+    if (mouseX >= containerWidth - triggerZone) {
+      scrollAmount = -maxScroll;
+    } else {
+      const adjustedWidth = containerWidth - triggerZone;
+      const adjustedRatio = mouseX / adjustedWidth;
+      scrollAmount = Math.min(0, adjustedRatio * maxScroll * -1);
+    }
+
+    scrollAmount = Math.max(-maxScroll, Math.min(0, scrollAmount));
+
+    if (tween) tween.kill();
+    tween = gsap.to(wrapper, {
+      x: scrollAmount,
+      duration: 0.4,
+      ease: "power2.out"
+    });
+  }
+
+  wrapper.addEventListener("mouseenter", () => {
+    isHovering = true;
+  });
+
+  wrapper.addEventListener("mouseleave", () => {
+    isHovering = false;
+    if (tween) tween.kill();
+    tween = gsap.to(wrapper, {
+      x: 0,
+      duration: 0.5,
+      ease: "power2.out"
+    });
+  });
+
+  wrapper.addEventListener("mousemove", (e) => {
+    handleScroll(e);
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
   customDropdown();
   sectionSpecialize();
   effectText();
+  clientInsight();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
