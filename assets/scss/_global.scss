@@ -272,10 +272,27 @@ main {
   position: relative;
   z-index: 2;
   background-color: var(--color-black);
+  transition: background-color 0.3s;
+
+  &.theme-light {
+    background-color: var(--color-white);
+  }
 }
 
 .section-title {
-  max-width: 55%;
+  max-width: 65%;
   text-align: center;
   margin: 0 auto;
+
+  .desc {
+    margin-top: 40px;
+  }
+
+  .tag {
+    margin-bottom: 32px;
+    font-size: 10px;
+    line-height: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
 }
