@@ -126,9 +126,9 @@ function effectText() {
                 trigger: element,
                 start: "top 60%",
                 end: "bottom 60%",
-                toggleActions: "play none none none"
+                toggleActions: "play none none none",
                 // markers: true,
-              }
+              },
             });
           } else {
             // Auto-play case
@@ -136,19 +136,19 @@ function effectText() {
               duration: 0.4,
               yPercent: 100,
               opacity: 0,
-              stagger: 0.03,
-              ease: "expo.out"
+              stagger: 0.1,
+              ease: "expo.out",
             });
 
             // Play animation immediately after fonts are loaded
             gsap.to(splitTitle, {
               timeScale: 0.2,
-              onStart: () => splitTitle.play(0)
+              onStart: () => splitTitle.play(0),
             });
           }
 
           return splitTitle;
-        }
+        },
       });
     });
 
@@ -222,9 +222,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true
+        scrub: true,
       },
-      ease: "none"
+      ease: "none",
     }
   );
 
@@ -243,9 +243,9 @@ function sectionSpecialize() {
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-      }
+      },
     },
-    ease: "none"
+    ease: "none",
   });
 
   let hasCounted = false;
@@ -258,7 +258,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    }
+    },
   });
 
   $(".section-specialize .number").each(function () {
