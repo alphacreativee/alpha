@@ -153,6 +153,62 @@ function effectText() {
         },
       });
     });
+
+    // effect fade in
+    gsap.utils.toArray(".effect-fade-content").forEach((element) => {
+      gsap.fromTo(
+        element,
+        {
+          "will-change": "opacity, transform",
+          opacity: 0,
+          y: 20,
+        },
+        {
+          scrollTrigger: {
+            trigger: element,
+            start: "top 75%",
+            end: "bottom 75%",
+          },
+          opacity: 1,
+          y: 0,
+          duration: 0.3,
+          ease: "sine.out",
+        }
+      );
+    });
+
+    // effect blur text
+    const elementsBlur = document.querySelectorAll(".effect-heading-blur");
+
+    elementsBlur.forEach((elementBlur) => {
+      let splitBlur = SplitText.create(elementBlur, {
+        type: "words, chars",
+        charsClass: "split-char",
+        wordsClass: "split-word",
+      });
+      gsap.fromTo(
+        splitBlur.chars,
+        {
+          filter: "blur(10px) ",
+          y: 10,
+          willChange: "filter, transform",
+          opacity: 0,
+        },
+        {
+          ease: "none",
+          filter: "blur(0px)",
+          y: 0,
+          stagger: 0.05,
+          opacity: 1,
+          scrollTrigger: {
+            trigger: elementBlur.classList.contains("footer-effect-text")
+              ? ".footer-ovl"
+              : elementBlur,
+            start: "top 90%",
+          },
+        }
+      );
+    });
   });
 }
 
