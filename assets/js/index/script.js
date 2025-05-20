@@ -98,10 +98,69 @@ function header() {
     }, 300);
   });
 }
+function effectText() {
+  gsap.registerPlugin(SplitText, ScrollTrigger); // Register both plugins
+  document.fonts.ready.then(() => {
+    // Select all elements with .effect-heading-mask-line
+    const elements = document.querySelectorAll(".effect-heading-mask-line");
+
+    elements.forEach((element) => {
+      gsap.set(element, { opacity: 1 }); // Set initial opacity
+      let splitTitle;
+
+      SplitText.create(element, {
+        type: "words,lines",
+        linesClass: "line",
+        autoSplit: true,
+        mask: "lines",
+        onSplit: (self) => {
+          const isScrollTrigger = element.classList.contains("scroll-trigger");
+
+          if (isScrollTrigger) {
+            // ScrollTrigger case
+            splitTitle = gsap.from(self.lines, {
+              duration: 0.4,
+              yPercent: 100,
+              opacity: 0,
+              stagger: 0.1,
+              ease: "expo.out",
+              scrollTrigger: {
+                trigger: element,
+                start: "top 60%",
+                end: "bottom 60%",
+                toggleActions: "play none none none",
+                // markers: true,
+              },
+            });
+          } else {
+            // Auto-play case
+            splitTitle = gsap.from(self.lines, {
+              duration: 0.4,
+              yPercent: 100,
+              opacity: 0,
+              stagger: 0.03,
+              ease: "expo.out",
+            });
+
+            // Play animation immediately after fonts are loaded
+            gsap.to(splitTitle, {
+              timeScale: 0.2,
+              onStart: () => splitTitle.play(0),
+            });
+          }
+
+          return splitTitle;
+        },
+      });
+    });
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
   customDropdown();
+  effectText();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body

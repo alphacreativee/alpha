@@ -1,7 +1,13 @@
 .page-width {
   padding: 0 80px;
 }
-
+.effect-heading-mask-line {
+  will-change: transform;
+  line-height: 1.3;
+  .line > * {
+    vertical-align: top;
+  }
+}
 a {
   &.color-white {
     color: var(--color-white);
