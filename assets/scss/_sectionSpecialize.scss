@@ -13,11 +13,14 @@
     position: relative;
 
     &-slider {
-      display: flex;
-      align-items: flex-start;
-      justify-content: center;
+      // display: flex;
+      // align-items: flex-start;
+      // justify-content: center;
       transform: translateX(80%);
       margin: 0 -80px;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      gap: 64px;
 
       .slider-item {
         font-size: 100px;
