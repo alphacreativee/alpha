@@ -126,9 +126,9 @@ function effectText() {
                 trigger: element,
                 start: "top 60%",
                 end: "bottom 60%",
-                toggleActions: "play none none none",
+                toggleActions: "play none none none"
                 // markers: true,
-              },
+              }
             });
           } else {
             // Auto-play case
@@ -137,18 +137,18 @@ function effectText() {
               yPercent: 100,
               opacity: 0,
               stagger: 0.1,
-              ease: "expo.out",
+              ease: "expo.out"
             });
 
             // Play animation immediately after fonts are loaded
             gsap.to(splitTitle, {
               timeScale: 0.2,
-              onStart: () => splitTitle.play(0),
+              onStart: () => splitTitle.play(0)
             });
           }
 
           return splitTitle;
-        },
+        }
       });
     });
 
@@ -159,18 +159,18 @@ function effectText() {
         {
           "will-change": "opacity, transform",
           opacity: 0,
-          y: 20,
+          y: 20
         },
         {
           scrollTrigger: {
             trigger: element,
             start: "top 75%",
-            end: "bottom 75%",
+            end: "bottom 75%"
           },
           opacity: 1,
           y: 0,
           duration: 0.3,
-          ease: "sine.out",
+          ease: "sine.out"
         }
       );
     });
@@ -182,7 +182,7 @@ function effectText() {
       let splitBlur = SplitText.create(elementBlur, {
         type: "words, chars",
         charsClass: "split-char",
-        wordsClass: "split-word",
+        wordsClass: "split-word"
       });
       gsap.fromTo(
         splitBlur.chars,
@@ -190,7 +190,7 @@ function effectText() {
           filter: "blur(10px) ",
           y: 10,
           willChange: "filter, transform",
-          opacity: 0,
+          opacity: 0
         },
         {
           ease: "none",
@@ -202,8 +202,8 @@ function effectText() {
             trigger: elementBlur.classList.contains("footer-effect-text")
               ? ".footer-ovl"
               : elementBlur,
-            start: "top 90%",
-          },
+            start: "top 90%"
+          }
         }
       );
     });
@@ -222,9 +222,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true,
+        scrub: true
       },
-      ease: "none",
+      ease: "none"
     }
   );
 
@@ -243,9 +243,9 @@ function sectionSpecialize() {
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-      },
+      }
     },
-    ease: "none",
+    ease: "none"
   });
 
   let hasCounted = false;
@@ -258,7 +258,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    },
+    }
   });
 
   $(".section-specialize .number").each(function () {
@@ -364,9 +364,9 @@ function introChess() {
       scrub: 1,
       trigger: "#canvas-chess",
       start: "top+=100 bottom",
-      end: "bottom top",
+      end: "bottom top"
     },
-    onUpdate: render,
+    onUpdate: render
   });
 
   // Hiệu ứng cho section-intro-content
@@ -378,7 +378,7 @@ function introChess() {
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
-    linesClass: "line",
+    linesClass: "line"
   });
 
   // Tạo timeline cho hiệu ứng vào và ngược lại
@@ -387,8 +387,8 @@ function introChess() {
       trigger: "#canvas-chess",
       start: `top+=${(70 / frameCount) * 100}% top`,
       end: `top+=${(70 / frameCount) * 100}% top`,
-      toggleActions: "play none none reverse",
-    },
+      toggleActions: "play none none reverse"
+    }
     // onStart: () => {
     //   tagElement.classList.add("effect-fade-content-intro");
     // },
@@ -443,33 +443,29 @@ function introChess() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
 
 function clientInsight() {
   if ($(".client-insight").length < 1) return;
 
-  const wrapper = document.querySelector(".client-insight .client-wrapper");
+  const wrapper = document.querySelector(".client-wrapper");
+  const container = document.querySelector(".main-section");
   let scrollAmount = 0;
   let isHovering = false;
-  let tween = null;
 
   function handleScroll(e) {
     if (!isHovering) return;
 
-    const style = getComputedStyle(wrapper);
-    const paddingLeft = parseInt(style.paddingLeft, 10);
-    const paddingRight = parseInt(style.paddingRight, 10);
+    const containerWidth = container.offsetWidth;
+    const wrapperWidth = wrapper.scrollWidth;
+    const paddingRight = 80;
+    const maxScroll = wrapperWidth - containerWidth + paddingRight;
 
-    const containerWidth = wrapper.offsetWidth;
-    const contentWidth = wrapper.scrollWidth;
-    const maxScroll =
-      contentWidth - containerWidth + paddingLeft + paddingRight;
-
-    const rect = wrapper.getBoundingClientRect();
+    const rect = container.getBoundingClientRect();
     const mouseX = e.clientX - rect.left;
 
     const triggerZone = 200;
@@ -482,30 +478,19 @@ function clientInsight() {
     }
 
     scrollAmount = Math.max(-maxScroll, Math.min(0, scrollAmount));
-
-    if (tween) tween.kill();
-    tween = gsap.to(wrapper, {
-      x: scrollAmount,
-      duration: 0.4,
-      ease: "power2.out",
-    });
+    wrapper.style.transform = `translateX(${scrollAmount}px)`;
   }
 
-  wrapper.addEventListener("mouseenter", () => {
+  container.addEventListener("mouseenter", () => {
     isHovering = true;
   });
 
-  wrapper.addEventListener("mouseleave", () => {
+  container.addEventListener("mouseleave", () => {
     isHovering = false;
-    if (tween) tween.kill();
-    tween = gsap.to(wrapper, {
-      x: 0,
-      duration: 0.5,
-      ease: "power2.out",
-    });
+    wrapper.style.transform = `translateX(0px)`;
   });
 
-  wrapper.addEventListener("mousemove", (e) => {
+  container.addEventListener("mousemove", (e) => {
     handleScroll(e);
   });
 }
