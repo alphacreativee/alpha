@@ -306,7 +306,20 @@ function sectionSpecialize() {
 
 function introChess() {
   if ($(".section-intro").length < 1) return;
-  gsap.registerPlugin(ScrollTrigger);
+
+  // Khởi tạo Lenis cho cuộn mượt
+  const lenis = new Lenis();
+  lenis.on("scroll", () => ScrollTrigger.update());
+  const scrollFn = (time) => {
+    lenis.raf(time * 1000);
+    requestAnimationFrame(scrollFn);
+  };
+  requestAnimationFrame(scrollFn);
+
+  // Đăng ký plugin ScrollTrigger và SplitText
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  // Thiết lập canvas
   const canvas = document.getElementById("canvas-chess");
   const context = canvas.getContext("2d");
 
@@ -318,18 +331,31 @@ function introChess() {
     canvas.height = window.innerHeight;
     render();
   });
-  const frameCount = 70;
+
+  const frameCount = 74;
   const currentFrame = (index) =>
     `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
   const images = [];
-  const imageSeq = {
-    frame: 1,
-  };
-  for (let i = 1; i < frameCount; i++) {
+  const imageSeq = { frame: 0 };
+  let imagesLoaded = 0;
+
+  // Tải hình ảnh và theo dõi khi tất cả được tải
+  for (let i = 0; i < frameCount; i++) {
     const img = new Image();
     img.src = currentFrame(i);
-    images.push(img);
+    img.onload = () => {
+      imagesLoaded++;
+      if (imagesLoaded === frameCount) {
+        render();
+      }
+    };
+    img.onerror = () => {
+      console.error(`Không tải được hình ảnh: ${img.src}`);
+    };
+    images[i] = img;
   }
+
+  // Hiệu ứng GSAP cho chuỗi khung hình
   gsap.to(imageSeq, {
     frame: frameCount - 1,
     snap: "frame",
@@ -337,22 +363,65 @@ function introChess() {
     scrollTrigger: {
       scrub: 1,
       trigger: "#canvas-chess",
-      start: "top top",
-      end: "100% top",
+      start: "top+=100 bottom",
+      end: "bottom top",
     },
     onUpdate: render,
   });
-  images[1].onload = render;
+
+  // Hiệu ứng cho section-intro-content
+  const tagElement = document.querySelector(".section-intro-content .tag");
+  const contentElement = document.querySelector(
+    ".section-intro-content .h2-heading"
+  );
+
+  // Khởi tạo SplitText cho content
+  const splitContent = new SplitText(contentElement, {
+    type: "words,lines",
+    linesClass: "line",
+  });
+
+  // Tạo timeline cho hiệu ứng vào và ngược lại
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#canvas-chess",
+      start: `top+=${(70 / frameCount) * 100}% top`,
+      end: `top+=${(70 / frameCount) * 100}% top`,
+      toggleActions: "play none none reverse",
+    },
+    // onStart: () => {
+    //   tagElement.classList.add("effect-fade-content-intro");
+    // },
+  });
+
+  // Thêm hiệu ứng cho tag
+  tl.fromTo(
+    tagElement,
+    { opacity: 0, y: 20 },
+    { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
+  );
+
+  // Thêm hiệu ứng cho các dòng của content
+  tl.fromTo(
+    splitContent.lines,
+    { opacity: 0, yPercent: 100 },
+    { opacity: 1, yPercent: 0, duration: 0.4, stagger: 0.1, ease: "expo.out" },
+    "-=0.3" // Chồng lấn nhẹ để hiệu ứng mượt hơn
+  );
+
   function render() {
-    scaleImage(images[imageSeq.frame], context);
+    if (images[imageSeq.frame] && images[imageSeq.frame].complete) {
+      scaleImage(images[imageSeq.frame], context);
+    }
   }
+
   function scaleImage(img, ctx) {
-    var canvas = ctx.canvas;
-    var hRatio = canvas.width / img.width;
-    var vRatio = canvas.height / img.height;
-    var ratio = Math.max(hRatio, vRatio);
-    var centerShift_x = (canvas.width - img.width * ratio) / 2;
-    var centerShift_y = (canvas.height - img.height * ratio) / 2;
+    const canvas = ctx.canvas;
+    const hRatio = canvas.width / img.width;
+    const vRatio = canvas.height / img.height;
+    const ratio = Math.max(hRatio, vRatio);
+    const centerShift_x = (canvas.width - img.width * ratio) / 2;
+    const centerShift_y = (canvas.height - img.height * ratio) / 2;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(
       img,
@@ -366,13 +435,15 @@ function introChess() {
       img.height * ratio
     );
   }
+
+  // Ghim section-intro
   gsap.to(".section-intro", {
     scrollTrigger: {
       trigger: ".section-intro",
       start: "top top",
       end: "bottom top",
       pin: true,
-      markers: true,
+      // markers: true,
     },
   });
 }
