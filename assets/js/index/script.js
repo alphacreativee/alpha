@@ -109,7 +109,7 @@ function effectText() {
       SplitText.create(element, {
         type: "words,lines",
         linesClass: "line",
-        autoSplit: true,
+        // autoSplit: true,
         mask: "lines",
         onSplit: (self) => {
           const isScrollTrigger = element.classList.contains("scroll-trigger");
@@ -304,12 +304,86 @@ function sectionSpecialize() {
   }
 }
 
+function introChess() {
+  if ($(".section-intro").length < 1) return;
+  gsap.registerPlugin(ScrollTrigger);
+  const canvas = document.getElementById("canvas-chess");
+  const context = canvas.getContext("2d");
+
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+
+  window.addEventListener("resize", function () {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    render();
+  });
+  const frameCount = 70;
+  const currentFrame = (index) =>
+    `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
+  const images = [];
+  const imageSeq = {
+    frame: 1,
+  };
+  for (let i = 1; i < frameCount; i++) {
+    const img = new Image();
+    img.src = currentFrame(i);
+    images.push(img);
+  }
+  gsap.to(imageSeq, {
+    frame: frameCount - 1,
+    snap: "frame",
+    ease: "none",
+    scrollTrigger: {
+      scrub: 1,
+      trigger: "#canvas-chess",
+      start: "top top",
+      end: "100% top",
+    },
+    onUpdate: render,
+  });
+  images[1].onload = render;
+  function render() {
+    scaleImage(images[imageSeq.frame], context);
+  }
+  function scaleImage(img, ctx) {
+    var canvas = ctx.canvas;
+    var hRatio = canvas.width / img.width;
+    var vRatio = canvas.height / img.height;
+    var ratio = Math.max(hRatio, vRatio);
+    var centerShift_x = (canvas.width - img.width * ratio) / 2;
+    var centerShift_y = (canvas.height - img.height * ratio) / 2;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      img.width,
+      img.height,
+      centerShift_x,
+      centerShift_y,
+      img.width * ratio,
+      img.height * ratio
+    );
+  }
+  gsap.to(".section-intro", {
+    scrollTrigger: {
+      trigger: ".section-intro",
+      start: "top top",
+      end: "bottom top",
+      pin: true,
+      markers: true,
+    },
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
   customDropdown();
   sectionSpecialize();
   effectText();
+  introChess();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
