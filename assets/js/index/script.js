@@ -443,6 +443,7 @@ function introChess() {
       start: "top top",
       end: "bottom top",
       pin: true,
+      pinSpacing: false,
       // markers: true,
     },
   });
