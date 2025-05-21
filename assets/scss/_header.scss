@@ -25,6 +25,20 @@
         li {
           a {
             display: block;
+            &.active {
+              color: var(--color-primary);
+              &::before {
+                color: var(--color-primary);
+              }
+              &:hover {
+                &::before {
+                  color: var(--color-primary);
+                }
+              }
+              span {
+                color: var(--color-primary);
+              }
+            }
           }
         }
       }

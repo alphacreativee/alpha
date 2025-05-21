@@ -2,6 +2,7 @@ import { preloadImages } from "../../libs/utils.js";
 
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+  //   outStory();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body

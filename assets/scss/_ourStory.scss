@@ -1,0 +1,44 @@
+.our-story {
+  height: 100vh;
+  width: 100%;
+
+  &-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  &-content {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.3s ease;
+    will-change: transform;
+  }
+
+  &-right {
+    height: 100vh;
+    position: relative;
+  }
+
+  &-item {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #fff;
+    top: 0;
+    left: 0;
+    &:nth-child(2) {
+      background-color: red;
+    }
+    &:nth-child(3) {
+      background-color: var(--color-primary);
+    }
+  }
+}
