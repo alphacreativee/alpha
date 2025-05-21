@@ -140,12 +140,41 @@ function clientInsight() {
   });
 }
 
+function sectionExpertise() {
+  if ($(".section-expertise").length < 1) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector(".section-expertise");
+  const list = section.querySelector(".list-item");
+  const items = gsap.utils.toArray(".section-expertise .item");
+
+  const totalScroll = list.scrollWidth - window.innerWidth;
+
+  gsap.to(list, {
+    x: () => `-${totalScroll}px`,
+    ease: "none",
+    scrollTrigger: {
+      id: "horizontalScroll",
+      trigger: section,
+      start: "top top",
+      end: () => `+=${totalScroll}`,
+      scrub: true,
+      pin: true,
+      anticipatePin: 1,
+    },
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   sectionSpecialize();
+  sectionExpertise();
 
   clientInsight();
+
+  ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
