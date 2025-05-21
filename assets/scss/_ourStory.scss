@@ -1,44 +1,62 @@
 .our-story {
   height: 100vh;
   width: 100%;
-
+  &-pin {
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
   &-container {
+    height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
   }
-
   &-content {
     position: relative;
     width: 100%;
-    height: 100vh;
-    overflow: hidden;
-  }
-
-  &-title {
+    height: 470px;
+    border-radius: 12px;
+    background-color: black;
     display: flex;
     align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-    will-change: transform;
-  }
-
-  &-right {
-    height: 100vh;
-    position: relative;
-  }
-
-  &-item {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #fff;
-    top: 0;
-    left: 0;
-    &:nth-child(2) {
-      background-color: red;
+    overflow: hidden;
+    .content {
+      width: 100%;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      background-color: var(--color-white);
+      padding: 40px;
+      .content-detail {
+        display: flex;
+        justify-content: space-between;
+        flex-direction: column;
+        align-items: flex-start;
+        height: 100%;
+        width: 100%;
+      }
     }
-    &:nth-child(3) {
-      background-color: var(--color-primary);
+  }
+  &-title {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 24px;
+    background-color: black;
+    &-item {
+      transform-origin: left center;
+      transform: rotate(0.1deg);
+      transition: all 0.3s ease-in-out;
+      &.active {
+        line-height: 88px;
+        transform: rotate(0.1deg) scale(4);
+      }
     }
   }
 }
