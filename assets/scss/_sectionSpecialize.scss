@@ -13,11 +13,8 @@
     position: relative;
 
     &-slider {
-      // display: flex;
-      // align-items: flex-start;
-      // justify-content: center;
-      transform: translateX(80%);
-      margin: 0 -80px;
+      transform: translate(80%, 80px);
+      margin: 0 -46px;
       display: grid;
       grid-template-columns: 1fr auto 1fr;
       gap: 64px;
