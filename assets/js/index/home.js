@@ -12,9 +12,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true,
+        scrub: true
       },
-      ease: "none",
+      ease: "none"
     }
   );
 
@@ -33,9 +33,9 @@ function sectionSpecialize() {
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-      },
+      }
     },
-    ease: "none",
+    ease: "none"
   });
 
   let hasCounted = false;
@@ -48,7 +48,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    },
+    }
   });
 
   $(".section-specialize .number").each(function () {
@@ -154,9 +154,9 @@ function introChess() {
       scrub: 1,
       trigger: "#canvas-chess",
       start: "top+=100 bottom",
-      end: "bottom top",
+      end: "bottom top"
     },
-    onUpdate: render,
+    onUpdate: render
   });
 
   // Hiệu ứng cho section-intro-content
@@ -168,7 +168,7 @@ function introChess() {
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
-    linesClass: "line",
+    linesClass: "line"
   });
 
   // Tạo timeline cho hiệu ứng vào và ngược lại
@@ -177,8 +177,8 @@ function introChess() {
       trigger: "#canvas-chess",
       start: `top+=${(70 / frameCount) * 100}% top`,
       end: `top+=${(70 / frameCount) * 100}% top`,
-      toggleActions: "play none none reverse",
-    },
+      toggleActions: "play none none reverse"
+    }
     // onStart: () => {
     //   tagElement.classList.add("effect-fade-content-intro");
     // },
@@ -233,9 +233,9 @@ function introChess() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
 
@@ -285,13 +285,41 @@ function clientInsight() {
   });
 }
 
+function sectionExpertise() {
+  if ($(".section-expertise").length < 1) return;
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  const section = document.querySelector(".section-expertise");
+  const list = section.querySelector(".list-item");
+  const items = gsap.utils.toArray(".section-expertise .item");
+
+  const totalScroll = list.scrollWidth - window.innerWidth;
+
+  gsap.to(list, {
+    x: () => `-${totalScroll}px`,
+    ease: "none",
+    scrollTrigger: {
+      id: "horizontalScroll",
+      trigger: section,
+      start: "top top",
+      end: () => `+=${totalScroll}`,
+      scrub: true,
+      pin: true,
+      anticipatePin: 1
+    }
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
 
   sectionSpecialize();
-
+  sectionExpertise();
   introChess();
   clientInsight();
+
+  ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
