@@ -5,13 +5,16 @@
   right: 0;
   width: 100%;
   z-index: 99;
-
+  mix-blend-mode: difference;
   &-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     padding: 16px 24px;
   }
+
   &-menu {
+    mix-blend-mode: normal;
+    isolation: isolate;
     &-container {
       padding: 12px 24px;
       background-color: rgba(217, 217, 217, 0.2);
@@ -72,6 +75,8 @@
     visibility: hidden;
     transition: all 0.1s;
     pointer-events: none;
+    z-index: 199;
+
     &.active {
       opacity: 1;
       visibility: visible;
