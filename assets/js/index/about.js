@@ -1,10 +1,10 @@
 import { preloadImages } from "../../libs/utils.js";
 
 function ourStory() {
-  gsap.set(".content:not(:first-child)", { yPercent: 100 });
+  gsap.set(".our-story .content:not(:first-child)", { yPercent: 100 });
 
   // Lấy tất cả các phần tử .content không có class first-child
-  const contents = gsap.utils.toArray(".content:not(:first-child)");
+  const contents = gsap.utils.toArray(".our-story .content:not(:first-child)");
 
   const texts = gsap.utils.toArray(".text");
 
@@ -20,19 +20,13 @@ function ourStory() {
 
     onUpdate: (self) => {
       const progress = self.progress;
-      const contentCount = contents.length;
-      const step = 0.4; // Khoảng cách giữa các hiệu ứng (i * 0.2)
+      const step = 1 / (contents.length + 1);
 
       let activeIndex = Math.floor(progress / step);
-      if (activeIndex >= contentCount) activeIndex = contentCount - 1;
-      if (activeIndex < 0) activeIndex = 0;
+      if (activeIndex >= texts.length) activeIndex = texts.length - 1;
 
       texts.forEach((text, index) => {
-        if (index === activeIndex) {
-          text.classList.add("active");
-        } else {
-          text.classList.remove("active");
-        }
+        text.classList.toggle("active", index === activeIndex);
       });
     },
   });
@@ -41,6 +35,7 @@ function ourStory() {
     contentTimeline.to(content, {
       yPercent: 0,
       duration: 0.5,
+      boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
       ease: "power2.out",
     });
   });
