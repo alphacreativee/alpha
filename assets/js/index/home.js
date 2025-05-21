@@ -12,9 +12,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true,
+        scrub: true
       },
-      ease: "none",
+      ease: "none"
     }
   );
 
@@ -33,9 +33,9 @@ function sectionSpecialize() {
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-      },
+      }
     },
-    ease: "none",
+    ease: "none"
   });
 
   let hasCounted = false;
@@ -48,7 +48,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    },
+    }
   });
 
   $(".section-specialize .number").each(function () {
@@ -140,52 +140,27 @@ function clientInsight() {
   });
 }
 
-function sectionExpertise() {
-  if ($(".section-expertise").length < 1) return;
+function gsapExpertise() {
+  const wrapperExpertise = $(".wrapper-expertise");
 
-  gsap.registerPlugin(ScrollTrigger);
-
-  const section = document.querySelector(".section-expertise");
-  const list = section.querySelector(".list-item");
-  const items = gsap.utils.toArray(".section-expertise .item");
-
-  const totalScroll = list.scrollWidth - window.innerWidth;
-
-  gsap.to(list, {
-    x: () => `-${totalScroll}px`,
-    ease: "none",
-    scrollTrigger: {
-      id: "horizontalScroll",
-      trigger: section,
-      start: "top top",
-      end: () => `+=${totalScroll}`,
-      scrub: true,
-      pin: true,
-      anticipatePin: 1,
-    },
-  });
-}
-function gsapTestimonial() {
-  const wrapperTestimonials = $(".wrapper-testimonial");
-
-  // Nếu có bất kỳ phần tử testimonial nào
-  if (wrapperTestimonials.length > 0) {
+  // Nếu có bất kỳ phần tử expertise nào
+  if (wrapperExpertise.length > 0) {
     // Lặp qua từng phần tử wrapper
-    wrapperTestimonials.each(function (index, wrapper) {
-      const testimonial = $(wrapper).find(".testimonial");
+    wrapperExpertise.each(function (index, wrapper) {
+      const expertise = $(wrapper).find(".expertise");
 
       // Hàm để tính toán lượng cuộn cần thiết
       const getScrollAmount = () => {
-        const racesWidth = testimonial[0].scrollWidth;
+        const racesWidth = expertise[0].scrollWidth;
         return racesWidth - window.innerWidth + 200;
       };
 
-      // Hàm để tạo tween animation cho testimonial
-      const createTween = (testimonial, scrollAmount) => {
-        return gsap.to(testimonial, {
+      // Hàm để tạo tween animation cho expertise
+      const createTween = (expertise, scrollAmount) => {
+        return gsap.to(expertise, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none",
+          ease: "none"
         });
       };
 
@@ -193,22 +168,51 @@ function gsapTestimonial() {
       const createScrollTrigger = (wrapper, tween, scrollAmount) => {
         ScrollTrigger.create({
           trigger: wrapper,
-          start: "top 15%",
+          start: "top 30%",
           end: `+=${scrollAmount}`,
           pin: true,
           animation: tween,
           scrub: 1,
           invalidateOnRefresh: true,
+          id: "expertiseScroll"
           // markers: true,
         });
       };
 
       // Tính toán lượng cuộn cần thiết
       const scrollAmount = getScrollAmount();
-      // Tạo tween animation cho testimonial
-      const tween = createTween(testimonial, scrollAmount);
+      // Tạo tween animation cho expertise
+      const tween = createTween(expertise, scrollAmount);
       // Tạo ScrollTrigger cho phần tử wrapper
       createScrollTrigger(wrapper, tween, scrollAmount);
+    });
+
+    const containerTrigger = ScrollTrigger.getById("expertiseScroll");
+
+    if (!containerTrigger) return;
+
+    const items = gsap.utils.toArray(".expertise-item:not(.item-title-large)");
+
+    items.forEach((item) => {
+      const content = item.querySelector(".item-content");
+
+      gsap.fromTo(
+        content,
+        { yPercent: 70 },
+        {
+          yPercent: 0,
+          ease: "none",
+          scrollTrigger: {
+            trigger: item,
+            containerAnimation: containerTrigger.animation,
+            start: "left 80%",
+            end: "center 60%",
+            scrub: true,
+            invalidateOnRefresh: true
+            // markers: true,
+          }
+        }
+      );
     });
 
     // Làm mới ScrollTrigger sau khi tất cả triggers đã được thiết lập
@@ -217,10 +221,8 @@ function gsapTestimonial() {
 }
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
-  gsapTestimonial();
+  gsapExpertise();
   sectionSpecialize();
-  sectionExpertise();
-
   clientInsight();
 
   ScrollTrigger.refresh();
