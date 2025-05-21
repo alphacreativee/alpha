@@ -93,3 +93,21 @@
     }
   }
 }
+.wrapper-testimonial {
+  overflow: hidden;
+  padding-left: 100px;
+  height: 100vh;
+}
+.testimonial {
+  width: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 40px;
+}
+
+.testimonial-item {
+  width: 500px;
+  aspect-ratio: 1;
+  background-color: red;
+  padding: 0 20px;
+}
