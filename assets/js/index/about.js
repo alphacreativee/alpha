@@ -56,9 +56,35 @@ function ourStory() {
     });
   });
 }
+function ourTeam() {
+  const teamItems = gsap.utils.toArray(".our-team-item");
+
+  gsap.set(teamItems, {
+    opacity: 0,
+    y: 50,
+  });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".our-team-list",
+      start: "top 80%",
+      end: "bottom 30%",
+      scrub: 1,
+      // markers: true,
+    },
+  });
+
+  tl.to(teamItems, {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    ease: "power2.out",
+    stagger: 0.2,
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
-
+  ourTeam();
   ourStory();
 };
 preloadImages("img").then(() => {
