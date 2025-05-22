@@ -68,12 +68,12 @@ function coreValue() {
       end: "+=40%",
       scrub: true,
       pin: true,
-      toggleClass: { targets: ".core-value", className: "active" }
+      toggleClass: { targets: ".core-value", className: "active" },
       // markers: true
-    }
+    },
   });
 
-  tl.to("#core-value-text", { opacity: 1, duration: 0.4 });,
+  tl.to("#core-value-text", { opacity: 1, duration: 0.4 });
   tl.to("#core-value-text", { opacity: 0, duration: 0.6, ease: "none" });
 }
 
@@ -238,7 +238,7 @@ function gsapexpertise2() {
         document
           .querySelector(".wrapper-expertise2")
           .classList.remove("theme-light");
-      }
+      },
       // markers: true
     });
 
