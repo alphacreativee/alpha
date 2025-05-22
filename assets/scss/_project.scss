@@ -1,0 +1,42 @@
+.project {
+  padding-top: 260px;
+  &-top {
+    max-width: 1062px;
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+    margin-bottom: 60px;
+    .title {
+      margin-bottom: 40px;
+    }
+  }
+  &-filter {
+    ul {
+      gap: 12px;
+    }
+    .nav-link {
+      border-radius: 4px;
+      border: 1px solid #3c3c3c;
+      transition: all 0.3s ease;
+      &:hover {
+        border: 1px solid #595959;
+        &.active {
+          border: 1px solid #373737;
+        }
+        .project-title {
+          color: #dedede;
+        }
+      }
+      &.active {
+        background-color: var(--color-filter);
+        border: 1px solid #373737;
+        .project-title {
+          color: #dedede;
+        }
+      }
+      .project-title {
+        color: #8d8d8d;
+      }
+    }
+  }
+}
