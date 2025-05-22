@@ -1,0 +1,135 @@
+.our-works {
+  padding: 120px 0;
+
+  &.theme-light {
+    background: linear-gradient(to right, #e4e4e4 0%, #e4e4e4 14%);
+  }
+
+  .content {
+    h2 {
+      max-width: 90%;
+    }
+  }
+
+  .work-accordion {
+    .accordion {
+      &-item {
+        border: none;
+        border-radius: 4px;
+        overflow: hidden;
+
+        &:not(:first-child) {
+          margin-top: 24px;
+        }
+      }
+
+      &-button {
+        border: none;
+        border-radius: unset;
+        box-shadow: none;
+        background-color: var(--color-white);
+        color: var(--color-black);
+        padding: 12px 24px;
+        padding-right: 60px;
+
+        &::after {
+          display: none;
+        }
+
+        .icon {
+          width: 32px;
+          height: 32px;
+          background-color: #e4e4e4;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          position: absolute;
+          top: 50%;
+          right: 24px;
+          transform: translateY(-50%);
+          overflow: hidden;
+
+          &-grey {
+            width: 100%;
+            height: 100%;
+            background-color: #e4e4e4;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transition: all 0.4s ease;
+          }
+
+          &-black {
+            width: 100%;
+            height: 100%;
+            background-color: var(--color-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            transform: translateY(100%);
+            transition: all 0.4s ease;
+          }
+        }
+
+        &[aria-expanded="false"] {
+          &:hover {
+            .icon-grey {
+              transform: translateY(-100%);
+            }
+
+            .icon-black {
+              transform: translateY(0);
+            }
+          }
+        }
+
+        &[aria-expanded="true"] {
+          .icon {
+            transform: translateY(-50%) rotate(180deg);
+          }
+        }
+      }
+
+      &-body {
+        padding: 20px 54px 40px 40px;
+
+        p {
+          margin-top: 16px;
+        }
+
+        ul {
+          margin-bottom: 16px;
+
+          li {
+            position: relative;
+            padding-left: 20px;
+
+            &::before {
+              content: "";
+              width: 4px;
+              height: 4px;
+              background-color: var(--color-black);
+              position: absolute;
+              top: 10px;
+              left: 5px;
+            }
+          }
+
+          &:last-child {
+            margin-bottom: 0;
+          }
+        }
+      }
+    }
+  }
+}
