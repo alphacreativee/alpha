@@ -1,0 +1,145 @@
+.wrapper-expertise2 {
+  overflow: hidden;
+  height: auto;
+  background-color: var(--color-white);
+}
+.expertise2 {
+  width: fit-content;
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0;
+}
+
+.expertise2-item {
+  display: flex;
+  gap: 0;
+  align-items: flex-end;
+  height: 100vh;
+  width: 420px;
+  overflow: hidden;
+  flex-direction: column;
+
+  &.active {
+    .item-content {
+      clip-path: inset(0 0 0 0) !important;
+
+      &:hover {
+        .item-content__image {
+          img {
+            transform: translate(0);
+          }
+        }
+
+        &::after {
+          clip-path: polygon(100% 0, 100% 0, 100% 100%, 100% 100%);
+        }
+      }
+    }
+  }
+
+  .item-content {
+    width: 100%;
+    aspect-ratio: 1;
+    position: relative;
+
+    &__image {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 2;
+      top: 0;
+      left: 0;
+      //   opacity: 0;
+      //   visibility: hidden;
+      transition: all 0.4s ease;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transform: translateX(-30px);
+        transition: all 0.5s ease-in-out;
+      }
+    }
+
+    &__text {
+      position: absolute;
+      bottom: 40px;
+      left: 40px;
+      width: calc(100% - 80px);
+      z-index: 4;
+    }
+
+    &:not(.empty) {
+      clip-path: inset(0 100% 0 0);
+      transition: clip-path 0.5s ease-out;
+
+      &::after {
+        content: "";
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: 3;
+        background-color: var(--color-black);
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        transition: clip-path 0.5s ease-in-out;
+      }
+    }
+
+    &.empty {
+      background-color: var(--color-white);
+    }
+  }
+
+  &.item-title-large {
+    width: 100vw;
+    justify-content: center;
+    align-items: center;
+
+    h2 {
+      font-size: 180px;
+      line-height: 100%;
+      font-weight: 300;
+      text-align: center;
+    }
+  }
+
+  .item {
+    &-image {
+      width: 220px;
+      height: 350px;
+      flex-shrink: 0;
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &-tag {
+      padding: 12px 24px;
+      background-color: rgba($color: #d9d9d9, $alpha: 0.2);
+      backdrop-filter: 10px;
+      width: max-content;
+      border-radius: 4px;
+    }
+
+    &-title {
+      margin: 40px 0;
+    }
+
+    &-services {
+      display: flex;
+      flex-wrap: wrap;
+      max-width: 90%;
+      gap: 12px 24px;
+
+      li {
+        flex-shrink: 0;
+      }
+    }
+  }
+}
