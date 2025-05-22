@@ -61,13 +61,20 @@ function coreValue() {
   );
 
   // pin core value
-  ScrollTrigger.create({
-    trigger: ".core-value",
-    start: "top top",
-    end: "bottom top",
-    toggleClass: { targets: ".core-value", className: "active" },
-    markers: false
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#core-value-text",
+      start: "top center",
+      end: "+=40%",
+      scrub: true,
+      pin: true,
+      toggleClass: { targets: ".core-value", className: "active" }
+      // markers: true
+    }
   });
+
+  tl.to("#core-value-text", { opacity: 1, duration: 0.4 });
+  tl.to("#core-value-text", { opacity: 0, duration: 0.6, ease: "none" });
 }
 
 function ourStory() {
@@ -172,7 +179,6 @@ function gsapexpertise2() {
         // Đặt chiều cao spacer bằng một nửa totalHeight hoặc scrollAmount
         const totalHeight = getTotalHeight();
         spacer.style.height = `${Math.max(totalHeight, scrollAmount)}px`;
-        console.log(scrollAmount);
       };
 
       // Hàm để tạo ScrollTrigger
@@ -218,6 +224,22 @@ function gsapexpertise2() {
         invalidateOnRefresh: true
         // markers: true,
       });
+    });
+
+    ScrollTrigger.create({
+      trigger: ".wrapper-expertise2",
+      start: "top 65%",
+      onEnter: () => {
+        document
+          .querySelector(".wrapper-expertise2")
+          .classList.add("theme-light");
+      },
+      onLeaveBack: () => {
+        document
+          .querySelector(".wrapper-expertise2")
+          .classList.remove("theme-light");
+      }
+      // markers: true
     });
 
     // Làm mới ScrollTrigger
