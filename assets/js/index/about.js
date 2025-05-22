@@ -130,17 +130,17 @@ function ourStory() {
 function gsapexpertise2() {
   const wrapperexpertise2 = $(".wrapper-expertise2");
 
-  // Nếu có bất kỳ phần tử expertise2 nào
   if (wrapperexpertise2.length > 0) {
-    // Lặp qua từng phần tử wrapper
     wrapperexpertise2.each(function (index, wrapper) {
       const expertise2 = $(wrapper).find(".expertise2");
 
       // Hàm để tính toán lượng cuộn cần thiết
       const getScrollAmount = () => {
         const racesWidth = expertise2[0].scrollWidth;
-        return racesWidth - window.innerWidth + 200;
+        return racesWidth - window.innerWidth + 100; // Xóa +200 để tối ưu
       };
+
+      console.log(getScrollAmount());
 
       // Hàm để tạo tween animation cho expertise2
       const createTween = (expertise2, scrollAmount) => {
@@ -151,53 +151,76 @@ function gsapexpertise2() {
         });
       };
 
-      // Hàm để tạo ScrollTrigger cho phần tử wrapper
+      // Hàm để tính một nửa tổng chiều cao của các .expertise2-item
+      const getTotalHeight = () => {
+        const items = wrapper.querySelectorAll(".expertise2-item");
+        const total = Array.from(items).reduce(
+          (acc, el) => acc + el.offsetHeight,
+          0
+        );
+        return total / 7; // Trả về một nửa tổng chiều cao
+      };
+
+      // Hàm để tạo hoặc cập nhật spacer
+      const updateSpacer = (scrollAmount) => {
+        let spacer = wrapper.querySelector(".expertise2-spacer");
+        if (!spacer) {
+          spacer = document.createElement("div");
+          spacer.classList.add("expertise2-spacer");
+          wrapper.insertAdjacentElement("afterend", spacer);
+        }
+        // Đặt chiều cao spacer bằng một nửa totalHeight hoặc scrollAmount
+        const totalHeight = getTotalHeight();
+        spacer.style.height = `${Math.max(totalHeight, scrollAmount)}px`;
+        console.log(scrollAmount);
+      };
+
+      // Hàm để tạo ScrollTrigger
       const createScrollTrigger = (wrapper, tween, scrollAmount) => {
         ScrollTrigger.create({
           trigger: wrapper,
           start: "top top",
-          end: `+=${scrollAmount}`,
+          end: `+=${scrollAmount * 1}`, // Rút ngắn 80% để giảm thời gian cuộn
           pin: true,
           animation: tween,
           scrub: 1,
-          pinSpacing: true,
+          pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: "expertise2Scroll"
-          // markers: true,
+          id: `expertise2Scroll-${index}`
+          // markers: true, // Bật để debug
         });
       };
 
-      // Tính toán lượng cuộn cần thiết
+      // Tính toán chiều cao và lượng cuộn
       const scrollAmount = getScrollAmount();
-      // Tạo tween animation cho expertise2
+      updateSpacer(scrollAmount);
+
+      // Tạo tween animation
       const tween = createTween(expertise2, scrollAmount);
-      // Tạo ScrollTrigger cho phần tử wrapper
+      // Tạo ScrollTrigger
       createScrollTrigger(wrapper, tween, scrollAmount);
     });
 
-    const containerTrigger = ScrollTrigger.getById("expertise2Scroll");
+    // Xử lý animation cho các .expertise2-item
+    const containerTrigger = ScrollTrigger.getById(`expertise2Scroll-0`);
 
     if (!containerTrigger) return;
 
     const items = gsap.utils.toArray(".expertise2-item:not(.item-title-large)");
 
     items.forEach((item) => {
-      const content = item.querySelector(".item-content");
-
-      items.forEach((item) => {
-        ScrollTrigger.create({
-          trigger: item,
-          containerAnimation: containerTrigger.animation,
-          start: "left 85%",
-          onEnter: () => item.classList.add("active"),
-          onLeaveBack: () => item.classList.remove("active"),
-          invalidateOnRefresh: true
-          // markers: true,
-        });
+      ScrollTrigger.create({
+        trigger: item,
+        containerAnimation: containerTrigger.animation,
+        start: "left 85%",
+        onEnter: () => item.classList.add("active"),
+        onLeaveBack: () => item.classList.remove("active"),
+        invalidateOnRefresh: true
+        // markers: true,
       });
     });
 
-    // Làm mới ScrollTrigger sau khi tất cả triggers đã được thiết lập
+    // Làm mới ScrollTrigger
     ScrollTrigger.refresh();
   }
 }
