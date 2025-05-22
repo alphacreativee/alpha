@@ -8,15 +8,32 @@ function ourStory() {
   const texts = gsap.utils.toArray(".text");
 
   const contentTimeline = gsap.timeline();
+  // Tính tổng chiều cao
+  const totalHeight = document.querySelectorAll(".our-story .content")
+    ? Array.from(document.querySelectorAll(".our-story .content")).reduce(
+        (acc, el) => acc + el.offsetHeight,
+        0
+      )
+    : 0;
+
+  let spacer = document.querySelector(".our-story-spacer");
+  if (!spacer) {
+    spacer = document.createElement("div");
+    spacer.classList.add("our-story-spacer");
+    document
+      .querySelector(".our-story")
+      .insertAdjacentElement("afterend", spacer);
+  }
+  spacer.style.height = `${totalHeight}px`;
 
   ScrollTrigger.create({
     trigger: ".our-story",
     start: "top top",
-    end: "+=1000",
+    end: `+=${totalHeight}`, // dùng chiều cao động
     pin: true,
     scrub: true,
     animation: contentTimeline,
-
+    pinSpacing: false,
     onUpdate: (self) => {
       const progress = self.progress;
       const step = 1 / (contents.length + 1);

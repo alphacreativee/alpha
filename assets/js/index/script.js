@@ -127,7 +127,6 @@ function effectText() {
                 start: "top 60%",
                 end: "bottom 60%",
                 toggleActions: "play none none none",
-                // markers: true,
               },
             });
           } else {
@@ -166,6 +165,7 @@ function effectText() {
             trigger: element,
             start: "top 75%",
             end: "bottom 75%",
+            // markers: true,
           },
           opacity: 1,
           y: 0,
