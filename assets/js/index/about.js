@@ -26,37 +26,37 @@ function coreValue() {
   gsap.fromTo(
     ".core-value .image",
     {
-      clipPath: initialClipPath
+      clipPath: initialClipPath,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
         start: "top 70%",
         end: "bottom 70%",
-        scrub: 1
+        scrub: 1,
         // markers: true
       },
       clipPath: "inset(0% 0% 0% 0%)", // hiện dần ra
       duration: 0.4,
-      ease: "power2.out"
+      ease: "power2.out",
     }
   );
 
   gsap.fromTo(
     ".core-value .image img",
     {
-      scale: 1.1
+      scale: 1.1,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
         start: "top 70%",
         end: "bottom 70%",
-        scrub: 1
+        scrub: 1,
       },
       scale: 1,
       duration: 0.4,
-      ease: "power2.out"
+      ease: "power2.out",
     }
   );
 
@@ -66,7 +66,7 @@ function coreValue() {
     start: "top top",
     end: "bottom top",
     toggleClass: { targets: ".core-value", className: "active" },
-    markers: false
+    markers: false,
   });
 }
 
@@ -114,7 +114,7 @@ function ourStory() {
       texts.forEach((text, index) => {
         text.classList.toggle("active", index === activeIndex);
       });
-    }
+    },
   });
 
   contents.forEach((content, i) => {
@@ -122,7 +122,7 @@ function ourStory() {
       yPercent: 0,
       duration: 0.5,
       boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
-      ease: "power2.out"
+      ease: "power2.out",
     });
   });
 }
@@ -147,7 +147,7 @@ function gsapexpertise2() {
         return gsap.to(expertise2, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none"
+          ease: "none",
         });
       };
 
@@ -186,7 +186,7 @@ function gsapexpertise2() {
           scrub: 1,
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: `expertise2Scroll-${index}`
+          id: `expertise2Scroll-${index}`,
           // markers: true, // Bật để debug
         });
       };
@@ -215,7 +215,7 @@ function gsapexpertise2() {
         start: "left 85%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
         // markers: true,
       });
     });
@@ -230,17 +230,17 @@ function ourTeam() {
 
   gsap.set(teamItems, {
     opacity: 0,
-    y: 50
+    y: 50,
   });
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".our-team-list",
-      start: "top 80%",
-      end: "bottom 30%",
-      scrub: 1
+      start: "top 90%",
+      end: "bottom 60%",
+      scrub: 1,
       // markers: true,
-    }
+    },
   });
 
   tl.to(teamItems, {
@@ -248,7 +248,7 @@ function ourTeam() {
     y: 0,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.2
+    stagger: 0.15,
   });
 }
 const init = () => {
