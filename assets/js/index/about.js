@@ -71,38 +71,48 @@ function coreValue() {
 }
 
 function ourStory() {
-  gsap.set(".content:not(:first-child)", { yPercent: 100 });
+  gsap.set(".our-story .content:not(:first-child)", { yPercent: 100 });
 
   // Lấy tất cả các phần tử .content không có class first-child
-  const contents = gsap.utils.toArray(".content:not(:first-child)");
-
+  const contents = gsap.utils.toArray(".our-story .content:not(:first-child)");
   const texts = gsap.utils.toArray(".text");
 
   const contentTimeline = gsap.timeline();
+  // Tính tổng chiều cao
+  const totalHeight = document.querySelectorAll(".our-story .content")
+    ? Array.from(document.querySelectorAll(".our-story .content")).reduce(
+        (acc, el) => acc + el.offsetHeight,
+        0
+      )
+    : 0;
+
+  let spacer = document.querySelector(".our-story-spacer");
+  if (!spacer) {
+    spacer = document.createElement("div");
+    spacer.classList.add("our-story-spacer");
+    document
+      .querySelector(".our-story")
+      .insertAdjacentElement("afterend", spacer);
+  }
+  spacer.style.height = `${totalHeight}px`;
 
   ScrollTrigger.create({
     trigger: ".our-story",
     start: "top top",
-    end: "+=1000",
+    end: `+=${totalHeight}`, // dùng chiều cao động
     pin: true,
     scrub: true,
     animation: contentTimeline,
-
+    pinSpacing: false,
     onUpdate: (self) => {
       const progress = self.progress;
-      const contentCount = contents.length;
-      const step = 0.4; // Khoảng cách giữa các hiệu ứng (i * 0.2)
+      const step = 1 / (contents.length + 1);
 
       let activeIndex = Math.floor(progress / step);
-      if (activeIndex >= contentCount) activeIndex = contentCount - 1;
-      if (activeIndex < 0) activeIndex = 0;
+      if (activeIndex >= texts.length) activeIndex = texts.length - 1;
 
       texts.forEach((text, index) => {
-        if (index === activeIndex) {
-          text.classList.add("active");
-        } else {
-          text.classList.remove("active");
-        }
+        text.classList.toggle("active", index === activeIndex);
       });
     }
   });
@@ -111,6 +121,7 @@ function ourStory() {
     contentTimeline.to(content, {
       yPercent: 0,
       duration: 0.5,
+      boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
       ease: "power2.out"
     });
   });
@@ -191,8 +202,35 @@ function gsapexpertise2() {
   }
 }
 
+function ourTeam() {
+  const teamItems = gsap.utils.toArray(".our-team-item");
+
+  gsap.set(teamItems, {
+    opacity: 0,
+    y: 50
+  });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".our-team-list",
+      start: "top 80%",
+      end: "bottom 30%",
+      scrub: 1
+      // markers: true,
+    }
+  });
+
+  tl.to(teamItems, {
+    opacity: 1,
+    y: 0,
+    duration: 1,
+    ease: "power2.out",
+    stagger: 0.2
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+  ourTeam();
   ourStory();
   coreValue();
   gsapexpertise2();

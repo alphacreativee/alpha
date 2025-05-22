@@ -1,0 +1,50 @@
+.our-team {
+  padding-bottom: 120px;
+  &-content {
+    text-align: center;
+    margin-bottom: 120px;
+    .tag {
+      margin-bottom: 32px;
+    }
+    .title {
+      margin-bottom: 40px;
+    }
+  }
+  &-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 80px 60px;
+  }
+  &-item {
+    &:hover {
+      .our-team-img {
+        background: url("../../images/branding-2-hover.gif");
+        background-size: 200%;
+        background-position: center;
+      }
+    }
+  }
+  &-img {
+    width: 100%;
+    aspect-ratio: 386 / 290;
+    border-radius: 12px;
+    overflow: hidden;
+    background: var(--color-white);
+    margin-bottom: 30px;
+    background-size: 200%;
+    background-position: center;
+    transition: all 0.5s ease;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  &-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+  }
+}
