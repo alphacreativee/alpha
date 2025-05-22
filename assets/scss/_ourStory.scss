@@ -1,6 +1,4 @@
 .our-story {
-  height: 100vh;
-  width: 100%;
   &-pin {
     height: 100%;
     display: flex;
@@ -27,6 +25,7 @@
       justify-content: center;
       align-items: center;
       position: absolute;
+      border-radius: 12px;
       background-color: var(--color-white);
       padding: 40px;
       .content-detail {

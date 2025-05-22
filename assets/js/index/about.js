@@ -5,7 +5,6 @@ function ourStory() {
 
   // Lấy tất cả các phần tử .content không có class first-child
   const contents = gsap.utils.toArray(".our-story .content:not(:first-child)");
-
   const texts = gsap.utils.toArray(".text");
 
   const contentTimeline = gsap.timeline();
