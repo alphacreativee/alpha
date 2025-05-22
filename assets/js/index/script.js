@@ -174,6 +174,25 @@ function effectText() {
         }
       );
     });
+    gsap.utils
+      .toArray(".effect-fade-content-auto")
+      .forEach((element, index) => {
+        gsap.fromTo(
+          element,
+          {
+            "will-change": "opacity, transform",
+            opacity: 0,
+            y: 20,
+          },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.3,
+            ease: "sine.out",
+            delay: 0.5, // Độ trễ để tạo hiệu ứng lần lượt
+          }
+        );
+      });
 
     // effect blur text
     const elementsBlur = document.querySelectorAll(".effect-heading-blur");
