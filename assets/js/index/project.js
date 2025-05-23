@@ -114,15 +114,9 @@ function sliderProject() {
   });
 
   //   load project
-
+}
+function loadImg() {
   const projectItems = gsap.utils.toArray(".project-item");
-
-  // Thiết lập trạng thái ban đầu
-  gsap.set(projectItems, {
-    yPercent: 40, // Mặc định cho tất cả phần tử
-    opacity: 0, // Tùy chọn: thêm opacity để fade-in
-  });
-
   // Thiết lập riêng cho phần tử đầu tiên
   gsap.set(projectItems[0], {
     yPercent: 10, // yPercent: 10 cho phần tử đầu tiên
@@ -187,10 +181,43 @@ function magicCursor() {
     });
   });
 }
+function changeColor() {
+  const blogPage = document.querySelector(".blog-page");
+  if (!blogPage) {
+    return;
+  }
+
+  // Kiểm tra sự tồn tại của main và blogElement
+  const mainElement = document.querySelector("main");
+  const blogElement = document.querySelector(
+    ".blog-page-container .project-list"
+  );
+  const blogContainer = document.querySelector(".blog-page-container");
+
+  // Tạo ScrollTrigger
+  ScrollTrigger.create({
+    trigger: blogElement,
+    start: "top 70%",
+    end: "bottom 70%",
+    scrub: true,
+    markers: true,
+    onEnter: () => {
+      blogContainer.classList.add("theme-light");
+      mainElement.classList.add("theme-light");
+    },
+    onLeaveBack: () => {
+      mainElement.classList.remove("theme-light");
+      blogContainer.classList.remove("theme-light");
+    },
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   sliderProject();
   magicCursor();
+  loadImg();
+  changeColor();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
