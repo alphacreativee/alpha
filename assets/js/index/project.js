@@ -117,6 +117,10 @@ function sliderProject() {
 }
 function loadImg() {
   const projectItems = gsap.utils.toArray(".project-item");
+  gsap.set(projectItems, {
+    yPercent: 40, // yPercent: 10 cho phần tử đầu tiên
+    opacity: 0,
+  });
   // Thiết lập riêng cho phần tử đầu tiên
   gsap.set(projectItems[0], {
     yPercent: 10, // yPercent: 10 cho phần tử đầu tiên
