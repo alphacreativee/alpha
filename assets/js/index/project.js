@@ -38,18 +38,13 @@ function sliderProject() {
 
     var swiper = new Swiper($this[0], {
       slidesPerView: 1,
-      speed: 1000, // Tốc độ chuyển slide
+      speed: 1000,
       init: true,
-      //   loop: true,
-      loopAdditionalSlides: 1, // Thêm slide bổ sung để loop mượt hơn
-      autoplay: false, // Tắt autoplay mặc định
+
+      loopAdditionalSlides: 1,
+      autoplay: false,
       watchSlidesProgress: true,
-      mousewheel: {
-        enabled: true,
-      },
-      keyboard: {
-        enabled: true,
-      },
+
       pagination: {
         el: $this.find(".swiper-pagination")[0],
         clickable: true,
