@@ -1,5 +1,6 @@
 .project {
   padding-top: 260px;
+  margin-bottom: 120px;
   &-top {
     max-width: 1062px;
     width: 100%;
@@ -11,6 +12,7 @@
     }
   }
   &-filter {
+    margin-bottom: 120px;
     ul {
       gap: 12px;
     }
@@ -36,6 +38,122 @@
       }
       .project-title {
         color: #8d8d8d;
+      }
+    }
+  }
+  &-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 120px 80px;
+    .swiper-project {
+      width: 100%;
+      height: 100%;
+
+      &:hover {
+        .swiper-pagination {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+      .swiper-slide {
+        overflow: hidden;
+        .img-parallax {
+          width: 100%;
+          height: 100%;
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+          }
+        }
+      }
+      .swiper-pagination {
+        left: 24px;
+        right: 24px;
+        width: calc(100% - 48px);
+        top: 24px;
+        bottom: auto;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        z-index: 10;
+        gap: 16px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.3s ease;
+      }
+      .swiper-pagination-bullet {
+        width: 100%;
+        border-radius: 0;
+        height: 2px;
+        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 1;
+        .progress-bar {
+          background: var(--color-white);
+          width: 0;
+        }
+        &.viewed {
+          .progress-bar {
+            background: var(--color-white);
+            width: 100%;
+          }
+        }
+      }
+      .swiper-pagination-bullet-active {
+        background-color: rgba(255, 255, 255, 0.2);
+        opacity: 1;
+      }
+      .progress-bar {
+        height: 2px;
+      }
+    }
+  }
+  &-item {
+    width: calc((100% - 80px) / 2);
+
+    &:hover {
+      cursor: none;
+      .img-parallax {
+        img {
+          transform: scale(1.05);
+        }
+      }
+      .project-tag {
+        bottom: 24px;
+      }
+    }
+  }
+  &-parallax {
+    width: 100%;
+    height: 450px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 32px;
+    position: relative;
+
+    @media (min-width: 1441px) {
+      aspect-ratio: 600 / 450;
+    }
+  }
+  &-tag {
+    position: absolute;
+    left: 24px;
+    bottom: -40px;
+    z-index: 2;
+    transition: all 0.3s ease;
+    ul {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      li {
+        .tag {
+          display: inline-block;
+          border-radius: 4px;
+          padding: 6px 16px;
+          background-color: rgba(0, 0, 0, 0.2);
+          backdrop-filter: blur(15px);
+        }
       }
     }
   }
