@@ -1,5 +1,5 @@
 import { preloadImages } from "../../libs/utils.js";
-
+2;
 function formReruitment() {
   if ($(".our-works").length < 1) return;
 
@@ -77,11 +77,70 @@ function formReruitment() {
     const title = $(this).data("title");
     $(".modal-recruitment .col-content .title").text(title);
   });
+
+  ScrollTrigger.create({
+    trigger: ".our-works",
+    start: "top 65%",
+    onEnter: () => {
+      document.querySelector(".our-works").classList.add("theme-light");
+    },
+    onLeaveBack: () => {
+      document.querySelector(".our-works").classList.remove("theme-light");
+    }
+    // markers: true
+  });
+}
+
+function whyChooseUs() {
+  if ($(".why-choose-us").length < 1) return;
+
+  const wrapper = document.querySelector(".why-choose-us .list-wrapper");
+  const container = document.querySelector(".why-choose-us .main-section");
+  let scrollAmount = 0;
+  let isHovering = false;
+
+  function handleScroll(e) {
+    if (!isHovering) return;
+
+    const containerWidth = container.offsetWidth;
+    const wrapperWidth = wrapper.scrollWidth;
+    const paddingRight = 80;
+    const maxScroll = wrapperWidth - containerWidth + paddingRight;
+
+    const rect = container.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+
+    const triggerZone = 200;
+    if (mouseX >= containerWidth - triggerZone) {
+      scrollAmount = -maxScroll;
+    } else {
+      const adjustedWidth = containerWidth - triggerZone;
+      const adjustedRatio = mouseX / adjustedWidth;
+      scrollAmount = Math.min(0, adjustedRatio * maxScroll * -1);
+    }
+
+    scrollAmount = Math.max(-maxScroll, Math.min(0, scrollAmount));
+    wrapper.style.transform = `translateX(${scrollAmount}px)`;
+  }
+
+  container.addEventListener("mouseenter", () => {
+    isHovering = true;
+  });
+
+  container.addEventListener("mouseleave", () => {
+    isHovering = false;
+    wrapper.style.transform = `translateX(0px)`;
+  });
+
+  container.addEventListener("mousemove", (e) => {
+    handleScroll(e);
+  });
 }
 
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   formReruitment();
+  whyChooseUs();
   ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
