@@ -11,7 +11,16 @@
     grid-template-columns: repeat(3, 1fr);
     padding: 16px 24px;
   }
-
+  &-logo {
+    width: max-content;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      inset: -10px;
+      background-color: transparent;
+    }
+  }
   &-menu {
     mix-blend-mode: normal;
     isolation: isolate;

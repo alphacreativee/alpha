@@ -177,6 +177,7 @@ function effectText() {
     gsap.utils
       .toArray(".effect-fade-content-auto")
       .forEach((element, index) => {
+        const delay = parseFloat(element.dataset.delay) || 0.5;
         gsap.fromTo(
           element,
           {
@@ -189,7 +190,8 @@ function effectText() {
             y: 0,
             duration: 0.3,
             ease: "sine.out",
-            delay: 0.5, // Độ trễ để tạo hiệu ứng lần lượt
+            delay: delay, // Độ trễ để tạo hiệu ứng lần lượt
+            stagger: 0.2,
           }
         );
       });
