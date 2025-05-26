@@ -117,8 +117,6 @@ function introBrading() {
   });
 
   const frameCount2 = 74;
-  // Kiểm tra class của .section-intro
-  const sectionIntro = document.querySelector(".build-a-brand");
 
   let currentFrame = (index) =>
     `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
