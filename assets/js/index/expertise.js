@@ -3,21 +3,17 @@ import { preloadImages } from "../../libs/utils.js";
 function animateChessItems() {
   if (!$(".banner-expertise").length) return;
 
-  // Tính tổng chiều cao
   const banner = document.querySelector(".section-banner.banner-expertise");
   const chessItems = document.querySelectorAll(".wrapper-chess .chess-item");
 
-  // Tính chiều cao của banner
   const bannerHeight = banner ? banner.getBoundingClientRect().height : 0;
 
-  // Tính tổng chiều cao của tất cả chess-item
   let chessItemsHeight = 0;
   chessItems.forEach((item) => {
     chessItemsHeight += item.getBoundingClientRect().height;
   });
 
-  const totalHeight =
-    bannerHeight + chessItemsHeight - window.innerHeight + 200;
+  const totalHeight = chessItemsHeight + 200;
 
   // Tạo spacer
   let spacer = document.querySelector(".banner-expertise-spacer");
@@ -38,7 +34,7 @@ function animateChessItems() {
     scrollTrigger: {
       trigger: ".banner-expertise",
       start: "top top",
-      end: "+=200%",
+      end: `+=${totalHeight}px`,
       scrub: true,
       pin: true,
       pinSpacing: false,
@@ -71,6 +67,14 @@ function buildABrand() {
     const content = $(".build-a-brand .wrapper-content");
     content.find(".item").addClass("d-none");
     content.find(`.item[data-branding="${dataThisTab}"]`).removeClass("d-none");
+
+    const whyChooseUs = $(".why-choose-us.page-expertise");
+    if (whyChooseUs.length > 0) {
+      $(".why-choose-us.page-expertise .main-section").addClass("d-none");
+      $(
+        `.why-choose-us.page-expertise .main-section[data-branding="${dataThisTab}"]`
+      ).removeClass("d-none");
+    }
   });
 
   ScrollTrigger.create({
@@ -151,7 +155,7 @@ function introBrading() {
       trigger: "#intro-branding",
       start: "top bottom",
       end: "bottom top",
-      // markers: true,
+      // markers: true
     },
     onUpdate: render2,
   });
@@ -225,7 +229,6 @@ const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   animateChessItems();
   buildABrand();
-  ScrollTrigger.refresh();
   introBrading();
   showCoreValue();
 };
