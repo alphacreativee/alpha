@@ -41,15 +41,15 @@ function animateChessItems() {
       end: "+=200%",
       scrub: true,
       pin: true,
-      pinSpacing: false
-    }
+      pinSpacing: false,
+    },
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none"
+      ease: "none",
     });
   });
 }
@@ -85,15 +85,122 @@ function buildABrand() {
     },
     onLeaveBack: () => {
       $(".build-a-brand .tab-wrapper .item").removeClass("active");
-    }
+    },
   });
 }
+function introBrading() {
+  if (document.querySelectorAll(".build-a-brand").length < 1) return;
 
+  // Khởi tạo Lenis cho cuộn mượt
+  const lenis = new Lenis();
+  lenis.on("scroll", () => ScrollTrigger.update());
+  const scrollFn = (time) => {
+    lenis.raf(time * 1000);
+    requestAnimationFrame(scrollFn);
+  };
+  requestAnimationFrame(scrollFn);
+
+  // Đăng ký plugin ScrollTrigger và SplitText
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  // Thiết lập canvas
+  const canvas2 = document.getElementById("intro-branding");
+  const context = canvas2.getContext("2d");
+
+  canvas2.width = window.innerWidth;
+  canvas2.height = window.innerHeight;
+
+  window.addEventListener("resize", function () {
+    canvas2.width = window.innerWidth;
+    canvas2.height = window.innerHeight;
+    render2();
+  });
+
+  const frameCount2 = 74;
+
+  let currentFrame = (index) =>
+    `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
+
+  const images2 = [];
+  const imageSeq2 = { frame: 0 };
+  let imagesLoaded2 = 0;
+
+  // Tải hình ảnh và theo dõi khi tất cả được tải
+  for (let i = 0; i < frameCount2; i++) {
+    const img2 = new Image();
+    img2.src = currentFrame(i);
+    img2.onload = () => {
+      imagesLoaded2++;
+      if (imagesLoaded2 === frameCount2) {
+        render2();
+      }
+    };
+    img2.onerror = () => {
+      console.error(`Không tải được hình ảnh: ${img2.src}`);
+    };
+    images2[i] = img2;
+  }
+
+  // Hiệu ứng GSAP cho chuỗi khung hình
+  gsap.to(imageSeq2, {
+    frame: frameCount2 - 1,
+    snap: "frame",
+    ease: "none",
+    scrollTrigger: {
+      scrub: 1,
+      trigger: "#intro-branding",
+      start: "top bottom",
+      end: "bottom top",
+      markers: true,
+    },
+    onUpdate: render2,
+  });
+
+  function render2() {
+    if (images2[imageSeq2.frame] && images2[imageSeq2.frame].complete) {
+      scaleImage(images2[imageSeq2.frame], context);
+    }
+  }
+
+  function scaleImage(img, ctx) {
+    const canvas = ctx.canvas;
+    const hRatio = canvas.width / img.width;
+    const vRatio = canvas.height / img.height;
+    const ratio = Math.max(hRatio, vRatio);
+    const centerShift_x = (canvas.width - img.width * ratio) / 2;
+    const centerShift_y = (canvas.height - img.height * ratio) / 2;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      img.width,
+      img.height,
+      centerShift_x,
+      centerShift_y,
+      img.width * ratio,
+      img.height * ratio
+    );
+  }
+
+  // Ghim section-intro
+  gsap.to(".section-intro", {
+    scrollTrigger: {
+      trigger: ".section-intro",
+      start: "top top",
+      end: "bottom top",
+      pin: true,
+      pinSpacing: false,
+      // markers: true,
+    },
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   animateChessItems();
   buildABrand();
   ScrollTrigger.refresh();
+  introBrading();
 };
 preloadImages("img").then(() => {
   init();
