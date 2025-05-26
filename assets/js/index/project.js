@@ -201,10 +201,10 @@ function changeColor() {
   // Tạo ScrollTrigger
   ScrollTrigger.create({
     trigger: blogElement,
-    start: "top 70%",
-    end: "bottom 70%",
+    start: "top 75%",
+    end: "bottom 75%",
     scrub: true,
-    markers: true,
+    // markers: true,
     onEnter: () => {
       blogContainer.classList.add("theme-light");
       mainElement.classList.add("theme-light");

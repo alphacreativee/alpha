@@ -1,6 +1,33 @@
 .project {
   padding-top: 260px;
   padding-bottom: 120px;
+  &.theme-light {
+    .project-top {
+      .title {
+        color: var(--color-black);
+      }
+      .desc {
+        color: var(--color-black);
+      }
+    }
+    .project-filter .nav-link {
+      border: 1px solid rgba(189, 189, 189, 1);
+      &:hover {
+        border: 1px solid #9e9e9e;
+        .project-title {
+          color: #3c3c3c;
+        }
+      }
+    }
+    .project-title {
+      color: #8d8d8d;
+    }
+    .project-filter .nav-link.active {
+      background-color: #373737;
+      backdrop-filter: blur(7.5px);
+      border: 1px solid #373737;
+    }
+  }
   &-top {
     max-width: 1062px;
     width: 100%;
