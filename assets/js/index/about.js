@@ -233,10 +233,16 @@ function gsapexpertise2() {
         document
           .querySelector(".wrapper-expertise2")
           .classList.add("theme-light");
+        document
+          .querySelector(".header-menu-container")
+          .classList.add("theme-light");
       },
       onLeaveBack: () => {
         document
           .querySelector(".wrapper-expertise2")
+          .classList.remove("theme-light");
+        document
+          .querySelector(".header-menu-container")
           .classList.remove("theme-light");
       },
       // markers: true

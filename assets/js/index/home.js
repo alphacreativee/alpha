@@ -12,9 +12,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true
+        scrub: true,
       },
-      ease: "none"
+      ease: "none",
     }
   );
 
@@ -29,13 +29,15 @@ function sectionSpecialize() {
       onEnter: () => {
         $(".section-specialize").addClass("theme-light");
         $("main").addClass("theme-light");
+        $(".header-menu-container").addClass("theme-light");
       },
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-      }
+        $(".header-menu-container").removeClass("theme-light");
+      },
     },
-    ease: "none"
+    ease: "none",
   });
 
   let hasCounted = false;
@@ -48,7 +50,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    }
+    },
   });
 
   $(".section-specialize .number").each(function () {
@@ -160,7 +162,7 @@ function gsapExpertise() {
         return gsap.to(expertise, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none"
+          ease: "none",
         });
       };
 
@@ -174,7 +176,7 @@ function gsapExpertise() {
           animation: tween,
           scrub: 1,
           invalidateOnRefresh: true,
-          id: "expertiseScroll"
+          id: "expertiseScroll",
           // markers: true,
         });
       };
@@ -208,9 +210,9 @@ function gsapExpertise() {
             start: "left 80%",
             end: "center 60%",
             scrub: true,
-            invalidateOnRefresh: true
+            invalidateOnRefresh: true,
             // markers: true,
-          }
+          },
         }
       );
     });
