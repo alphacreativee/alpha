@@ -7,6 +7,45 @@
     margin-top: 80px;
   }
 
+  &.page-expertise {
+    background-color: var(--color-white);
+    .list-wrapper {
+      .item-child {
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        background-color: transparent;
+        border: 1px solid var(--color-black);
+        border-radius: 12px;
+
+        .title {
+          position: unset;
+          width: 100%;
+        }
+
+        .item-bottom {
+          display: flex;
+          align-items: center;
+          flex-wrap: wrap;
+          gap: 12px;
+
+          li {
+            font-size: 10px;
+            font-size: 14px;
+            color: var(--color-white);
+            text-transform: uppercase;
+            padding: 9px 16px;
+            border-radius: 4px;
+            background-color: rgba(0, 0, 0, 0.2);
+            backdrop-filter: blur(15px);
+            border: 1px solid transparent;
+          }
+        }
+      }
+    }
+  }
+
   .list-wrapper {
     padding: 0 80px;
     display: flex;

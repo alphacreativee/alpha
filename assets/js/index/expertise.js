@@ -75,7 +75,7 @@ function buildABrand() {
 
   ScrollTrigger.create({
     trigger: ".build-a-brand",
-    start: "top 30%",
+    start: "top 70%",
     end: "bottom top",
     // markers: true,
     onEnter: () => {
