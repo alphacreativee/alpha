@@ -1,82 +1,5 @@
 import { preloadImages } from "../../libs/utils.js";
 
-function coreValue() {
-  if ($(".core-value").length < 1) return;
-
-  const viewportWidth = window.innerWidth;
-  let targetWidth = viewportWidth - 32;
-  if (viewportWidth > 991) {
-    targetWidth = viewportWidth - 160;
-  } else if (viewportWidth > 767) {
-    targetWidth = viewportWidth - 80;
-  }
-
-  const widthClipPercentage =
-    ((viewportWidth - targetWidth) / 2 / viewportWidth) * 100;
-
-  const image = document.querySelector(".core-value .core-value__top");
-  const currentHeight = image.offsetHeight;
-  const targetHeight =
-    viewportWidth > 991 ? currentHeight - 100 : currentHeight;
-  const heightClipPixels = (currentHeight - targetHeight) / 2;
-  const heightClipPercentage = (heightClipPixels / currentHeight) * 100;
-
-  const initialClipPath = `inset(${heightClipPercentage}% ${widthClipPercentage}% ${heightClipPercentage}% ${widthClipPercentage}%)`;
-
-  gsap.fromTo(
-    ".core-value .image",
-    {
-      clipPath: initialClipPath
-    },
-    {
-      scrollTrigger: {
-        trigger: ".core-value .core-value__top",
-        start: "top 70%",
-        end: "bottom 70%",
-        scrub: 1
-        // markers: true
-      },
-      clipPath: "inset(0% 0% 0% 0%)", // hiện dần ra
-      duration: 0.4,
-      ease: "power2.out"
-    }
-  );
-
-  gsap.fromTo(
-    ".core-value .image img",
-    {
-      scale: 1.1
-    },
-    {
-      scrollTrigger: {
-        trigger: ".core-value .core-value__top",
-        start: "top 70%",
-        end: "bottom 70%",
-        scrub: 1
-      },
-      scale: 1,
-      duration: 0.4,
-      ease: "power2.out"
-    }
-  );
-
-  // pin core value
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: "#core-value-text",
-      start: "top center",
-      end: "+=40%",
-      scrub: true,
-      pin: true,
-      toggleClass: { targets: ".core-value", className: "active" }
-      // markers: true
-    }
-  });
-
-  tl.to("#core-value-text", { opacity: 1, duration: 0.4 });
-  tl.to("#core-value-text", { opacity: 0, duration: 0.6, ease: "none" });
-}
-
 function ourStory() {
   gsap.set(".our-story .content:not(:first-child)", { yPercent: 100 });
 
@@ -275,7 +198,6 @@ const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   ourTeam();
   ourStory();
-  coreValue();
   gsapexpertise2();
 };
 preloadImages("img").then(() => {

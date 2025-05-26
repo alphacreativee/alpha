@@ -126,8 +126,8 @@ function effectText() {
                 trigger: element,
                 start: "top 60%",
                 end: "bottom 60%",
-                toggleActions: "play none none none",
-              },
+                toggleActions: "play none none none"
+              }
             });
           } else {
             // Auto-play case
@@ -136,18 +136,18 @@ function effectText() {
               yPercent: 100,
               opacity: 0,
               stagger: 0.1,
-              ease: "expo.out",
+              ease: "expo.out"
             });
 
             // Play animation immediately after fonts are loaded
             gsap.to(splitTitle, {
               timeScale: 0.2,
-              onStart: () => splitTitle.play(0),
+              onStart: () => splitTitle.play(0)
             });
           }
 
           return splitTitle;
-        },
+        }
       });
     });
 
@@ -158,19 +158,19 @@ function effectText() {
         {
           "will-change": "opacity, transform",
           opacity: 0,
-          y: 20,
+          y: 20
         },
         {
           scrollTrigger: {
             trigger: element,
             start: "top 75%",
-            end: "bottom 75%",
+            end: "bottom 75%"
             // markers: true,
           },
           opacity: 1,
           y: 0,
           duration: 0.3,
-          ease: "sine.out",
+          ease: "sine.out"
         }
       );
     });
@@ -182,14 +182,14 @@ function effectText() {
           {
             "will-change": "opacity, transform",
             opacity: 0,
-            y: 20,
+            y: 20
           },
           {
             opacity: 1,
             y: 0,
             duration: 0.3,
             ease: "sine.out",
-            delay: 0.5, // Độ trễ để tạo hiệu ứng lần lượt
+            delay: 0.5 // Độ trễ để tạo hiệu ứng lần lượt
           }
         );
       });
@@ -201,7 +201,7 @@ function effectText() {
       let splitBlur = SplitText.create(elementBlur, {
         type: "words, chars",
         charsClass: "split-char",
-        wordsClass: "split-word",
+        wordsClass: "split-word"
       });
       gsap.fromTo(
         splitBlur.chars,
@@ -209,7 +209,7 @@ function effectText() {
           filter: "blur(10px) ",
           y: 10,
           willChange: "filter, transform",
-          opacity: 0,
+          opacity: 0
         },
         {
           ease: "none",
@@ -221,8 +221,8 @@ function effectText() {
             trigger: elementBlur.classList.contains("footer-effect-text")
               ? ".footer-ovl"
               : elementBlur,
-            start: "top 90%",
-          },
+            start: "top 90%"
+          }
         }
       );
     });
@@ -301,9 +301,9 @@ function introChess() {
       scrub: 1,
       trigger: "#canvas-chess",
       start: "top+=100 bottom",
-      end: "bottom top",
+      end: "bottom top"
     },
-    onUpdate: render,
+    onUpdate: render
   });
 
   // Hiệu ứng cho section-intro-content
@@ -315,7 +315,7 @@ function introChess() {
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
-    linesClass: "line",
+    linesClass: "line"
   });
 
   // Tạo timeline cho hiệu ứng vào và ngược lại
@@ -324,8 +324,8 @@ function introChess() {
       trigger: "#canvas-chess",
       start: `top+=${(70 / frameCount) * 100}% top`,
       end: `top+=${(70 / frameCount) * 100}% top`,
-      toggleActions: "play none none reverse",
-    },
+      toggleActions: "play none none reverse"
+    }
     // onStart: () => {
     //   tagElement.classList.add("effect-fade-content-intro");
     // },
@@ -380,17 +380,145 @@ function introChess() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
+
+function whyChooseUs() {
+  if ($(".why-choose-us").length < 1) return;
+
+  const wrapper = document.querySelector(".why-choose-us .list-wrapper");
+  const container = document.querySelector(".why-choose-us .main-section");
+  let scrollAmount = 0;
+  let isHovering = false;
+
+  function handleScroll(e) {
+    if (!isHovering) return;
+
+    const containerWidth = container.offsetWidth;
+    const wrapperWidth = wrapper.scrollWidth;
+    const paddingRight = 80;
+    const maxScroll = wrapperWidth - containerWidth + paddingRight;
+
+    const rect = container.getBoundingClientRect();
+    const mouseX = e.clientX - rect.left;
+
+    const triggerZone = 200;
+    if (mouseX >= containerWidth - triggerZone) {
+      scrollAmount = -maxScroll;
+    } else {
+      const adjustedWidth = containerWidth - triggerZone;
+      const adjustedRatio = mouseX / adjustedWidth;
+      scrollAmount = Math.min(0, adjustedRatio * maxScroll * -1);
+    }
+
+    scrollAmount = Math.max(-maxScroll, Math.min(0, scrollAmount));
+    wrapper.style.transform = `translateX(${scrollAmount}px)`;
+  }
+
+  container.addEventListener("mouseenter", () => {
+    isHovering = true;
+  });
+
+  container.addEventListener("mouseleave", () => {
+    isHovering = false;
+    wrapper.style.transform = `translateX(0px)`;
+  });
+
+  container.addEventListener("mousemove", (e) => {
+    handleScroll(e);
+  });
+}
+
+function coreValue() {
+  if ($(".core-value").length < 1) return;
+
+  const viewportWidth = window.innerWidth;
+  let targetWidth = viewportWidth - 32;
+  if (viewportWidth > 991) {
+    targetWidth = viewportWidth - 160;
+  } else if (viewportWidth > 767) {
+    targetWidth = viewportWidth - 80;
+  }
+
+  const widthClipPercentage =
+    ((viewportWidth - targetWidth) / 2 / viewportWidth) * 100;
+
+  const image = document.querySelector(".core-value .core-value__top");
+  const currentHeight = image.offsetHeight;
+  const targetHeight =
+    viewportWidth > 991 ? currentHeight - 100 : currentHeight;
+  const heightClipPixels = (currentHeight - targetHeight) / 2;
+  const heightClipPercentage = (heightClipPixels / currentHeight) * 100;
+
+  const initialClipPath = `inset(${heightClipPercentage}% ${widthClipPercentage}% ${heightClipPercentage}% ${widthClipPercentage}%)`;
+
+  gsap.fromTo(
+    ".core-value .image",
+    {
+      clipPath: initialClipPath
+    },
+    {
+      scrollTrigger: {
+        trigger: ".core-value .core-value__top",
+        start: "top 70%",
+        end: "bottom 70%",
+        scrub: 1
+        // markers: true
+      },
+      clipPath: "inset(0% 0% 0% 0%)", // hiện dần ra
+      duration: 0.4,
+      ease: "power2.out"
+    }
+  );
+
+  gsap.fromTo(
+    ".core-value .image img",
+    {
+      scale: 1.1
+    },
+    {
+      scrollTrigger: {
+        trigger: ".core-value .core-value__top",
+        start: "top 70%",
+        end: "bottom 70%",
+        scrub: 1
+      },
+      scale: 1,
+      duration: 0.4,
+      ease: "power2.out"
+    }
+  );
+
+  // pin core value
+  if ($("#core-value-text").length < 1) return;
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#core-value-text",
+      start: "top center",
+      end: "+=40%",
+      scrub: true,
+      pin: true,
+      toggleClass: { targets: ".core-value", className: "active" }
+      // markers: true
+    }
+  });
+
+  tl.to("#core-value-text", { opacity: 1, duration: 0.4 });
+  tl.to("#core-value-text", { opacity: 0, duration: 0.6, ease: "none" });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
   customDropdown();
   effectText();
   introChess();
+  whyChooseUs();
+  coreValue();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
