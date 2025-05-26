@@ -5,7 +5,18 @@
   right: 0;
   width: 100%;
   z-index: 99;
-  mix-blend-mode: difference;
+  &-fake {
+    position: fixed;
+    height: 76px;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 98;
+    background-color: transparent;
+    mix-blend-mode: difference;
+    padding: 16px 24px;
+    pointer-events: none;
+  }
   &-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -14,6 +25,9 @@
   &-logo {
     width: max-content;
     position: relative;
+    &.hide {
+      opacity: 0;
+    }
     &::before {
       content: "";
       position: absolute;
@@ -27,6 +41,9 @@
     &-container {
       padding: 12px 24px;
       background-color: rgba(217, 217, 217, 0.2);
+      &.theme-light {
+        background-color: rgba(0, 0, 0, 0.2);
+      }
       ul {
         display: flex;
         align-items: center;
@@ -62,6 +79,9 @@
     height: 9px;
     top: 0;
     right: 0;
+    &.hide {
+      opacity: 0;
+    }
     // overflow: hidden;
     cursor: pointer;
     &::before {

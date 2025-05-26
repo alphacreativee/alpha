@@ -44,7 +44,7 @@ function ourStory() {
       texts.forEach((text, index) => {
         text.classList.toggle("active", index === activeIndex);
       });
-    }
+    },
   });
 
   contents.forEach((content, i) => {
@@ -52,7 +52,7 @@ function ourStory() {
       yPercent: 0,
       duration: 0.5,
       boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
-      ease: "power2.out"
+      ease: "power2.out",
     });
   });
 }
@@ -75,7 +75,7 @@ function gsapexpertise2() {
         return gsap.to(expertise2, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none"
+          ease: "none",
         });
       };
 
@@ -113,7 +113,7 @@ function gsapexpertise2() {
           scrub: 1,
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: `expertise2Scroll-${index}`
+          id: `expertise2Scroll-${index}`,
           // markers: true, // Bật để debug
         });
       };
@@ -142,7 +142,7 @@ function gsapexpertise2() {
         start: "left 85%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
         // markers: true,
       });
     });
@@ -154,12 +154,18 @@ function gsapexpertise2() {
         document
           .querySelector(".wrapper-expertise2")
           .classList.add("theme-light");
+        document
+          .querySelector(".header-menu-container")
+          .classList.add("theme-light");
       },
       onLeaveBack: () => {
         document
           .querySelector(".wrapper-expertise2")
           .classList.remove("theme-light");
-      }
+        document
+          .querySelector(".header-menu-container")
+          .classList.remove("theme-light");
+      },
       // markers: true
     });
 
@@ -173,7 +179,7 @@ function ourTeam() {
 
   gsap.set(teamItems, {
     opacity: 0,
-    yPercent: 100
+    yPercent: 100,
   });
 
   const tl = gsap.timeline({
@@ -181,9 +187,9 @@ function ourTeam() {
       trigger: ".our-team-list",
       start: "top 90%",
       end: "bottom 60%",
-      scrub: 1
+      scrub: 1,
       // markers: true,
-    }
+    },
   });
 
   tl.to(teamItems, {
@@ -191,7 +197,7 @@ function ourTeam() {
     y: 0,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.15
+    stagger: 0.15,
   });
 }
 const init = () => {
