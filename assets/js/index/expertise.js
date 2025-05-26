@@ -37,15 +37,15 @@ function animateChessItems() {
       end: `+=${totalHeight}px`,
       scrub: true,
       pin: true,
-      pinSpacing: false,
-    },
+      pinSpacing: false
+    }
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none",
+      ease: "none"
     });
   });
 }
@@ -75,6 +75,26 @@ function buildABrand() {
         `.why-choose-us.page-expertise .main-section[data-branding="${dataThisTab}"]`
       ).removeClass("d-none");
     }
+
+    const coreValueExpertiseTop = $(
+      ".core-value.expertise-core-value .content-top"
+    );
+    if (coreValueExpertiseTop.length > 0) {
+      coreValueExpertiseTop.addClass("d-none");
+      $(
+        `.core-value.expertise-core-value .content-top[data-branding="${dataThisTab}"]`
+      ).removeClass("d-none");
+    }
+
+    const coreValueExpertiseOvl = $(
+      ".core-value.expertise-core-value .content-ovl .content-ovl-container"
+    );
+    if (coreValueExpertiseOvl.length > 0) {
+      coreValueExpertiseOvl.addClass("d-none");
+      $(
+        `.core-value.expertise-core-value .content-ovl .content-ovl-container[data-branding="${dataThisTab}"]`
+      ).removeClass("d-none");
+    }
   });
 
   ScrollTrigger.create({
@@ -89,7 +109,7 @@ function buildABrand() {
     },
     onLeaveBack: () => {
       $(".build-a-brand .tab-wrapper .item").removeClass("active");
-    },
+    }
   });
 }
 function introBrading() {
@@ -154,10 +174,10 @@ function introBrading() {
       scrub: 1,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top",
+      end: "bottom top"
       // markers: true
     },
-    onUpdate: render2,
+    onUpdate: render2
   });
 
   function render2() {
@@ -194,27 +214,33 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
 function showCoreValue() {
   if ($(".expertise-core-value").length < 1) return;
-  console.log("expertise-core-value");
 
   gsap.set(".expertise-core-value .content-ovl", {
-    autoAlpha: 0,
+    autoAlpha: 0
   });
 
   const tl2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".expertise-core-value",
-      start: "top 10%",
-      end: "+=40%",
+      start: "top 20%",
+      end: "bottom bottom",
       scrub: true,
-      // markers: true
-    },
+      // markers: true,
+      onUpdate: (self) => {
+        if (self.progress === 1) {
+          $(".expertise-core-value .content-ovl").addClass("active");
+        } else {
+          $(".expertise-core-value .content-ovl").removeClass("active");
+        }
+      }
+    }
   });
 
   // Thêm animation vào timeline
@@ -222,7 +248,7 @@ function showCoreValue() {
     autoAlpha: 1,
     y: 0,
     duration: 1,
-    ease: "power2.out",
+    ease: "power2.out"
   });
 }
 const init = () => {
