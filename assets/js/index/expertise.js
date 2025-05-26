@@ -151,7 +151,7 @@ function introBrading() {
       trigger: "#intro-branding",
       start: "top bottom",
       end: "bottom top",
-      markers: true,
+      // markers: true,
     },
     onUpdate: render2,
   });
@@ -195,12 +195,39 @@ function introBrading() {
     },
   });
 }
+function showCoreValue() {
+  if ($(".expertise-core-value").length < 1) return;
+  console.log("expertise-core-value");
+
+  gsap.set(".expertise-core-value .content-ovl", {
+    autoAlpha: 0,
+  });
+
+  const tl2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".expertise-core-value",
+      start: "top 10%",
+      end: "+=40%",
+      scrub: true,
+      // markers: true
+    },
+  });
+
+  // Thêm animation vào timeline
+  tl2.to(".expertise-core-value .content-ovl", {
+    autoAlpha: 1,
+    y: 0,
+    duration: 1,
+    ease: "power2.out",
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   animateChessItems();
   buildABrand();
   ScrollTrigger.refresh();
   introBrading();
+  showCoreValue();
 };
 preloadImages("img").then(() => {
   init();
