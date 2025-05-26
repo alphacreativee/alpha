@@ -433,6 +433,31 @@ function whyChooseUs() {
       handleScroll(e);
     });
   });
+
+  if ($(".why-choose-us.page-expertise").length > 0) {
+    ScrollTrigger.create({
+      trigger: ".why-choose-us.page-expertise",
+      start: "top 70%",
+      end: "bottom top",
+      // markers: true,
+      onEnter: () => {
+        document
+          .querySelector(".why-choose-us.page-expertise")
+          .classList.add("theme-light");
+        document
+          .querySelector(".header-menu-container")
+          .classList.add("theme-light");
+      },
+      onLeaveBack: () => {
+        document
+          .querySelector(".why-choose-us.page-expertise")
+          .classList.remove("theme-light");
+        document
+          .querySelector(".header-menu-container")
+          .classList.remove("theme-light");
+      }
+    });
+  }
 }
 
 function coreValue() {
