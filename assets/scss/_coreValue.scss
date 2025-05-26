@@ -1,5 +1,23 @@
 .core-value {
   // padding-bottom: 200px;
+  &.expertise-core-value {
+    .content-top {
+      transform: translate(-50%, 0);
+      top: 80px;
+      .content-tag {
+        margin-bottom: 120px;
+        text-align: center;
+      }
+
+      h2 {
+        margin-bottom: 24px;
+        margin-top: 24px;
+      }
+      .content-sub {
+        text-align: center;
+      }
+    }
+  }
   &__top {
     position: relative;
     height: 100vh;
