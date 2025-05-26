@@ -55,40 +55,116 @@ function buildABrand() {
 
   const tab = $(".build-a-brand .tab-wrapper .item");
 
+  // Hàm để tạo và chạy animation cho tab hiện tại
+  function animateTabContent(activeTabData) {
+    // Chọn nội dung của tab hiện tại
+    const contentItem = $(
+      `.wrapper-content .item[data-branding="${activeTabData}"]`
+    );
+    const contentElement = contentItem.find(".h1-heading");
+    const tagElement = contentItem.find(".desc");
+
+    // Kiểm tra xem phần tử có tồn tại và có nội dung không
+    if (contentElement.length === 0 || tagElement.length === 0) {
+      console.warn(
+        `Không tìm thấy .h1-heading hoặc .desc trong tab ${activeTabData}`
+      );
+      return;
+    }
+
+    // Đảm bảo nội dung hiển thị trước khi chạy SplitText
+    contentItem.removeClass("d-none");
+
+    // Tạo SplitText cho heading của tab hiện tại
+    const splitContent = new SplitText(contentElement, {
+      type: "words,lines",
+      linesClass: "line",
+    });
+
+    // Tạo timeline mới
+    let tl = gsap.timeline();
+    tl.fromTo(
+      splitContent.lines,
+      { opacity: 0, yPercent: 100 },
+      {
+        opacity: 1,
+        yPercent: 0,
+        duration: 0.3,
+        stagger: 0.1,
+        ease: "expo.out",
+      }
+    );
+    // Hiệu ứng cho tag
+    tl.fromTo(
+      tagElement,
+      { opacity: 0, y: 20 },
+      { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
+    );
+
+    return tl;
+  }
+
+  // Xử lý sự kiện click tab
   tab.on("click", function () {
     let thisTab = $(this);
     let dataThisTab = thisTab.data("branding");
+
     if (thisTab.hasClass("active")) return;
 
+    // Cập nhật trạng thái tab
     tab.removeClass("active");
     thisTab.addClass("active");
 
-    // Update content based on the active tab
+    // Cập nhật nội dung hiển thị
     const content = $(".build-a-brand .wrapper-content");
     content.find(".item").addClass("d-none");
-    content.find(`.item[data-branding="${dataThisTab}"]`).removeClass("d-none");
+    const activeContent = content.find(`.item[data-branding="${dataThisTab}"]`);
 
+    if (activeContent.length === 0) {
+      console.warn(`Không tìm thấy nội dung cho tab ${dataThisTab}`);
+      return;
+    }
+
+    activeContent.removeClass("d-none");
+
+    // Cập nhật section why-choose-us nếu có
     const whyChooseUs = $(".why-choose-us.page-expertise");
     if (whyChooseUs.length > 0) {
-      $(".why-choose-us.page-expertise .main-section").addClass("d-none");
-      $(
-        `.why-choose-us.page-expertise .main-section[data-branding="${dataThisTab}"]`
-      ).removeClass("d-none");
+      whyChooseUs.find(".main-section").addClass("d-none");
+      const activeSection = whyChooseUs.find(
+        `.main-section[data-branding="${dataThisTab}"]`
+      );
+      if (activeSection.length > 0) {
+        activeSection.removeClass("d-none");
+      } else {
+        console.warn(`Không tìm thấy main-section cho tab ${dataThisTab}`);
+      }
     }
+
+    // Chạy animation cho tab hiện tại
+    animateTabContent(dataThisTab);
   });
 
+  // ScrollTrigger để kích hoạt tab mặc định
   ScrollTrigger.create({
     trigger: ".build-a-brand",
     start: "top 70%",
     end: "bottom top",
-    // markers: true,
     onEnter: () => {
-      $(".build-a-brand .tab-wrapper .item[data-branding='2']").addClass(
-        "active"
+      const defaultTab = $(
+        ".build-a-brand .tab-wrapper .item[data-branding='2']"
       );
+      if (!defaultTab.hasClass("active")) {
+        defaultTab.addClass("active");
+        const content = $(".build-a-brand .wrapper-content");
+        content.find(".item").addClass("d-none");
+        content.find(`.item[data-branding='2']`).removeClass("d-none");
+        animateTabContent("2");
+      }
     },
     onLeaveBack: () => {
       $(".build-a-brand .tab-wrapper .item").removeClass("active");
+      $(".build-a-brand .wrapper-content .item").addClass("d-none");
     },
   });
 }

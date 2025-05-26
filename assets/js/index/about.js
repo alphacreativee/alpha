@@ -179,7 +179,7 @@ function ourTeam() {
 
   gsap.set(teamItems, {
     opacity: 0,
-    yPercent: 100,
+    y: 100,
   });
 
   const tl = gsap.timeline({
