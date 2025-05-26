@@ -72,6 +72,21 @@ function buildABrand() {
     content.find(".item").addClass("d-none");
     content.find(`.item[data-branding="${dataThisTab}"]`).removeClass("d-none");
   });
+
+  ScrollTrigger.create({
+    trigger: ".build-a-brand",
+    start: "top 30%",
+    end: "bottom top",
+    // markers: true,
+    onEnter: () => {
+      $(".build-a-brand .tab-wrapper .item[data-branding='2']").addClass(
+        "active"
+      );
+    },
+    onLeaveBack: () => {
+      $(".build-a-brand .tab-wrapper .item").removeClass("active");
+    }
+  });
 }
 
 const init = () => {
