@@ -325,8 +325,8 @@ function introChess() {
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
-    linesClass: "line",
     mask: "lines",
+    linesClass: "line",
   });
 
   // Tạo timeline cho hiệu ứng vào và ngược lại
