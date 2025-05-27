@@ -37,15 +37,15 @@ function animateChessItems() {
       end: `+=${totalHeight}px`,
       scrub: true,
       pin: true,
-      pinSpacing: false,
-    },
+      pinSpacing: false
+    }
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none",
+      ease: "none"
     });
   });
 }
@@ -76,7 +76,7 @@ function buildABrand() {
     // Tạo SplitText cho heading của tab hiện tại
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
-      linesClass: "line",
+      linesClass: "line"
     });
 
     // Tạo timeline mới
@@ -89,7 +89,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.3,
         stagger: 0.1,
-        ease: "expo.out",
+        ease: "expo.out"
       }
     );
     // Hiệu ứng cho tag
@@ -170,7 +170,7 @@ function buildABrand() {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    },
+    }
   });
 }
 function introBrading() {
@@ -235,10 +235,10 @@ function introBrading() {
       scrub: 1,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top",
+      end: "bottom top"
       // markers: true
     },
-    onUpdate: render2,
+    onUpdate: render2
   });
 
   function render2() {
@@ -275,9 +275,9 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
 function showCoreValue() {
@@ -285,7 +285,7 @@ function showCoreValue() {
   // console.log("expertise-core-value");
 
   gsap.set(".expertise-core-value .content-ovl", {
-    autoAlpha: 0,
+    autoAlpha: 0
   });
 
   const tl2 = gsap.timeline({
@@ -301,8 +301,8 @@ function showCoreValue() {
         } else {
           $(".expertise-core-value .content-ovl").removeClass("active");
         }
-      },
-    },
+      }
+    }
   });
 
   // Thêm animation vào timeline
@@ -310,7 +310,7 @@ function showCoreValue() {
     autoAlpha: 1,
     y: 0,
     duration: 1,
-    ease: "power2.out",
+    ease: "power2.out"
   });
 }
 const init = () => {

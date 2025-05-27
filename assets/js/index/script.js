@@ -528,8 +528,9 @@ function coreValue() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#core-value-text",
-      start: "top center",
-      end: "+=40%",
+      start: "center center",
+      // end: "+=40%",
+      end: "+=200%",
       scrub: true,
       pin: true,
       toggleClass: { targets: ".core-value", className: "active" }
@@ -537,8 +538,17 @@ function coreValue() {
     }
   });
 
-  tl.to("#core-value-text", { opacity: 1, duration: 0.4 });
-  tl.to("#core-value-text", { opacity: 0, duration: 0.6, ease: "none" });
+  tl.to("#core-value-text", {
+    scale: 1.7,
+    duration: 0.6,
+    ease: "power2.out"
+  });
+
+  tl.to("#core-value-text", {
+    xPercent: -300,
+    duration: 0.5,
+    ease: "none"
+  });
 }
 
 function magicCursor() {
