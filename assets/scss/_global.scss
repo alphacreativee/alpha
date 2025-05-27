@@ -231,10 +231,10 @@ a {
     width: 120%;
     height: 0;
     padding-bottom: 120%;
-    top: -80%;
+    top: -60%;
     left: -10%;
     border-radius: 50%;
-    transform: translate3d(0, 80%, 0) scale3d(0, 0, 0);
+    transform: translate3d(0, 75%, 0) scale3d(0, 0, 0);
     transition: transform 0.5s cubic-bezier(0.1, 0, 0.3, 1);
   }
   &::after {
