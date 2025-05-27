@@ -210,7 +210,7 @@ a {
     .marquee-inner {
       animation-play-state: running;
       opacity: 1;
-      transition-duration: 0.4s;
+      transition-duration: 0.8s;
       transition-delay: 0.3s;
     }
     &::before {
@@ -267,13 +267,17 @@ a {
       display: flex;
       width: fit-content;
       transform: translate3d(var(--move-initial), 0, 0);
-      animation: marquee 1s linear infinite;
+      animation: marquee 2s linear infinite;
       animation-play-state: paused;
       span {
         text-align: center;
         white-space: nowrap;
         padding: 12px 10px;
         color: var(--color-black);
+        font-family: var(--font-primary);
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: bold;
       }
     }
   }
