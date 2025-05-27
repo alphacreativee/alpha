@@ -218,7 +218,7 @@ a {
       transition-delay: 0.3s;
     }
     &::before {
-      transform: translate3d(0, 0, 0) scale3d(1, 1, 1);
+      transform: translate3d(0, -5%, 0) scale3d(1, 1, 1);
       transition: transform 0.6s cubic-bezier(0.1, 0, 0.3, 1);
     }
     &::after {
@@ -232,10 +232,10 @@ a {
     content: "";
     position: absolute;
     background: var(--color-primary);
-    width: 120%;
+    width: 130%;
     height: 0;
-    padding-bottom: 120%;
-    top: -60%;
+    padding-bottom: 130%;
+    top: -64%;
     left: -10%;
     border-radius: 50%;
     transform: translate3d(0, 75%, 0) scale3d(0, 0, 0);
