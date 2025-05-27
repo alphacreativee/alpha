@@ -53,7 +53,7 @@ function sliderProject() {
             <button class="${className}">
               <span class="progress-bar"></span>
             </button>`;
-        }
+        },
       },
       on: {
         progress: function (swiper) {
@@ -91,15 +91,15 @@ function sliderProject() {
         },
         slideChangeTransitionEnd: function (swiper) {
           updateProgressBars(swiper);
-        }
-      }
+        },
+      },
     });
 
     // Thêm sự kiện hover để kích hoạt/dừng autoplay
     $this.on("mouseenter", function () {
       swiper.autoplay.start({
         delay: defaultDuration, // 1000ms
-        disableOnInteraction: false
+        disableOnInteraction: false,
       });
       updateProgressBars(swiper);
     });
@@ -115,39 +115,58 @@ function sliderProject() {
 
   //   load project
 }
-function loadImg() {
-  const projectItems = gsap.utils.toArray(".project-item");
+function loadImg(scope) {
+  const projectItems = gsap.utils.toArray(".project-item", scope);
+
   gsap.set(projectItems, {
-    yPercent: 40, // yPercent: 10 cho phần tử đầu tiên
-    opacity: 0
-  });
-  // Thiết lập riêng cho phần tử đầu tiên
-  gsap.set(projectItems[0], {
-    yPercent: 10, // yPercent: 10 cho phần tử đầu tiên
-    opacity: 0
+    yPercent: 40,
   });
 
-  // Tạo timeline với ScrollTrigger
+  gsap.set(projectItems[0], {
+    yPercent: 10,
+  });
+
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: ".project-list",
+      trigger: scope,
       start: "top 90%",
       end: "bottom 80%",
-      scrub: 1
-      // markers: true,
-    }
+      scrub: 1,
+      markers: true,
+    },
   });
 
-  // Áp dụng hiệu ứng cho tất cả phần tử
   tl.to(projectItems, {
     yPercent: 0,
-    opacity: 1,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.2 // Stagger cho tất cả phần tử
+    stagger: 0.2,
   });
 }
+document.addEventListener("DOMContentLoaded", function () {
+  const firstProjectList = document.querySelector(
+    ".tab-pane.show.active .project-list"
+  );
+  if (firstProjectList) {
+    loadImg(firstProjectList);
+    ScrollTrigger.refresh(); // đảm bảo trigger hoạt động chính xác
+  }
+});
 
+document.querySelectorAll('button[data-bs-toggle="pill"]').forEach((tab) => {
+  tab.addEventListener("shown.bs.tab", function (e) {
+    const targetSelector = e.target.getAttribute("data-bs-target");
+    const projectList = document.querySelector(
+      `${targetSelector} .project-list`
+    );
+
+    if (projectList) {
+      // Gọi loadImg chỉ khi tab có chứa .project-list
+      loadImg(projectList);
+      ScrollTrigger.refresh();
+    }
+  });
+});
 function changeColor() {
   const blogPage = document.querySelector(".blog-page");
   if (!blogPage) {
@@ -175,15 +194,13 @@ function changeColor() {
     onLeaveBack: () => {
       mainElement.classList.remove("theme-light");
       blogContainer.classList.remove("theme-light");
-    }
+    },
   });
 }
 
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   sliderProject();
-  // magicCursor();
-  loadImg();
   changeColor();
 };
 preloadImages("img").then(() => {
