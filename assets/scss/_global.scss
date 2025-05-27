@@ -35,6 +35,9 @@ a {
 
   &.color-white {
     color: var(--color-white);
+    &::before {
+      background-color: var(--color-white);
+    }
   }
 
   &::before {
