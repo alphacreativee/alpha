@@ -150,14 +150,25 @@
       visibility: visible;
       pointer-events: auto;
     }
+    &-bottom {
+      ul {
+        li {
+          a {
+            color: #bdbdbd !important;
+          }
+        }
+      }
+    }
     &-container {
       background-color: #272727;
-      padding: 16px 24px;
+      padding: 16px 40px;
       transform: translateX(100%);
-      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      transition: all 0.7s ease-in-out;
+      opacity: 0;
 
       &.active {
         transform: translateX(0);
+        opacity: 1;
       }
     }
     &-icon {
@@ -172,6 +183,12 @@
         li {
           position: relative;
           cursor: pointer;
+          &.active {
+            &::before {
+              transform: scaleX(1);
+              transform-origin: bottom left;
+            }
+          }
           &:hover {
             &::before {
               transform: scaleX(1);
@@ -228,6 +245,11 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      transition: all 0.3s ease;
+      &:hover {
+        border: 1px solid #fff;
+        cursor: pointer;
+      }
     }
   }
 }
