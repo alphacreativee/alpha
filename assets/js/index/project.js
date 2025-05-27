@@ -53,7 +53,7 @@ function sliderProject() {
             <button class="${className}">
               <span class="progress-bar"></span>
             </button>`;
-        },
+        }
       },
       on: {
         progress: function (swiper) {
@@ -91,15 +91,15 @@ function sliderProject() {
         },
         slideChangeTransitionEnd: function (swiper) {
           updateProgressBars(swiper);
-        },
-      },
+        }
+      }
     });
 
     // Thêm sự kiện hover để kích hoạt/dừng autoplay
     $this.on("mouseenter", function () {
       swiper.autoplay.start({
         delay: defaultDuration, // 1000ms
-        disableOnInteraction: false,
+        disableOnInteraction: false
       });
       updateProgressBars(swiper);
     });
@@ -119,12 +119,12 @@ function loadImg() {
   const projectItems = gsap.utils.toArray(".project-item");
   gsap.set(projectItems, {
     yPercent: 40, // yPercent: 10 cho phần tử đầu tiên
-    opacity: 0,
+    opacity: 0
   });
   // Thiết lập riêng cho phần tử đầu tiên
   gsap.set(projectItems[0], {
     yPercent: 10, // yPercent: 10 cho phần tử đầu tiên
-    opacity: 0,
+    opacity: 0
   });
 
   // Tạo timeline với ScrollTrigger
@@ -133,9 +133,9 @@ function loadImg() {
       trigger: ".project-list",
       start: "top 90%",
       end: "bottom 80%",
-      scrub: 1,
+      scrub: 1
       // markers: true,
-    },
+    }
   });
 
   // Áp dụng hiệu ứng cho tất cả phần tử
@@ -144,47 +144,10 @@ function loadImg() {
     opacity: 1,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.2, // Stagger cho tất cả phần tử
+    stagger: 0.2 // Stagger cho tất cả phần tử
   });
 }
-function magicCursor() {
-  var circle = document.querySelector(".magic-cursor");
 
-  gsap.set(circle, {
-    xPercent: -50,
-    yPercent: -50,
-  });
-
-  let mouseX = 0,
-    mouseY = 0;
-
-  window.addEventListener("mousemove", (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-
-    // Di chuyển circle trực tiếp đến vị trí con chuột
-    gsap.to(circle, {
-      x: mouseX,
-      y: mouseY,
-      duration: 0.1, // Không có độ trễ
-    });
-  });
-
-  var cursorDot = document.querySelector(".magic-cursor .cursor");
-  var cursorText = document.querySelector(
-    ".magic-cursor .cursor .text-content"
-  );
-
-  const itemsContent = document.querySelectorAll(".project-item");
-  itemsContent.forEach((item) => {
-    item.addEventListener("mouseenter", () => {
-      cursorDot.classList.add("show");
-    });
-    item.addEventListener("mouseleave", () => {
-      cursorDot.classList.remove("show");
-    });
-  });
-}
 function changeColor() {
   const blogPage = document.querySelector(".blog-page");
   if (!blogPage) {
@@ -212,14 +175,14 @@ function changeColor() {
     onLeaveBack: () => {
       mainElement.classList.remove("theme-light");
       blogContainer.classList.remove("theme-light");
-    },
+    }
   });
 }
 
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   sliderProject();
-  magicCursor();
+  // magicCursor();
   loadImg();
   changeColor();
 };

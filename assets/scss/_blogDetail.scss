@@ -1,0 +1,44 @@
+.blog-detail {
+  background-color: var(--color-white);
+
+  .section-detail {
+    width: 60%;
+    margin: 0 auto;
+    padding-top: 60px;
+
+    .tag {
+      font-size: 10px;
+      line-height: 14px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      border: 1px solid #dfdfdf;
+      width: max-content;
+      margin: 0 auto 24px;
+    }
+
+    .date {
+      margin: 24px auto 0;
+      width: max-content;
+    }
+
+    .the-content {
+      margin-bottom: 120px;
+    }
+  }
+
+  .related-article {
+    padding-bottom: 120px;
+
+    .title {
+      margin-bottom: 80px;
+    }
+
+    .project-item {
+      width: 100%;
+    }
+
+    .project-parallax {
+      height: 100%;
+    }
+  }
+}
