@@ -70,7 +70,7 @@ function header() {
   let subEmpty = $(".header-sub-empty");
 
   btnMenuOpen.on("click", function () {
-    $(this).addClass("active");
+    btnMenuOpen.addClass("active");
     menuOverlay.addClass("active");
     body.addClass("overflow-hidden");
     setTimeout(function () {
@@ -80,6 +80,7 @@ function header() {
 
   btnMenuClose.on("click", function () {
     subMenu.removeClass("active");
+    btnMenuOpen.removeClass("active");
     setTimeout(function () {
       btnMenuClose.removeClass("active");
       menuOverlay.removeClass("active");
@@ -89,12 +90,21 @@ function header() {
 
   subEmpty.on("click", function () {
     subMenu.removeClass("active");
+    btnMenuOpen.removeClass("active");
     setTimeout(function () {
       btnMenuClose.removeClass("active");
       menuOverlay.removeClass("active");
       body.removeClass("overflow-hidden");
     }, 300);
   });
+  btnMenuClose.hover(
+    function () {
+      btnMenuOpen.addClass("hovered");
+    },
+    function () {
+      btnMenuOpen.removeClass("hovered");
+    }
+  );
 }
 function effectText() {
   gsap.registerPlugin(SplitText, ScrollTrigger); // Register both plugins
@@ -126,8 +136,8 @@ function effectText() {
                 trigger: element,
                 start: "top 60%",
                 end: "bottom 60%",
-                toggleActions: "play none none none"
-              }
+                toggleActions: "play none none none",
+              },
             });
           } else {
             // Auto-play case
@@ -136,18 +146,18 @@ function effectText() {
               yPercent: 100,
               opacity: 0,
               stagger: 0.1,
-              ease: "expo.out"
+              ease: "expo.out",
             });
 
             // Play animation immediately after fonts are loaded
             gsap.to(splitTitle, {
               timeScale: 0.2,
-              onStart: () => splitTitle.play(0)
+              onStart: () => splitTitle.play(0),
             });
           }
 
           return splitTitle;
-        }
+        },
       });
     });
 
@@ -158,19 +168,19 @@ function effectText() {
         {
           "will-change": "opacity, transform",
           opacity: 0,
-          y: 20
+          y: 20,
         },
         {
           scrollTrigger: {
             trigger: element,
             start: "top 75%",
-            end: "bottom 75%"
+            end: "bottom 75%",
             // markers: true,
           },
           opacity: 1,
           y: 0,
           duration: 0.3,
-          ease: "sine.out"
+          ease: "sine.out",
         }
       );
     });
@@ -182,14 +192,14 @@ function effectText() {
           {
             "will-change": "opacity, transform",
             opacity: 0,
-            y: 20
+            y: 20,
           },
           {
             opacity: 1,
             y: 0,
             duration: 0.3,
             ease: "sine.out",
-            delay: 0.5 // Độ trễ để tạo hiệu ứng lần lượt
+            delay: 0.5, // Độ trễ để tạo hiệu ứng lần lượt
           }
         );
       });
@@ -201,7 +211,7 @@ function effectText() {
       let splitBlur = SplitText.create(elementBlur, {
         type: "words, chars",
         charsClass: "split-char",
-        wordsClass: "split-word"
+        wordsClass: "split-word",
       });
       gsap.fromTo(
         splitBlur.chars,
@@ -209,7 +219,7 @@ function effectText() {
           filter: "blur(10px) ",
           y: 10,
           willChange: "filter, transform",
-          opacity: 0
+          opacity: 0,
         },
         {
           ease: "none",
@@ -221,8 +231,8 @@ function effectText() {
             trigger: elementBlur.classList.contains("footer-effect-text")
               ? ".footer-ovl"
               : elementBlur,
-            start: "top 90%"
-          }
+            start: "top 90%",
+          },
         }
       );
     });
@@ -301,9 +311,9 @@ function introChess() {
       scrub: 1,
       trigger: "#canvas-chess",
       start: "top+=100 bottom",
-      end: "bottom top"
+      end: "bottom top",
     },
-    onUpdate: render
+    onUpdate: render,
   });
 
   // Hiệu ứng cho section-intro-content
@@ -315,7 +325,7 @@ function introChess() {
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
-    linesClass: "line"
+    linesClass: "line",
   });
 
   // Tạo timeline cho hiệu ứng vào và ngược lại
@@ -324,8 +334,8 @@ function introChess() {
       trigger: "#canvas-chess",
       start: `top+=${(70 / frameCount) * 100}% top`,
       end: `top+=${(70 / frameCount) * 100}% top`,
-      toggleActions: "play none none reverse"
-    }
+      toggleActions: "play none none reverse",
+    },
     // onStart: () => {
     //   tagElement.classList.add("effect-fade-content-intro");
     // },
@@ -380,9 +390,9 @@ function introChess() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 
@@ -457,7 +467,7 @@ function whyChooseUs() {
           .querySelector(".header-menu-container")
           .classList.remove("theme-light");
         document.querySelector("main").classList.remove("theme-light");
-      }
+      },
     });
   }
 }
@@ -488,37 +498,37 @@ function coreValue() {
   gsap.fromTo(
     ".core-value .image",
     {
-      clipPath: initialClipPath
+      clipPath: initialClipPath,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
         start: "top 70%",
         end: "bottom 70%",
-        scrub: 1
+        scrub: 1,
         // markers: true
       },
       clipPath: "inset(0% 0% 0% 0%)", // hiện dần ra
       duration: 0.4,
-      ease: "power2.out"
+      ease: "power2.out",
     }
   );
 
   gsap.fromTo(
     ".core-value .image img",
     {
-      scale: 1.1
+      scale: 1.1,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
         start: "top 70%",
         end: "bottom 70%",
-        scrub: 1
+        scrub: 1,
       },
       scale: 1,
       duration: 0.4,
-      ease: "power2.out"
+      ease: "power2.out",
     }
   );
 
@@ -533,21 +543,21 @@ function coreValue() {
       end: "+=200%",
       scrub: true,
       pin: true,
-      toggleClass: { targets: ".core-value", className: "active" }
+      toggleClass: { targets: ".core-value", className: "active" },
       // markers: true
-    }
+    },
   });
 
   tl.to("#core-value-text", {
     scale: 1.7,
     duration: 0.6,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 
   tl.to("#core-value-text", {
     xPercent: -300,
     duration: 0.5,
-    ease: "none"
+    ease: "none",
   });
 }
 
@@ -558,7 +568,7 @@ function magicCursor() {
 
   gsap.set(circle, {
     xPercent: -50,
-    yPercent: -50
+    yPercent: -50,
   });
 
   let mouseX = 0,
@@ -572,7 +582,7 @@ function magicCursor() {
     gsap.to(circle, {
       x: mouseX,
       y: mouseY,
-      duration: 0.1 // Không có độ trễ
+      duration: 0.1, // Không có độ trễ
     });
   });
 
