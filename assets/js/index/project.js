@@ -132,7 +132,7 @@ function loadImg(scope) {
       start: "top 90%",
       end: "bottom 80%",
       scrub: 1,
-      markers: true,
+      // markers: true,
     },
   });
 
