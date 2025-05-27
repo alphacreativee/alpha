@@ -146,7 +146,7 @@ function buildABrand() {
     trigger: ".build-a-brand",
     start: "top 40%",
     end: "bottom top",
-    markers: true,
+    // markers: true,
     onEnter: () => {
       const defaultTab = $(
         ".build-a-brand .tab-wrapper .item[data-branding='2']"
