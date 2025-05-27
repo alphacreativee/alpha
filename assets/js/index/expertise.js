@@ -269,6 +269,8 @@ function introBrading() {
   }
 
   // Ghim section-intro
+  if (!$(".section-intro").length) return;
+
   gsap.to(".section-intro", {
     scrollTrigger: {
       trigger: ".section-intro",
@@ -282,7 +284,6 @@ function introBrading() {
 }
 function showCoreValue() {
   if ($(".expertise-core-value").length < 1) return;
-  // console.log("expertise-core-value");
 
   gsap.set(".expertise-core-value .content-ovl", {
     autoAlpha: 0
@@ -291,7 +292,7 @@ function showCoreValue() {
   const tl2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".expertise-core-value",
-      start: "top 20%",
+      start: "top 10%",
       end: "bottom bottom",
       scrub: true,
       // markers: true
@@ -319,6 +320,7 @@ const init = () => {
   buildABrand();
   introBrading();
   showCoreValue();
+  ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
   init();

@@ -552,6 +552,8 @@ function coreValue() {
 }
 
 function magicCursor() {
+  if (!document.querySelector(".magic-cursor")) return;
+
   var circle = document.querySelector(".magic-cursor");
 
   gsap.set(circle, {
@@ -599,6 +601,7 @@ const init = () => {
   whyChooseUs();
   coreValue();
   magicCursor();
+  ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
