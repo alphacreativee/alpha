@@ -541,6 +541,45 @@ function coreValue() {
   tl.to("#core-value-text", { opacity: 0, duration: 0.6, ease: "none" });
 }
 
+function magicCursor() {
+  var circle = document.querySelector(".magic-cursor");
+
+  gsap.set(circle, {
+    xPercent: -50,
+    yPercent: -50
+  });
+
+  let mouseX = 0,
+    mouseY = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    // Di chuyển circle trực tiếp đến vị trí con chuột
+    gsap.to(circle, {
+      x: mouseX,
+      y: mouseY,
+      duration: 0.1 // Không có độ trễ
+    });
+  });
+
+  var cursorDot = document.querySelector(".magic-cursor .cursor");
+  var cursorText = document.querySelector(
+    ".magic-cursor .cursor .text-content"
+  );
+
+  const itemsContent = document.querySelectorAll(".project-item");
+  itemsContent.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("show");
+    });
+    item.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show");
+    });
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
@@ -549,6 +588,7 @@ const init = () => {
   introChess();
   whyChooseUs();
   coreValue();
+  magicCursor();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body
