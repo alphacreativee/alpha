@@ -37,15 +37,15 @@ function animateChessItems() {
       end: `+=${totalHeight}px`,
       scrub: true,
       pin: true,
-      pinSpacing: false
-    }
+      pinSpacing: false,
+    },
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none"
+      ease: "none",
     });
   });
 }
@@ -59,18 +59,16 @@ function buildABrand() {
   function animateTabContent(activeTabData) {
     // Chọn nội dung của tab hiện tại
     const contentItem = $(
-      `.wrapper-content .item[data-branding="${activeTabData}"]`
+      `.build-a-brand .wrapper-content .item[data-branding="${activeTabData}"]`
     );
-    const contentElement = contentItem.find(".h1-heading");
-    const tagElement = contentItem.find(".desc");
 
-    // Kiểm tra xem phần tử có tồn tại và có nội dung không
-    if (contentElement.length === 0 || tagElement.length === 0) {
-      console.warn(
-        `Không tìm thấy .h1-heading hoặc .desc trong tab ${activeTabData}`
-      );
+    if (contentItem.length === 0) {
+      console.warn(`Không tìm thấy nội dung cho tab ${activeTabData}`);
       return;
     }
+
+    const contentElement = contentItem.find(".h1-heading");
+    const tagElement = contentItem.find(".desc");
 
     // Đảm bảo nội dung hiển thị trước khi chạy SplitText
     contentItem.removeClass("d-none");
@@ -78,7 +76,7 @@ function buildABrand() {
     // Tạo SplitText cho heading của tab hiện tại
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
-      linesClass: "line"
+      linesClass: "line",
     });
 
     // Tạo timeline mới
@@ -91,7 +89,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.3,
         stagger: 0.1,
-        ease: "expo.out"
+        ease: "expo.out",
       }
     );
     // Hiệu ứng cho tag
@@ -141,31 +139,38 @@ function buildABrand() {
       }
     }
 
-    // Chạy animation cho tab hiện tại
     animateTabContent(dataThisTab);
   });
 
-  // ScrollTrigger để kích hoạt tab mặc định
   ScrollTrigger.create({
     trigger: ".build-a-brand",
-    start: "top 70%",
+    start: "top 40%",
     end: "bottom top",
+    markers: true,
     onEnter: () => {
       const defaultTab = $(
         ".build-a-brand .tab-wrapper .item[data-branding='2']"
       );
       if (!defaultTab.hasClass("active")) {
+        // Cập nhật trạng thái tab mặc định
+        tab.removeClass("active");
         defaultTab.addClass("active");
+
+        // Cập nhật nội dung hiển thị
         const content = $(".build-a-brand .wrapper-content");
         content.find(".item").addClass("d-none");
-        content.find(`.item[data-branding='2']`).removeClass("d-none");
+        const defaultContent = content.find(`.item[data-branding='2']`);
+        defaultContent.removeClass("d-none");
+
+        // Chạy animation cho tab mặc định
         animateTabContent("2");
       }
     },
     onLeaveBack: () => {
-      $(".build-a-brand .tab-wrapper .item").removeClass("active");
+      // Reset trạng thái khi scroll ngược ra khỏi section
+      tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    }
+    },
   });
 }
 function introBrading() {
@@ -230,10 +235,10 @@ function introBrading() {
       scrub: 1,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top"
+      end: "bottom top",
       // markers: true
     },
-    onUpdate: render2
+    onUpdate: render2,
   });
 
   function render2() {
@@ -270,9 +275,9 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 function showCoreValue() {
@@ -280,7 +285,7 @@ function showCoreValue() {
   // console.log("expertise-core-value");
 
   gsap.set(".expertise-core-value .content-ovl", {
-    autoAlpha: 0
+    autoAlpha: 0,
   });
 
   const tl2 = gsap.timeline({
@@ -296,8 +301,8 @@ function showCoreValue() {
         } else {
           $(".expertise-core-value .content-ovl").removeClass("active");
         }
-      }
-    }
+      },
+    },
   });
 
   // Thêm animation vào timeline
@@ -305,7 +310,7 @@ function showCoreValue() {
     autoAlpha: 1,
     y: 0,
     duration: 1,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 const init = () => {
