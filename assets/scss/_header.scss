@@ -39,8 +39,9 @@
     mix-blend-mode: normal;
     isolation: isolate;
     &-container {
-      padding: 12px 24px;
+      padding: 14px 24px;
       background-color: rgba(217, 217, 217, 0.2);
+      border-radius: 4px;
       &.theme-light {
         background-color: rgba(0, 0, 0, 0.2);
       }

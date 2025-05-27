@@ -325,6 +325,7 @@ function introChess() {
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
+    mask: "lines",
     linesClass: "line"
   });
 
