@@ -54,6 +54,13 @@
       }
     }
   }
+
+  &.page-about {
+    position: relative;
+    z-index: 3;
+    mix-blend-mode: difference;
+  }
+
   &__top {
     position: relative;
     height: 100vh;
