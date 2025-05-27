@@ -603,6 +603,45 @@ function magicCursor() {
   });
 }
 
+function cookieModal() {
+  if (!document.querySelector(".modal-cookies")) return;
+
+  const modalCookies = document.querySelector(".modal-cookies");
+  const acceptBtn = modalCookies.querySelector("button[data-button='ACCEPT']");
+  const rejectBtn = modalCookies.querySelector("button[data-button='REJECT']");
+
+  function hasAcceptedCookies() {
+    const stored = localStorage.getItem("cookieConsent");
+    if (!stored) return false;
+
+    try {
+      const data = JSON.parse(stored);
+      return Date.now() < data.expires;
+    } catch (e) {
+      return false;
+    }
+  }
+
+  if (!hasAcceptedCookies()) {
+    modalCookies.classList.add("open");
+  } else {
+    modalCookies.classList.remove("open");
+  }
+
+  acceptBtn.addEventListener("click", function () {
+    const expires = Date.now() + 30 * 24 * 60 * 60 * 1000;
+    localStorage.setItem(
+      "cookieConsent",
+      JSON.stringify({ accepted: true, expires })
+    );
+    modalCookies.classList.remove("open");
+  });
+
+  rejectBtn.addEventListener("click", function () {
+    modalCookies.classList.remove("open");
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
@@ -612,6 +651,7 @@ const init = () => {
   whyChooseUs();
   coreValue();
   magicCursor();
+  cookieModal();
   ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
