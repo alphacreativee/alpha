@@ -11,6 +11,9 @@ footer {
     opacity: 0;
     visibility: hidden;
     z-index: 1;
+    @media (max-width: 991px) {
+      height: 370px;
+    }
   }
 
   &-wrapper {
@@ -24,6 +27,9 @@ footer {
     bottom: 0;
     left: 0;
     z-index: 2;
+    @media (max-width: 991px) {
+      padding: 40px 0 88px;
+    }
   }
 
   &-title {
@@ -33,6 +39,11 @@ footer {
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
+    @media (max-width: 991px) {
+      font-size: 80px;
+      line-height: 88px;
+      white-space: wrap;
+    }
   }
 
   &-bottom {
@@ -42,12 +53,20 @@ footer {
     align-items: center;
     padding: 0 80px;
     position: relative;
-
+    @media (max-width: 991px) {
+      flex-direction: column;
+      padding: 0 50px;
+    }
     .copyright {
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
+      @media (max-width: 991px) {
+        position: static;
+        transform: none;
+        margin-bottom: 12px;
+      }
     }
   }
 }

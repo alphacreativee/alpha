@@ -154,7 +154,12 @@
     transition: all 0.1s;
     pointer-events: none;
     z-index: 99;
-
+    @media (max-width: 991px) {
+      grid-template-columns: 1fr;
+      &-empty {
+        display: none;
+      }
+    }
     &.active {
       opacity: 1;
       visibility: visible;
@@ -175,7 +180,9 @@
       transform: translateX(100%);
       transition: all 0.7s ease-in-out;
       opacity: 0;
-
+      @media (max-width: 991px) {
+        padding: 16px 24px;
+      }
       &.active {
         transform: translateX(0);
         opacity: 1;
@@ -271,5 +278,26 @@
   to {
     width: 100%;
     right: 0;
+  }
+}
+.toolbar-mobile {
+  @media (max-width: 991px) {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: 29;
+    .button-general {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 0;
+      &:hover {
+        &::before {
+          transform: translate3d(0, -5%, 0) scale3d(1.5, 1.5, 1.5);
+        }
+      }
+    }
   }
 }

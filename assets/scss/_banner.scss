@@ -3,6 +3,9 @@
   height: 100vh;
   position: relative;
   background-color: var(--color-black);
+  @media (max-width: 991px) {
+    height: 60vh;
+  }
   &-container {
     position: absolute;
     top: 50%;
@@ -11,6 +14,12 @@
     max-width: 1062px;
     width: 100%;
     text-align: center;
+    @media (max-width: 991px) {
+      max-width: calc(100% - 48px);
+      top: unset;
+      bottom: 60px;
+      transform: translate(-50%, 0%);
+    }
   }
 
   &.banner-expertise {
