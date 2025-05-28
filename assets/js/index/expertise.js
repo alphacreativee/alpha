@@ -314,12 +314,90 @@ function showCoreValue() {
     ease: "power2.out"
   });
 }
+
+function parallaxIt(e, target, movement) {
+  const rect = target.getBoundingClientRect();
+
+  const relX = e.clientX - rect.left;
+  const relY = e.clientY - rect.top;
+
+  const parallaxX = (relX / rect.width - 0.5) * movement;
+  const parallaxY = (relY / rect.height - 0.5) * movement;
+
+  gsap.to(target, {
+    duration: 0.3,
+    x: parallaxX,
+    y: parallaxY,
+    ease: "power2.out"
+  });
+}
+
+function callParallax(e) {
+  const item = e.currentTarget;
+  const img = item.querySelector("img");
+  const span = item.querySelector("span");
+
+  parallaxIt(e, item, 10);
+
+  if (img) {
+    parallaxIt(e, img, 20);
+  }
+
+  if (span) {
+    parallaxIt(e, span, 15);
+  }
+}
+
+function hoverIcon() {
+  const items = document.querySelectorAll(".build-a-brand .tab-wrapper .item");
+  const buttons = document.querySelectorAll(".btn-large");
+
+  items.forEach((item) => {
+    item.addEventListener("mousemove", (e) => {
+      callParallax(e);
+    });
+
+    item.addEventListener("mouseleave", () => {
+      gsap.to(item, {
+        duration: 0.3,
+        height: 40,
+        width: 42,
+        x: 0,
+        y: 0,
+        ease: "power2.out"
+      });
+      const img = item.querySelector("img");
+      if (img) {
+        gsap.to(img, {
+          duration: 0.3,
+          x: 0,
+          y: 0,
+          scale: 1,
+          ease: "power2.out"
+        });
+      }
+    });
+
+    item.addEventListener("mouseenter", () => {
+      const img = item.querySelector("img");
+      if (img) {
+        gsap.to(img, {
+          duration: 0.3,
+          scale: 0.9,
+          ease: "power2.out"
+        });
+      }
+    });
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   animateChessItems();
   buildABrand();
   introBrading();
   showCoreValue();
+  hoverIcon();
   ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {

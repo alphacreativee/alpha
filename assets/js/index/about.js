@@ -205,29 +205,31 @@ function swiperTeam() {
   if ($("#modal-teams").length < 1) return;
 
   const itemModal = $("[modal-team]");
-
-  itemModal.on("click", function (e) {
-    e.preventDefault();
-    $("#modal-teams").addClass("show");
-    $("body").addClass("overflow-hidden");
-  });
-
   const itemModalClose = $("#modal-teams").find(".btn-close");
-  console.log(itemModalClose);
-
-  itemModalClose.on("click", function () {
-    $("#modal-teams").removeClass("show");
-    $("body").removeClass("overflow-hidden");
-  });
 
   const swiper = new Swiper(".swiper-team", {
     slidesPerView: 1,
-    // effect: "fade",
     spaceBetween: 0,
     navigation: {
       nextEl: ".swiper-team .swiper-button-next",
       prevEl: ".swiper-team .swiper-button-prev"
     }
+  });
+
+  itemModal.on("click", function (e) {
+    e.preventDefault();
+
+    const index = $(this).data("slider") || 0;
+
+    $("#modal-teams").addClass("show");
+    $("body").addClass("overflow-hidden");
+
+    swiper.slideTo(index);
+  });
+
+  itemModalClose.on("click", function () {
+    $("#modal-teams").removeClass("show");
+    $("body").removeClass("overflow-hidden");
   });
 }
 
