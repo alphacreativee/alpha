@@ -1,6 +1,10 @@
 .blog-detail {
   background-color: var(--color-white);
-
+  &__top {
+    .title {
+      text-align: center;
+    }
+  }
   .section-detail {
     width: 60%;
     margin: 0 auto;
