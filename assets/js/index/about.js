@@ -67,7 +67,7 @@ function gsapexpertise2() {
       // Hàm để tính toán lượng cuộn cần thiết
       const getScrollAmount = () => {
         const racesWidth = expertise2[0].scrollWidth;
-        return racesWidth - window.innerWidth + 100; // Xóa +200 để tối ưu
+        return racesWidth - window.innerWidth + 0; // Xóa +200 để tối ưu
       };
 
       // Hàm để tạo tween animation cho expertise2
