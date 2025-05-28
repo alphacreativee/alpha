@@ -20,6 +20,9 @@
     text-align: center;
     max-width: 1062px;
     width: 100%;
+    @media (max-width: 991px) {
+      max-width: calc(100% - 48px);
+    }
     .line {
       > * {
         line-height: 1.3;
@@ -27,6 +30,9 @@
     }
     .tag {
       margin-bottom: 32px;
+      @media (max-width: 991px) {
+        margin-bottom: 16px;
+      }
     }
   }
 }

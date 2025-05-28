@@ -234,6 +234,7 @@ function effectText() {
               ? ".footer-ovl"
               : elementBlur,
             start: "top 90%",
+            markers: true,
           },
         }
       );
