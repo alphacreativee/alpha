@@ -1,12 +1,24 @@
 .wrapper-expertise {
   overflow: hidden;
   height: 100vh;
+
+  @media (max-width: 991px) {
+    height: auto;
+  }
 }
 .expertise {
   width: fit-content;
   display: flex;
   flex-wrap: nowrap;
   gap: 160px;
+
+  @media (max-width: 991px) {
+    flex-direction: column;
+    gap: 48px;
+    transform: translate(0) !important;
+    padding: 64px 24px;
+    width: 100%;
+  }
 }
 
 .expertise-item {
@@ -18,16 +30,32 @@
   width: 846px;
   overflow: hidden;
 
+  @media (max-width: 991px) {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+    width: 100%;
+  }
+
   &.item-title-large {
     width: 100vw;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: 991px) {
+      width: max-content;
+    }
 
     h2 {
       font-size: 180px;
       line-height: 100%;
       font-weight: 300;
       text-align: center;
+
+      @media (max-width: 991px) {
+        font-size: 48px;
+        line-height: 56px;
+      }
     }
   }
 
@@ -36,6 +64,11 @@
       width: 220px;
       height: 350px;
       flex-shrink: 0;
+
+      @media (max-width: 991px) {
+        width: 80px;
+        height: 127px;
+      }
 
       img {
         width: 100%;
@@ -50,10 +83,18 @@
       backdrop-filter: 10px;
       width: max-content;
       border-radius: 4px;
+
+      @media (max-width: 991px) {
+        padding: 7px 16px 8px;
+      }
     }
 
     &-title {
       margin: 40px 0;
+
+      @media (max-width: 991px) {
+        margin: 16px 0;
+      }
     }
 
     &-services {
@@ -62,8 +103,18 @@
       max-width: 90%;
       gap: 12px 24px;
 
+      @media (max-width: 991px) {
+        width: 100%;
+        gap: 8px 16px;
+      }
+
       li {
         flex-shrink: 0;
+
+        @media (max-width: 991px) {
+          font-size: 14px;
+          line-height: 20px;
+        }
       }
     }
   }

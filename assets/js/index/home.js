@@ -12,12 +12,13 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true,
+        scrub: true
       },
-      ease: "none",
+      ease: "none"
     }
   );
 
+  // const xPercentMobile = $(window).width() > 991 ? "-160" : "0";
   gsap.to(".specialize-main-slider", {
     xPercent: -160,
     scrollTrigger: {
@@ -25,7 +26,7 @@ function sectionSpecialize() {
       start: "top 20%",
       end: "bottom 20%",
       scrub: true,
-      // markers: true,
+      markers: true,
       onEnter: () => {
         $(".section-specialize").addClass("theme-light");
         $("main").addClass("theme-light");
@@ -35,9 +36,9 @@ function sectionSpecialize() {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
         $(".header-menu-container").removeClass("theme-light");
-      },
+      }
     },
-    ease: "none",
+    ease: "none"
   });
 
   let hasCounted = false;
@@ -50,7 +51,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    },
+    }
   });
 
   $(".section-specialize .number").each(function () {
@@ -143,84 +144,116 @@ function clientInsight() {
 }
 
 function gsapExpertise() {
-  const wrapperExpertise = $(".wrapper-expertise");
+  const wrappers = document.querySelectorAll(".wrapper-expertise");
 
-  // Nếu có bất kỳ phần tử expertise nào
-  if (wrapperExpertise.length > 0) {
-    // Lặp qua từng phần tử wrapper
-    wrapperExpertise.each(function (index, wrapper) {
-      const expertise = $(wrapper).find(".expertise");
+  if (!wrappers.length) return;
 
-      // Hàm để tính toán lượng cuộn cần thiết
-      const getScrollAmount = () => {
-        const racesWidth = expertise[0].scrollWidth;
-        return racesWidth - window.innerWidth + 200;
-      };
+  wrappers.forEach((wrapper, index) => {
+    const expertise = wrapper.querySelector(".expertise");
+    if (!expertise) return;
 
-      // Hàm để tạo tween animation cho expertise
-      const createTween = (expertise, scrollAmount) => {
-        return gsap.to(expertise, {
-          x: -scrollAmount,
-          duration: 3,
-          ease: "none",
-        });
-      };
+    const getScrollAmount = () => {
+      const racesWidth = expertise.scrollWidth;
+      return racesWidth - window.innerWidth + 100;
+    };
 
-      // Hàm để tạo ScrollTrigger cho phần tử wrapper
-      const createScrollTrigger = (wrapper, tween, scrollAmount) => {
-        ScrollTrigger.create({
-          trigger: wrapper,
-          start: "top 30%",
-          end: `+=${scrollAmount}`,
-          pin: true,
-          animation: tween,
-          scrub: 1,
-          invalidateOnRefresh: true,
-          id: "expertiseScroll",
-          // markers: true,
-        });
-      };
+    const createTween = (element, scrollAmount) => {
+      return gsap.to(element, {
+        x: -scrollAmount,
+        duration: 3,
+        ease: "none"
+      });
+    };
 
-      // Tính toán lượng cuộn cần thiết
-      const scrollAmount = getScrollAmount();
-      // Tạo tween animation cho expertise
-      const tween = createTween(expertise, scrollAmount);
-      // Tạo ScrollTrigger cho phần tử wrapper
-      createScrollTrigger(wrapper, tween, scrollAmount);
-    });
+    const getTotalHeight = () => {
+      const items = wrapper.querySelectorAll(".expertise-item");
+      return Array.from(items).reduce((acc, el) => acc + el.offsetHeight, 0);
+    };
 
-    const containerTrigger = ScrollTrigger.getById("expertiseScroll");
+    const updateSpacer = (scrollAmount) => {
+      let spacer = wrapper.nextElementSibling;
+      if (!spacer || !spacer.classList.contains("expertise-spacer")) {
+        spacer = document.createElement("div");
+        spacer.classList.add("expertise-spacer");
+        wrapper.insertAdjacentElement("afterend", spacer);
+      }
+      const totalHeight = getTotalHeight();
+      spacer.style.height = `${Math.max(totalHeight, scrollAmount)}px`;
+    };
 
+    const createScrollTrigger = (wrapper, tween, scrollAmount) => {
+      const isDesktop = window.innerWidth > 991;
+      ScrollTrigger.create({
+        trigger: wrapper,
+        start: "top 30%",
+        end: `+=${scrollAmount}`,
+        pin: isDesktop,
+        animation: tween,
+        scrub: 1,
+        pinSpacing: false,
+        invalidateOnRefresh: true,
+        id: `expertiseScroll-${index}`
+      });
+    };
+
+    const scrollAmount = getScrollAmount();
+    updateSpacer(scrollAmount);
+
+    const tween = createTween(expertise, scrollAmount);
+    createScrollTrigger(wrapper, tween, scrollAmount);
+
+    const containerTrigger = ScrollTrigger.getById(`expertiseScroll-${index}`);
     if (!containerTrigger) return;
 
-    const items = gsap.utils.toArray(".expertise-item:not(.item-title-large)");
+    const items = gsap.utils.toArray(
+      wrapper.querySelectorAll(".expertise-item:not(.item-title-large)")
+    );
 
     items.forEach((item) => {
       const content = item.querySelector(".item-content");
+      if (!content) return;
 
-      gsap.fromTo(
-        content,
-        { yPercent: 70 },
-        {
-          yPercent: 0,
-          ease: "none",
-          scrollTrigger: {
-            trigger: item,
-            containerAnimation: containerTrigger.animation,
-            start: "left 80%",
-            end: "center 60%",
-            scrub: true,
-            invalidateOnRefresh: true,
-            // markers: true,
-          },
-        }
-      );
+      const isDesktop = window.innerWidth > 991;
+      if (isDesktop) {
+        // Desktop: Sử dụng containerAnimation
+        gsap.fromTo(
+          content,
+          { yPercent: 70 },
+          {
+            yPercent: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: item,
+              containerAnimation: containerTrigger.animation,
+              start: "left 80%",
+              end: "center 60%",
+              scrub: true,
+              invalidateOnRefresh: true
+            }
+          }
+        );
+      } else {
+        // Mobile: ScrollTrigger trực tiếp trên item
+        gsap.fromTo(
+          content,
+          { yPercent: 70 },
+          {
+            yPercent: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: item,
+              start: "top 80%", // Bắt đầu khi item vào viewport
+              end: "center 60%", // Kết thúc khi item gần trung tâm
+              scrub: true,
+              invalidateOnRefresh: true
+            }
+          }
+        );
+      }
     });
-
-    // Làm mới ScrollTrigger sau khi tất cả triggers đã được thiết lập
-    ScrollTrigger.refresh();
-  }
+  });
 }
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   gsapExpertise();
