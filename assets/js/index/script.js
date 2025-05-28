@@ -588,6 +588,7 @@ function magicCursor() {
   });
 
   var cursorDot = document.querySelector(".magic-cursor .cursor");
+  var cursorDotIcon = document.querySelector(".magic-cursor .cursor .icon");
   var cursorText = document.querySelector(
     ".magic-cursor .cursor .text-content"
   );
@@ -599,6 +600,34 @@ function magicCursor() {
     });
     item.addEventListener("mouseleave", () => {
       cursorDot.classList.remove("show");
+    });
+  });
+
+  const cursorArrow = document.querySelectorAll("[data-cursor='arrow']");
+  cursorArrow.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("show", "arrow");
+
+      const rotation = item.classList.contains("swiper-button-prev") ? 180 : 0;
+      gsap.to(cursorDotIcon, {
+        rotate: rotation,
+        yPercent: -50,
+        xPercent: -50,
+        duration: 0.3,
+        ease: "power2.out"
+      });
+    });
+
+    item.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show", "arrow");
+
+      gsap.to(cursorDotIcon, {
+        rotate: 0,
+        yPercent: -50,
+        xPercent: -50,
+        duration: 0.3,
+        ease: "power2.out"
+      });
     });
   });
 }

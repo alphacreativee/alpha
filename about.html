@@ -43,6 +43,18 @@
     </script>
   </head>
   <body>
+    <!-- magic cursor -->
+    <div class="magic-cursor about-page">
+      <div class="cursor">
+        <div class="text text-uppercase button-typo color-white">View</div>   
+        <div class="icon">
+          <svg width="10" height="18" viewBox="0 0 10 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 1L9 9L1 17" stroke="white"/>
+          </svg>  
+        </div>
+      </div>
+    </div>
+
     <!-- layout -->
       <div class="header-fake d-flex align-items-center justify-content-between">
       <a class="header-logo d-inline-block" href="./index.html">
@@ -374,7 +386,7 @@
           </div>
         </div>
       </section>
-        <section class="our-team">
+      <section class="our-team">
         <div class="our-team-container page-width">
           <div class="our-team-content">
             <div
@@ -392,7 +404,7 @@
             </div>
           </div>
           <div class="our-team-list">
-            <a href="" class="our-team-item d-block">
+            <a href="#" class="our-team-item d-block" modal-team >
               <div class="our-team-img">
                 <img src="./assets/images/avatar.png" alt="" />
               </div>
@@ -604,6 +616,73 @@
         </div>
       </section>
     </main>
+    <div class="modal-teams" id="modal-teams" data-lenis-prevent>
+      <div class="modal-container">
+        <button
+              class="btn-close"
+            >
+              <svg
+                width="48"
+                height="48"
+                viewBox="0 0 48 48"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <g>
+                  <path d="M7 7.03125L40.9718 40.9417" stroke="white" />
+                  <path d="M40.9375 7L7.02708 40.9718" stroke="white" />
+                </g>
+              </svg>
+            </button>
+            <div class="swiper swiper-team">
+              <div class="swiper-wrapper">
+                <div class="swiper-slide">
+                  <div class="modal-teams-content">
+                    <div class="modal-teams-img">
+                      <img src="./assets/images/anh-toan.png" alt="" />
+                    </div>
+                    <div class="modal-team-bg">
+                      <img src="./assets/images/branding-2-hover.gif" alt="">
+                    </div>
+                    <div class="modal-teams-info">
+                      <div class="name sub-title-1 color-white">Toan Nguyen</div>
+                      <div class="job body-medium-regular color-white">
+                        Business Development Director
+                      </div>
+                      <div class="body-medium-regular color-white desc">
+                        I am the bridge between customers and the storytellers of Alpha Team, through patience, listening, and understanding, not only helps create genuine connections but also provides memorable experiences. We are always ready to touch emotions, spark creative ideas, and deliver messages in a meaningful way, making each story feel more relatable and impactful for our clients.
+                      </div>
+                      <div class="slogan sub-title-1 color-white">Get Found. Get Results.</div>
+                    </div>
+                </div>
+              </div>
+              <div class="swiper-slide">
+                <div class="modal-teams-content">
+                  <div class="modal-teams-img">
+                    <img src="./assets/images/about-girl.png" alt="" />
+                  </div>
+                  <div class="modal-team-bg">
+                    <img src="./assets/images/branding-2-hover.gif" alt="">
+                  </div>
+                  <div class="modal-teams-info">
+                    <div class="name sub-title-1 color-white">Toan Nguyen</div>
+                    <div class="job body-medium-regular color-white">
+                      Business Development Director
+                    </div>
+                    <div class="body-medium-regular color-white desc">
+                      I am the bridge between customers and the storytellers of Alpha Team, through patience, listening, and understanding, not only helps create genuine connections but also provides memorable experiences. We are always ready to touch emotions, spark creative ideas, and deliver messages in a meaningful way, making each story feel more relatable and impactful for our clients.
+                    </div>
+                    <div class="slogan sub-title-1 color-white">Get Found. Get Results.</div>
+                  </div>
+              </div>
+              </div>
+            </div>
+            <div class="swiper-button-next" data-cursor="arrow"></div>
+            <div class="swiper-button-prev" data-cursor="arrow"></div>
+          </div>
+      </div>
+      <div class="modal-background"></div>
+    </div>
     <footer>
       <div class="container-fluid p-0">
         <div class="footer-ovl"></div>
