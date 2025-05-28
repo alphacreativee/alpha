@@ -97,14 +97,16 @@ function header() {
       body.removeClass("overflow-hidden");
     }, 300);
   });
-  btnMenuClose.hover(
-    function () {
-      btnMenuOpen.addClass("hovered");
-    },
-    function () {
-      btnMenuOpen.removeClass("hovered");
-    }
-  );
+  if ($(window).width() >= 991) {
+    btnMenuClose.hover(
+      function () {
+        btnMenuOpen.addClass("hovered");
+      },
+      function () {
+        btnMenuOpen.removeClass("hovered");
+      }
+    );
+  }
 }
 function effectText() {
   gsap.registerPlugin(SplitText, ScrollTrigger); // Register both plugins
@@ -614,7 +616,7 @@ function magicCursor() {
         yPercent: -50,
         xPercent: -50,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
 
@@ -626,7 +628,7 @@ function magicCursor() {
         yPercent: -50,
         xPercent: -50,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
   });

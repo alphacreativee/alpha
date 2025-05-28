@@ -5,6 +5,7 @@
   right: 0;
   width: 100%;
   z-index: 99;
+
   &-fake {
     position: fixed;
     height: 76px;
@@ -42,6 +43,9 @@
       padding: 14px 24px;
       background-color: rgba(217, 217, 217, 0.2);
       border-radius: 4px;
+      @media (max-width: 991px) {
+        display: none;
+      }
       &.theme-light {
         background-color: rgba(0, 0, 0, 0.2);
       }
@@ -73,6 +77,11 @@
   }
   &-contact {
     gap: 40px;
+    .button-general {
+      @media (max-width: 991px) {
+        display: none;
+      }
+    }
   }
   &-hambuger {
     position: relative;
@@ -80,6 +89,7 @@
     height: 9px;
     top: 0;
     right: 0;
+
     &.hovered {
       span {
         background-color: #d9d9d91a;

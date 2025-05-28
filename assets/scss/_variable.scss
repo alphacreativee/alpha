@@ -26,12 +26,24 @@
   font-size: 80px;
   line-height: 88px;
   font-weight: 100;
+  @media (max-width: 991px) {
+    font-size: 32px;
+    line-height: 40px;
+    &.heading-mobile {
+      font-size: 48px;
+      line-height: 56px;
+    }
+  }
 }
 .h2-heading {
   font-family: var(--font-primary);
   font-size: 48px;
   line-height: 56px;
   font-weight: 300;
+  @media (max-width: 991px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
 .h3-heading {
   font-family: var(--font-primary);
