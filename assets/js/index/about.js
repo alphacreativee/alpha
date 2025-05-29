@@ -1,6 +1,7 @@
 import { preloadImages } from "../../libs/utils.js";
 
 function ourStory() {
+  if (!document.querySelector(".our-story")) return;
   gsap.set(".our-story .content:not(:first-child)", { yPercent: 100 });
 
   // Lấy tất cả các phần tử .content không có class first-child
