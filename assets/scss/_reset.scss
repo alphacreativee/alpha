@@ -63,5 +63,6 @@ body {
   -webkit-font-smoothing: auto !important;
   -moz-osx-font-smoothing: grayscale !important;
   font-family: var(--font-primary);
+  overflow-x: hidden;
   // background-color: var(--color-black);
 }

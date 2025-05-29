@@ -8,13 +8,13 @@
 
     <link
       rel="icon"
-      href="./assets/images/use/favicon-black.ico"
+      href="./assets/images/use/favicon-black.svg"
       type="image/x-icon"
       media="(prefers-color-scheme: light)"
     />
     <link
       rel="icon"
-      href="./assets/images/use/favicon-white.ico"
+      href="./assets/images/use/favicon-white.svg"
       type="image/x-icon"
       media="(prefers-color-scheme: dark)"
     />
@@ -37,6 +37,20 @@
     <!-- end link custom css page -->
   </head>
   <body>
+    <!-- loading -->
+    <div class="loading out-home">
+      <div class="loading-wrapper">
+        <div class="loading-wrapper-inner">
+          <div class="loading-logo">
+            <img src="./assets/images/use/logo_icon.svg" alt="" />
+            <div class="logo-circle">
+              <div class="logo-circle-image"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- end loading -->
     <!-- magic cursor -->
     <div class="magic-cursor">
       <div class="cursor">
@@ -208,10 +222,14 @@
       <section class="project">
         <div class="project-container page-width">
           <div class="project-top">
-            <h2 class="title h1-heading color-white effect-heading-mask-line">
+            <h2
+              class="title h1-heading color-white effect-heading-mask-line-banner"
+            >
               Work that speaks for itself
             </h2>
-            <div class="desc sub-title-2 color-white effect-fade-content-auto">
+            <div
+              class="desc sub-title-2 color-white effect-fade-content-banner"
+            >
               From global brands to rising startups, we’ve helped our clients
               tell their stories through bold design and smart strategy. Here’s
               a selection of our recent projects.
@@ -219,8 +237,8 @@
           </div>
           <div class="project-bottom">
             <div
-              class="project-filter effect-fade-content-auto"
-              data-delay="0.75"
+              class="project-filter effect-fade-content-banner"
+              data-delay="0.3"
             >
               <ul
                 class="nav nav-pills justify-content-center"

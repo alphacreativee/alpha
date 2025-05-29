@@ -13,6 +13,9 @@
   @media (max-width: 991px) {
     height: 60vh;
   }
+  &-title {
+    opacity: 0;
+  }
   &-container {
     position: absolute;
     top: 50%;
