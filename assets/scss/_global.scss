@@ -417,3 +417,77 @@ main {
     }
   }
 }
+// loading
+.loading {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  overflow: hidden;
+  &-wrapper {
+    position: absolute;
+    inset: 0;
+    transform-origin: top;
+    background-color: var(--color-white);
+    &-inner {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--color-white);
+    }
+  }
+  &-logo {
+    img {
+      height: 140px;
+      width: 140px;
+      object-fit: contain;
+    }
+  }
+  .logo-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    &-image {
+      width: 150px;
+      height: 150px;
+      background-size: 100% 100%;
+      transform-origin: center;
+      background-image: url("../../images/use/logo_circle.svg");
+      animation: spin-out 10s linear infinite;
+    }
+  }
+  &-text {
+    font-size: 100px;
+    line-height: 130px;
+    white-space: nowrap;
+    color: var(--color-black);
+    position: absolute;
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  &-desc {
+    white-space: nowrap;
+    font-size: 24px;
+    line-height: 32px;
+    position: absolute;
+    color: var(--color-black);
+    transform: translateY(20px);
+    opacity: 0;
+  }
+}
+@keyframes spin-out {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(-360deg);
+  }
+}
+.effect-fade-content-banner,
+.effect-heading-mask-line-banner {
+  opacity: 0;
+}

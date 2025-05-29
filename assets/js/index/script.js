@@ -262,7 +262,6 @@ function introChess() {
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-
   window.addEventListener("resize", function () {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -682,6 +681,139 @@ function addThemeLightToHeader() {
   if (mainElement && headerMenuContainer) {
     headerMenuContainer.classList.add("theme-light");
   }
+}
+
+function loading() {
+  if ($(".loading").length < 1) return;
+  let tlLoading = gsap.timeline({
+    onComplete: () => {
+      $("body").removeClass("overflow-hidden");
+    },
+  });
+  let loading = $(".loading");
+  let body = $("body");
+  body.addClass("overflow-hidden");
+  gsap.delayedCall(4.25, effectTextBanner);
+
+  tlLoading
+    .to(
+      loading.find(".loading-logo"),
+      {
+        opacity: 0,
+        y: -60,
+      },
+      0.5
+    )
+    .to(loading.find(".loading-text"), {
+      opacity: 1,
+      y: 0,
+    })
+    .to(
+      loading.find(".loading-text"),
+      {
+        opacity: 0,
+        y: -60,
+      },
+      2
+    )
+    .to(loading.find(".loading-desc"), {
+      opacity: 1,
+      y: 0,
+    })
+    .to(
+      loading.find(".loading-desc"),
+      {
+        opacity: 0,
+        y: -60,
+      },
+      3.5
+    )
+
+    .to(
+      loading.find(".loading-wrapper"),
+      {
+        scaleY: 0,
+        duration: 1.5,
+      },
+      3.75
+    )
+    .to(loading, {
+      autoAlpha: 0,
+      duration: 0,
+    });
+}
+$(window).on("DOMContentLoaded", function () {
+  loading();
+});
+function effectTextBanner() {
+  const elements = document.querySelectorAll(
+    ".effect-heading-mask-line-banner"
+  );
+
+  elements.forEach((element) => {
+    gsap.set(element, { opacity: 0 }); // Set initial opacity to 0
+    let splitTitle;
+
+    SplitText.create(element, {
+      type: "words,lines",
+      linesClass: "line",
+      mask: "lines",
+      onSplit: (self) => {
+        // Auto-play animation
+        splitTitle = gsap.fromTo(
+          self.lines,
+          {
+            yPercent: 100,
+            opacity: 0, // Start from opacity 0
+          },
+          {
+            yPercent: 0,
+            opacity: 1, // Animate to opacity 1
+            duration: 0.4,
+            stagger: 0.1,
+            ease: "expo.out",
+          }
+        );
+
+        // Play animation immediately after fonts are loaded
+        gsap.to(splitTitle, {
+          timeScale: 0.2,
+          onStart: () => splitTitle.play(0),
+        });
+
+        // Set parent element opacity to 1 after animation starts
+        gsap.to(element, {
+          opacity: 1,
+          duration: 0, // Instant change
+          delay: 0.1, // Slight delay to ensure lines are visible
+        });
+
+        return splitTitle;
+      },
+    });
+  });
+
+  // effect fade in
+  gsap.utils.toArray(".effect-fade-content-banner").forEach((element) => {
+    const additionalDelay = element.dataset.delay
+      ? parseFloat(element.dataset.delay)
+      : 0;
+    gsap.fromTo(
+      element,
+      {
+        "will-change": "opacity, transform",
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "sine.out",
+        delay: 0.5 + additionalDelay,
+      }
+    );
+  });
 }
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
