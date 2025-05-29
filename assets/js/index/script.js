@@ -693,54 +693,80 @@ function loading() {
   let loading = $(".loading");
   let body = $("body");
   body.addClass("overflow-hidden");
-  gsap.delayedCall(4.25, effectTextBanner);
 
-  tlLoading
-    .to(
-      loading.find(".loading-logo"),
-      {
-        opacity: 0,
-        y: -60,
-      },
-      0.5
-    )
-    .to(loading.find(".loading-text"), {
-      opacity: 1,
-      y: 0,
-    })
-    .to(
-      loading.find(".loading-text"),
-      {
-        opacity: 0,
-        y: -60,
-      },
-      2
-    )
-    .to(loading.find(".loading-desc"), {
-      opacity: 1,
-      y: 0,
-    })
-    .to(
-      loading.find(".loading-desc"),
-      {
-        opacity: 0,
-        y: -60,
-      },
-      3.5
-    )
+  if (loading.hasClass("out-home")) {
+    gsap.delayedCall(1.5, effectTextBanner);
+    tlLoading
+      .to(
+        loading.find(".loading-logo"),
+        {
+          opacity: 0,
+          y: -60,
+        },
+        0.5
+      )
 
-    .to(
-      loading.find(".loading-wrapper"),
-      {
-        scaleY: 0,
-        duration: 1.5,
-      },
-      3.75
-    )
-    .to(loading, {
-      autoAlpha: 0,
-      duration: 0,
-    });
+      .to(
+        loading.find(".loading-wrapper"),
+        {
+          scaleY: 0,
+          duration: 1.5,
+        },
+        1
+      )
+      .to(loading, {
+        autoAlpha: 0,
+        duration: 0,
+      });
+  } else {
+    gsap.delayedCall(4.25, effectTextBanner);
+    tlLoading
+      .to(
+        loading.find(".loading-logo"),
+        {
+          opacity: 0,
+          y: -60,
+        },
+        0.5
+      )
+      .to(loading.find(".loading-text"), {
+        opacity: 1,
+        y: 0,
+      })
+      .to(
+        loading.find(".loading-text"),
+        {
+          opacity: 0,
+          y: -60,
+        },
+        2
+      )
+      .to(loading.find(".loading-desc"), {
+        opacity: 1,
+        y: 0,
+      })
+      .to(
+        loading.find(".loading-desc"),
+        {
+          opacity: 0,
+          y: -60,
+        },
+        3.5
+      )
+
+      .to(
+        loading.find(".loading-wrapper"),
+        {
+          scaleY: 0,
+          duration: 1.5,
+        },
+        3.75
+      )
+      .to(loading, {
+        autoAlpha: 0,
+        duration: 0,
+      });
+  }
 }
 $(window).on("DOMContentLoaded", function () {
   loading();
