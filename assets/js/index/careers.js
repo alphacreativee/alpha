@@ -9,7 +9,7 @@ function formReruitment() {
     const $labelSpan = $input.next("label").find("span");
     const allowedTypes = [
       "application/pdf",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ];
     const maxSize = 5 * 1024 * 1024;
 
@@ -86,13 +86,17 @@ function formReruitment() {
       document
         .querySelector(".header-menu-container")
         .classList.add("theme-light");
+      document.querySelector("main").classList.add("theme-light");
+      document.querySelector(".section-banner").classList.add("theme-light");
     },
     onLeaveBack: () => {
       document.querySelector(".our-works").classList.remove("theme-light");
       document
         .querySelector(".header-menu-container")
         .classList.remove("theme-light");
-    },
+      document.querySelector("main").classList.remove("theme-light");
+      document.querySelector(".section-banner").classList.remove("theme-light");
+    }
     // markers: true
   });
 }

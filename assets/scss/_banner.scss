@@ -3,6 +3,13 @@
   height: 100vh;
   position: relative;
   background-color: var(--color-black);
+
+  &.theme-light {
+    .color-white {
+      color: var(--color-black);
+    }
+  }
+
   @media (max-width: 991px) {
     height: 60vh;
   }
