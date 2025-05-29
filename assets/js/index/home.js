@@ -26,7 +26,7 @@ function sectionSpecialize() {
       start: "top 20%",
       end: "bottom 20%",
       scrub: true,
-      markers: true,
+      // markers: true,
       onEnter: () => {
         $(".section-specialize").addClass("theme-light");
         $("main").addClass("theme-light");
@@ -98,7 +98,7 @@ function sectionSpecialize() {
 }
 
 function clientInsight() {
-  if ($(".client-insight").length < 1) return;
+  if ($(".client-insight").length < 1 || $(window).width() < 992) return;
 
   const wrapper = document.querySelector(".client-wrapper");
   const container = document.querySelector(".main-section");
@@ -196,7 +196,7 @@ function gsapExpertise() {
       });
     };
 
-    const scrollAmount = getScrollAmount();
+    const scrollAmount = getScrollAmount() + 100;
     updateSpacer(scrollAmount);
 
     const tween = createTween(expertise, scrollAmount);

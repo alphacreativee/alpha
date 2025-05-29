@@ -39,6 +39,10 @@
           .number {
             transform: translateX(-50px);
 
+            @media (max-width: 991px) {
+              transform: translateX(-35px);
+            }
+
             > span:nth-child(1) span {
               text-align: right;
             }
