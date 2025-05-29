@@ -118,6 +118,15 @@
               align-items: center;
               justify-content: center;
 
+              &.small {
+                img {
+                  min-width: 78px;
+                  aspect-ratio: 1;
+                  border-radius: 50%;
+                  object-fit: cover;
+                }
+              }
+
               img {
                 margin: 0 auto;
                 width: 100%;
