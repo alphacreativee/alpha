@@ -154,7 +154,7 @@ function gsapExpertise() {
 
     const getScrollAmount = () => {
       const racesWidth = expertise.scrollWidth;
-      return racesWidth - window.innerWidth + 100;
+      return racesWidth - window.innerWidth + 150;
     };
 
     const createTween = (element, scrollAmount) => {

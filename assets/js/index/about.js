@@ -1,11 +1,12 @@
 import { preloadImages } from "../../libs/utils.js";
 
 function ourStory() {
+  if (!document.querySelector(".our-story")) return;
   gsap.set(".our-story .content:not(:first-child)", { yPercent: 100 });
 
   // Lấy tất cả các phần tử .content không có class first-child
   const contents = gsap.utils.toArray(".our-story .content:not(:first-child)");
-  const texts = gsap.utils.toArray(".text");
+  const texts = gsap.utils.toArray(".text-wrap .text");
 
   const contentTimeline = gsap.timeline();
   // Tính tổng chiều cao
@@ -44,7 +45,7 @@ function ourStory() {
       texts.forEach((text, index) => {
         text.classList.toggle("active", index === activeIndex);
       });
-    }
+    },
   });
 
   contents.forEach((content, i) => {
@@ -52,7 +53,7 @@ function ourStory() {
       yPercent: 0,
       duration: 0.5,
       boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
-      ease: "power2.out"
+      ease: "power2.out",
     });
   });
 }
@@ -75,7 +76,7 @@ function gsapexpertise2() {
         return gsap.to(expertise2, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none"
+          ease: "none",
         });
       };
 
@@ -113,7 +114,7 @@ function gsapexpertise2() {
           scrub: 1,
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: `expertise2Scroll-${index}`
+          id: `expertise2Scroll-${index}`,
           // markers: true, // Bật để debug
         });
       };
@@ -142,7 +143,7 @@ function gsapexpertise2() {
         start: "left 85%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
         // markers: true,
       });
     });
@@ -165,7 +166,7 @@ function gsapexpertise2() {
         document
           .querySelector(".header-menu-container")
           .classList.remove("theme-light");
-      }
+      },
       // markers: true
     });
 
@@ -179,7 +180,7 @@ function ourTeam() {
 
   gsap.set(teamItems, {
     opacity: 0,
-    y: 100
+    y: 100,
   });
 
   const tl = gsap.timeline({
@@ -187,9 +188,9 @@ function ourTeam() {
       trigger: ".our-team-list",
       start: "top 90%",
       end: "bottom 60%",
-      scrub: 1
+      scrub: 1,
       // markers: true,
-    }
+    },
   });
 
   tl.to(teamItems, {
@@ -197,7 +198,7 @@ function ourTeam() {
     y: 0,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.15
+    stagger: 0.15,
   });
 }
 
@@ -212,8 +213,8 @@ function swiperTeam() {
     spaceBetween: 0,
     navigation: {
       nextEl: ".swiper-team .swiper-button-next",
-      prevEl: ".swiper-team .swiper-button-prev"
-    }
+      prevEl: ".swiper-team .swiper-button-prev",
+    },
   });
 
   itemModal.on("click", function (e) {
