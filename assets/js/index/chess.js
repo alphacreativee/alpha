@@ -54,7 +54,7 @@ loader.load(
   "./assets/images/use/chess_queen.glb",
   function (gltf) {
     chess = gltf.scene;
-    chess.position.set(0, 0.5, 15);
+    chess.position.set(0, 0, 15);
     chess.scale.set(0.5, 0.5, 0.5);
     scene.add(chess);
 
@@ -131,15 +131,10 @@ loader.load(
       trigger: "#section-specialize",
       start: "top bottom",
       end: "bottom top",
+      markers: true,
       onUpdate: (self) => {
-        // const delta = self.getVelocity() * 0.001;
-        // gsap.to(chess.rotation, {
-        //   y: `+=${delta}`,
-        //   duration: 0.3,
-        //   ease: "power1.out",
-        // });
         const progress = self.progress;
-        const targetScale = 0.5 + progress * 0.99;
+        const targetScale = 0.5 + progress * 0.85;
         const targetRotation = progress * Math.PI * 2;
 
         gsap.to(chess.scale, {
@@ -148,6 +143,7 @@ loader.load(
           z: targetScale,
           duration: 0.1,
           overwrite: true,
+          transformOrigin: "bottom",
         });
 
         gsap.to(chess.rotation, {
