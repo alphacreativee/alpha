@@ -336,12 +336,9 @@ function introChess() {
     scrollTrigger: {
       trigger: "#canvas-chess",
       start: `top+=${(70 / frameCount) * 100}% top`,
-      end: `top+=${(70 / frameCount) * 100}% top`,
+      end: `top+=${(70 / frameCount) * 100 + 50}% top`,
       toggleActions: "play none none reverse",
     },
-    // onStart: () => {
-    //   tagElement.classList.add("effect-fade-content-intro");
-    // },
   });
 
   // Thêm hiệu ứng cho tag
