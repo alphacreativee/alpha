@@ -138,8 +138,8 @@ function effectText() {
                 trigger: element,
                 start: "top 60%",
                 end: "bottom 60%",
-                toggleActions: "play none none none"
-              }
+                toggleActions: "play none none none",
+              },
             });
           } else {
             // Auto-play case
@@ -148,18 +148,18 @@ function effectText() {
               yPercent: 100,
               opacity: 0,
               stagger: 0.1,
-              ease: "expo.out"
+              ease: "expo.out",
             });
 
             // Play animation immediately after fonts are loaded
             gsap.to(splitTitle, {
               timeScale: 0.2,
-              onStart: () => splitTitle.play(0)
+              onStart: () => splitTitle.play(0),
             });
           }
 
           return splitTitle;
-        }
+        },
       });
     });
 
@@ -170,19 +170,19 @@ function effectText() {
         {
           "will-change": "opacity, transform",
           opacity: 0,
-          y: 20
+          y: 20,
         },
         {
           scrollTrigger: {
             trigger: element,
             start: "top 75%",
-            end: "bottom 75%"
+            end: "bottom 75%",
             // markers: true,
           },
           opacity: 1,
           y: 0,
           duration: 0.3,
-          ease: "sine.out"
+          ease: "sine.out",
         }
       );
     });
@@ -194,14 +194,14 @@ function effectText() {
           {
             "will-change": "opacity, transform",
             opacity: 0,
-            y: 20
+            y: 20,
           },
           {
             opacity: 1,
             y: 0,
             duration: 0.3,
             ease: "sine.out",
-            delay: 0.5 // Độ trễ để tạo hiệu ứng lần lượt
+            delay: 0.5, // Độ trễ để tạo hiệu ứng lần lượt
           }
         );
       });
@@ -213,7 +213,7 @@ function effectText() {
       let splitBlur = SplitText.create(elementBlur, {
         type: "words, chars",
         charsClass: "split-char",
-        wordsClass: "split-word"
+        wordsClass: "split-word",
       });
       gsap.fromTo(
         splitBlur.chars,
@@ -221,7 +221,7 @@ function effectText() {
           filter: "blur(10px) ",
           y: 10,
           willChange: "filter, transform",
-          opacity: 0
+          opacity: 0,
         },
         {
           ease: "none",
@@ -233,9 +233,9 @@ function effectText() {
             trigger: elementBlur.classList.contains("footer-effect-text")
               ? ".footer-ovl"
               : elementBlur,
-            start: "top 90%"
+            start: "top 90%",
             // markers: true,
-          }
+          },
         }
       );
     });
@@ -313,9 +313,9 @@ function introChess() {
       scrub: 1,
       trigger: "#canvas-chess",
       start: "top+=100 bottom",
-      end: "bottom top"
+      end: "bottom top",
     },
-    onUpdate: render
+    onUpdate: render,
   });
 
   // Hiệu ứng cho section-intro-content
@@ -328,7 +328,7 @@ function introChess() {
   const splitContent = new SplitText(contentElement, {
     type: "words,lines",
     mask: "lines",
-    linesClass: "line"
+    linesClass: "line",
   });
 
   // Tạo timeline cho hiệu ứng vào và ngược lại
@@ -337,8 +337,8 @@ function introChess() {
       trigger: "#canvas-chess",
       start: `top+=${(70 / frameCount) * 100}% top`,
       end: `top+=${(70 / frameCount) * 100}% top`,
-      toggleActions: "play none none reverse"
-    }
+      toggleActions: "play none none reverse",
+    },
     // onStart: () => {
     //   tagElement.classList.add("effect-fade-content-intro");
     // },
@@ -393,9 +393,9 @@ function introChess() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 
@@ -470,7 +470,7 @@ function whyChooseUs() {
           .querySelector(".header-menu-container")
           .classList.remove("theme-light");
         document.querySelector("main").classList.remove("theme-light");
-      }
+      },
     });
   }
 }
@@ -501,37 +501,37 @@ function coreValue() {
   gsap.fromTo(
     ".core-value .image",
     {
-      clipPath: initialClipPath
+      clipPath: initialClipPath,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
         start: "top 70%",
         end: "bottom 70%",
-        scrub: 1
+        scrub: 1,
         // markers: true
       },
       clipPath: "inset(0% 0% 0% 0%)", // hiện dần ra
       duration: 0.4,
-      ease: "power2.out"
+      ease: "power2.out",
     }
   );
 
   gsap.fromTo(
     ".core-value .image img",
     {
-      scale: 1.1
+      scale: 1.1,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
         start: "top 70%",
         end: "bottom 70%",
-        scrub: 1
+        scrub: 1,
       },
       scale: 1,
       duration: 0.4,
-      ease: "power2.out"
+      ease: "power2.out",
     }
   );
 
@@ -546,21 +546,21 @@ function coreValue() {
       end: "+=200%",
       scrub: true,
       pin: true,
-      toggleClass: { targets: ".core-value", className: "active" }
+      toggleClass: { targets: ".core-value", className: "active" },
       // markers: true
-    }
+    },
   });
 
   tl.to("#core-value-text", {
     scale: 1.7,
     duration: 0.6,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 
   tl.to("#core-value-text", {
     xPercent: -300,
     duration: 0.5,
-    ease: "none"
+    ease: "none",
   });
 }
 
@@ -571,7 +571,7 @@ function magicCursor() {
 
   gsap.set(circle, {
     xPercent: -50,
-    yPercent: -50
+    yPercent: -50,
   });
 
   let mouseX = 0,
@@ -585,7 +585,7 @@ function magicCursor() {
     gsap.to(circle, {
       x: mouseX,
       y: mouseY,
-      duration: 0.1 // Không có độ trễ
+      duration: 0.1, // Không có độ trễ
     });
   });
 
@@ -616,7 +616,7 @@ function magicCursor() {
         yPercent: -50,
         xPercent: -50,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
 
@@ -628,7 +628,7 @@ function magicCursor() {
         yPercent: -50,
         xPercent: -50,
         duration: 0.3,
-        ease: "power2.out"
+        ease: "power2.out",
       });
     });
   });
@@ -688,7 +688,7 @@ function loading() {
   let tlLoading = gsap.timeline({
     onComplete: () => {
       $("body").removeClass("overflow-hidden");
-    }
+    },
   });
   let loading = $(".loading");
   let body = $("body");
@@ -701,7 +701,7 @@ function loading() {
         loading.find(".loading-logo"),
         {
           opacity: 0,
-          y: -60
+          y: -60,
         },
         0.5
       )
@@ -710,13 +710,13 @@ function loading() {
         loading.find(".loading-wrapper"),
         {
           scaleY: 0,
-          duration: 1.5
+          duration: 1.5,
         },
         1
       )
       .to(loading, {
         autoAlpha: 0,
-        duration: 0
+        duration: 0,
       });
   } else {
     gsap.delayedCall(4.25, effectTextBanner);
@@ -725,31 +725,31 @@ function loading() {
         loading.find(".loading-logo"),
         {
           opacity: 0,
-          y: -60
+          y: -60,
         },
         0.5
       )
       .to(loading.find(".loading-text"), {
         opacity: 1,
-        y: 0
+        y: 0,
       })
       .to(
         loading.find(".loading-text"),
         {
           opacity: 0,
-          y: -60
+          y: -60,
         },
         2
       )
       .to(loading.find(".loading-desc"), {
         opacity: 1,
-        y: 0
+        y: 0,
       })
       .to(
         loading.find(".loading-desc"),
         {
           opacity: 0,
-          y: -60
+          y: -60,
         },
         3.5
       )
@@ -758,13 +758,13 @@ function loading() {
         loading.find(".loading-wrapper"),
         {
           scaleY: 0,
-          duration: 1.5
+          duration: 1.5,
         },
         3.75
       )
       .to(loading, {
         autoAlpha: 0,
-        duration: 0
+        duration: 0,
       });
   }
 }
@@ -790,32 +790,32 @@ function effectTextBanner() {
           self.lines,
           {
             yPercent: 100,
-            opacity: 0 // Start from opacity 0
+            opacity: 0, // Start from opacity 0
           },
           {
             yPercent: 0,
             opacity: 1, // Animate to opacity 1
             duration: 0.4,
             stagger: 0.1,
-            ease: "expo.out"
+            ease: "expo.out",
           }
         );
 
         // Play animation immediately after fonts are loaded
         gsap.to(splitTitle, {
           timeScale: 0.2,
-          onStart: () => splitTitle.play(0)
+          onStart: () => splitTitle.play(0),
         });
 
         // Set parent element opacity to 1 after animation starts
         gsap.to(element, {
           opacity: 1,
           duration: 0, // Instant change
-          delay: 0.1 // Slight delay to ensure lines are visible
+          delay: 0.1, // Slight delay to ensure lines are visible
         });
 
         return splitTitle;
-      }
+      },
     });
   });
 
@@ -829,14 +829,14 @@ function effectTextBanner() {
       {
         "will-change": "opacity, transform",
         opacity: 0,
-        y: 20
+        y: 20,
       },
       {
         opacity: 1,
         y: 0,
         duration: 0.3,
         ease: "sine.out",
-        delay: 0.5 + additionalDelay
+        delay: 0.5 + additionalDelay,
       }
     );
   });

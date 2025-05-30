@@ -89,7 +89,13 @@
     height: 9px;
     top: 0;
     right: 0;
-
+    &.hover-animation {
+      span {
+        &:nth-child(2) {
+          width: 100%;
+        }
+      }
+    }
     &.hovered {
       span {
         background-color: #d9d9d91a;
@@ -147,8 +153,9 @@
     right: 0;
     height: 100dvh;
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    background-color: #212121e6;
+    grid-template-columns: 2fr 1fr;
+    background-color: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(20px);
     opacity: 0;
     visibility: hidden;
     transition: all 0.1s;
@@ -254,6 +261,7 @@
     }
   }
   &-lang-container {
+    gap: 24px;
     .lang-item {
       width: 48px;
       height: 48px;
@@ -263,6 +271,10 @@
       justify-content: center;
       align-items: center;
       transition: all 0.3s ease;
+      &.active {
+        border: 1px solid #595959;
+        cursor: pointer;
+      }
       &:hover {
         border: 1px solid #595959;
         cursor: pointer;
