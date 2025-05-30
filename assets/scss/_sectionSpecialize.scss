@@ -1,7 +1,6 @@
 .section-specialize {
-  overflow: hidden;
-  padding-top: 64px;
-
+  // overflow: hidden;
+  display: block;
   &.theme-light {
     .color-white {
       color: var(--color-black);
@@ -119,4 +118,13 @@
       }
     }
   }
+}
+#chess-3d {
+  position: absolute;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+}
+.dg.ac {
+  z-index: 2 !important;
 }

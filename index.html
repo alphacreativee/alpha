@@ -43,7 +43,7 @@
     </script>
   </head>
   <body>
-    <div class="loading">
+    <div class="loading d-none">
       <div class="loading-wrapper">
         <div class="loading-wrapper-inner">
           <div class="loading-logo">
@@ -58,7 +58,9 @@
       </div>
     </div>
     <!-- layout -->
-    <div class="header-fake d-flex align-items-center justify-content-between">
+    <div
+      class="header-fake d-flex align-items-center justify-content-between d-none"
+    >
       <a class="header-logo d-inline-block" href="./index.html">
         <img src="./assets/images/use/logo.svg" alt="logo" />
       </a>
@@ -70,7 +72,7 @@
       </div>
     </div>
     <!-- end layout overlay -->
-    <header class="header">
+    <header class="header d-none">
       <div class="container-fluid p-0">
         <div class="header-container">
           <a class="header-logo d-inline-block hide" href="./index.html">
@@ -116,7 +118,7 @@
           >
             <a
               href="#section-contact"
-              class="button-general button-typo color-black text-uppercase"
+              class="button-general button-typo color-black text-uppercase d-none"
             >
               <span class="button-text">Let’s talk</span>
               <div class="marquee">
@@ -364,7 +366,7 @@
         </div>
       </section>
       <div class="expertise-spacer d-lg-block d-none"></div>
-      <section class="section-specialize">
+      <section class="section-specialize" id="section-specialize">
         <div class="container-fluid">
           <div class="section-title">
             <div class="tag color-primary text-uppercase">
@@ -400,9 +402,10 @@
                 </div>
               </div>
             </div>
-            <div class="image">
+            <!-- <div class="image">
               <img src="./assets/images/use/queen-chess.png" alt="" />
-            </div>
+            </div> -->
+            <div id="chess-3d"></div>
           </div>
         </div>
       </section>
@@ -896,6 +899,7 @@
     <!-- import custom js -->
     <script type="module" src="./assets/main/js/script.min.js"></script>
     <script type="module" src="./assets/main/js/home.min.js"></script>
+    <script type="module" src="./assets/main/js/chess.min.js"></script>
 
     <!-- end import custom js -->
   </body>
