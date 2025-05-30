@@ -335,7 +335,7 @@ function introChess() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#canvas-chess",
-      start: `top+=${(70 / frameCount) * 100}% top`,
+      start: `top+=${(70 / frameCount) * 100 - 50}% top`,
       end: `top+=${(70 / frameCount) * 100 + 50}% top`,
       toggleActions: "play none none reverse",
     },
