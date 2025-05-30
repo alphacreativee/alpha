@@ -2,8 +2,12 @@
   width: 100%;
   height: 100vh;
   position: relative;
-  background-color: var(--color-black);
-
+  z-index: 10;
+  &.active {
+    .section-banner-title {
+      color: red;
+    }
+  }
   &.theme-light {
     .color-white {
       color: var(--color-black);
@@ -24,6 +28,7 @@
     max-width: 1062px;
     width: 100%;
     text-align: center;
+    z-index: 999;
     @media (max-width: 991px) {
       max-width: calc(100% - 48px);
       top: unset;

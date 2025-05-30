@@ -630,6 +630,40 @@ function magicCursor() {
     });
   });
 }
+function pinSectionBanner() {
+  const banner = document.querySelector(".group-intro-banner");
+  const bannerTitle = document.querySelector(".section-banner-title");
+  let isTitleHidden = false;
+  if (banner && bannerTitle) {
+    gsap.to(banner, {
+      scrollTrigger: {
+        trigger: banner,
+        pin: true,
+        pinSpacing: false,
+        start: "top top",
+        end: "+=500",
+        scrub: true,
+        onUpdate: (self) => {
+          if (self.progress === 1 && !isTitleHidden) {
+            gsap.to(bannerTitle, {
+              opacity: 0,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+            isTitleHidden = true;
+          } else if (self.progress < 1 && isTitleHidden) {
+            gsap.to(bannerTitle, {
+              opacity: 1,
+              duration: 0.5,
+              ease: "power2.out",
+            });
+            isTitleHidden = false;
+          }
+        },
+      },
+    });
+  }
+}
 
 function cookieModal() {
   const modalCookies = document.querySelector(".modal-cookies");
@@ -841,6 +875,7 @@ function effectTextBanner() {
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
+  pinSectionBanner();
   customDropdown();
   effectText();
   introChess();
