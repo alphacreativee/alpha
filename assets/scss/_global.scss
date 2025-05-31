@@ -152,7 +152,7 @@ a {
     }
   }
   &.rolling-padding-12 {
-    text-transform: uppercase;
+    // text-transform: uppercase;
     &:hover {
       &::before {
         transform: translate3d(0, 12px, 0);
@@ -403,6 +403,28 @@ main {
     .cursor {
       background-color: #11111133;
       backdrop-filter: blur(6px);
+    }
+  }
+  &.about-page {
+    .cursor {
+      width: 120px;
+      height: 120px;
+      background-color: rgba(217, 217, 217, 0.2);
+      backdrop-filter: blur(15px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .text {
+      display: none;
+    }
+
+    .icon {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
     }
   }
   .cursor {
