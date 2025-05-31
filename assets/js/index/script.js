@@ -629,6 +629,27 @@ function magicCursor() {
       });
     });
   });
+
+  // section client
+  const itemsContentClient = document.querySelectorAll(".client-wrapper");
+  itemsContentClient.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("show");
+    });
+    item.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show");
+    });
+  });
+  // section client
+  const itemsContentListW = document.querySelectorAll(".list-wrapper");
+  itemsContentListW.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("show");
+    });
+    item.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show");
+    });
+  });
 }
 function pinSectionBanner() {
   const banner = document.querySelector(".group-intro-banner");
