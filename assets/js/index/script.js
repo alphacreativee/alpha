@@ -893,9 +893,24 @@ function effectTextBanner() {
     );
   });
 }
+function stickyFilter() {
+  $(window).on("scroll", function () {
+    const $filter = $(".project-filter");
+    const top = $filter.offset().top - $(window).scrollTop();
+
+    if (top <= 84) {
+      $filter.addClass("sticky");
+      $(".header-menu-container").addClass("hide");
+    } else {
+      $filter.removeClass("sticky");
+      $(".header-menu-container").removeClass("hide");
+    }
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
+  // stickyFilter();
   pinSectionBanner();
   customDropdown();
   effectText();

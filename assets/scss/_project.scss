@@ -40,11 +40,19 @@
   }
   &-filter {
     margin-bottom: 120px;
-    .nav {
-      position: sticky;
-      top: 84px;
-      z-index: 2;
-    }
+    position: sticky;
+
+    top: 84px;
+    z-index: 20;
+    pointer-events: auto;
+    // &.sticky {
+    //   position: sticky;
+
+    //   top: 20px;
+    //   z-index: 20;
+    //   pointer-events: auto;
+    // }
+
     ul {
       gap: 12px;
     }
