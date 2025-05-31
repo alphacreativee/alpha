@@ -385,6 +385,20 @@ main {
   left: 0;
   pointer-events: none;
   z-index: 1061;
+  &.blur-black {
+    .cursor {
+      background-color: #11111133;
+    }
+  }
+  &.move-ltf {
+    .cursor {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      backdrop-filter: blur(20px);
+    }
+  }
   &.blog-page {
     .cursor {
       background-color: #11111133;
@@ -402,7 +416,7 @@ main {
     background-color: #11111133;
     transform: scale(0);
     transform-origin: center;
-
+    backdrop-filter: blur(20px);
     &.show {
       transform: scale(1);
     }

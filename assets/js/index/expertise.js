@@ -37,15 +37,15 @@ function animateChessItems() {
       end: `+=${totalHeight}px`,
       scrub: true,
       pin: true,
-      pinSpacing: false
-    }
+      pinSpacing: false,
+    },
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none"
+      ease: "none",
     });
   });
 }
@@ -76,7 +76,8 @@ function buildABrand() {
     // Tạo SplitText cho heading của tab hiện tại
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
-      linesClass: "line"
+      linesClass: "line",
+      mask: "lines",
     });
 
     // Tạo timeline mới
@@ -87,9 +88,9 @@ function buildABrand() {
       {
         opacity: 1,
         yPercent: 0,
-        duration: 0.3,
-        stagger: 0.1,
-        ease: "expo.out"
+        duration: 0.6,
+        stagger: 0.13,
+        ease: "expo.out",
       }
     );
     // Hiệu ứng cho tag
@@ -170,7 +171,7 @@ function buildABrand() {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    }
+    },
   });
 }
 function introBrading() {
@@ -235,10 +236,10 @@ function introBrading() {
       scrub: 1,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top"
+      end: "bottom top",
       // markers: true
     },
-    onUpdate: render2
+    onUpdate: render2,
   });
 
   function render2() {
@@ -277,16 +278,16 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 function showCoreValue() {
   if ($(".expertise-core-value").length < 1) return;
 
   gsap.set(".expertise-core-value .content-ovl", {
-    autoAlpha: 0
+    autoAlpha: 0,
   });
 
   const tl2 = gsap.timeline({
@@ -302,8 +303,8 @@ function showCoreValue() {
         } else {
           $(".expertise-core-value .content-ovl").removeClass("active");
         }
-      }
-    }
+      },
+    },
   });
 
   // Thêm animation vào timeline
@@ -311,7 +312,7 @@ function showCoreValue() {
     autoAlpha: 1,
     y: 0,
     duration: 1,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 
@@ -328,7 +329,7 @@ function parallaxIt(e, target, movement) {
     duration: 0.3,
     x: parallaxX,
     y: parallaxY,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 
@@ -364,7 +365,7 @@ function hoverIcon() {
         width: 42,
         x: 0,
         y: 0,
-        ease: "power2.out"
+        ease: "power2.out",
       });
       const img = item.querySelector("img");
       if (img) {
@@ -373,7 +374,7 @@ function hoverIcon() {
           x: 0,
           y: 0,
           scale: 1,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     });
@@ -384,7 +385,7 @@ function hoverIcon() {
         gsap.to(img, {
           duration: 0.3,
           scale: 0.9,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     });
