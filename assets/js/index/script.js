@@ -910,6 +910,20 @@ function effectTextBanner() {
     );
   });
 }
+function stickyFilter() {
+  $(window).on("scroll", function () {
+    const $filter = $(".project-filter");
+    const top = $filter.offset().top - $(window).scrollTop();
+
+    if (top <= 84) {
+      $filter.addClass("sticky");
+      $(".header-menu-container").addClass("hide");
+    } else {
+      $filter.removeClass("sticky");
+      $(".header-menu-container").removeClass("hide");
+    }
+  });
+}
 
 function hoverVideo() {
   if ($(".item-hover-video").length < 1) return;
@@ -943,7 +957,7 @@ function hoverNumberCount() {
         opacity: 1,
         y: "0%",
         duration: 0.6,
-        ease: "power2.out"
+        ease: "power2.out",
       });
 
       gsap.to(countObj, {
@@ -952,7 +966,7 @@ function hoverNumberCount() {
         ease: "power2.out",
         onUpdate: () => {
           item.textContent = Math.floor(countObj.val).toLocaleString() + suffix;
-        }
+        },
       });
     };
 
@@ -961,7 +975,7 @@ function hoverNumberCount() {
         opacity: 0,
         y: "20%",
         duration: 0.6,
-        ease: "power2.in"
+        ease: "power2.in",
       });
 
       gsap.to(countObj, {
@@ -970,7 +984,7 @@ function hoverNumberCount() {
         ease: "power2.in",
         onUpdate: () => {
           item.textContent = Math.floor(countObj.val).toLocaleString() + suffix;
-        }
+        },
       });
     };
 
@@ -984,6 +998,7 @@ function hoverNumberCount() {
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
+  // stickyFilter();
   pinSectionBanner();
   customDropdown();
   effectText();

@@ -53,7 +53,7 @@ function sliderProject() {
             <button class="${className}">
               <span class="progress-bar"></span>
             </button>`;
-        },
+        }
       },
       on: {
         progress: function (swiper) {
@@ -91,15 +91,15 @@ function sliderProject() {
         },
         slideChangeTransitionEnd: function (swiper) {
           updateProgressBars(swiper);
-        },
-      },
+        }
+      }
     });
 
     // Thêm sự kiện hover để kích hoạt/dừng autoplay
     $this.on("mouseenter", function () {
       swiper.autoplay.start({
         delay: defaultDuration, // 1000ms
-        disableOnInteraction: false,
+        disableOnInteraction: false
       });
       updateProgressBars(swiper);
     });
@@ -119,11 +119,11 @@ function loadImg(scope) {
   const projectItems = gsap.utils.toArray(".project-item", scope);
 
   gsap.set(projectItems, {
-    yPercent: 40,
+    yPercent: 40
   });
 
   gsap.set(projectItems[0], {
-    yPercent: 10,
+    yPercent: 10
   });
 
   const tl = gsap.timeline({
@@ -131,16 +131,16 @@ function loadImg(scope) {
       trigger: scope,
       start: "top 90%",
       end: "bottom 80%",
-      scrub: 1,
+      scrub: 1
       // markers: true,
-    },
+    }
   });
 
   tl.to(projectItems, {
     yPercent: 0,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.2,
+    stagger: 0.2
   });
 }
 document.addEventListener("DOMContentLoaded", function () {
@@ -200,7 +200,7 @@ function changeColor() {
       document
         .querySelector(".header-menu-container")
         .classList.remove("theme-light");
-    },
+    }
   });
 }
 
