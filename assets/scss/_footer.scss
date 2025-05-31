@@ -19,14 +19,27 @@ footer {
   &-wrapper {
     padding: 80px 0 40px;
     width: 100%;
-    background-image: url("../../images/use/footer-background.gif");
-    background-repeat: no-repeat;
-    background-size: 110% auto;
-    background-position: center;
     position: fixed;
     bottom: 0;
     left: 0;
     z-index: 2;
+
+    &::after {
+      content: "";
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      z-index: 1;
+      background-image: url("../../images/use/footer-background.gif");
+      filter: blur(10px);
+      transform: scale(1.1);
+      background-repeat: no-repeat;
+      background-size: 110% auto;
+      background-position: center;
+      top: 0;
+      left: 0;
+    }
+
     @media (max-width: 991px) {
       padding: 40px 0 88px;
     }
@@ -39,6 +52,9 @@ footer {
     overflow: hidden;
     white-space: nowrap;
     text-align: center;
+    position: relative;
+    z-index: 2;
+
     @media (max-width: 991px) {
       font-size: 80px;
       line-height: 88px;
@@ -53,6 +69,8 @@ footer {
     align-items: center;
     padding: 0 80px;
     position: relative;
+    z-index: 2;
+
     @media (max-width: 991px) {
       flex-direction: column;
       padding: 0 50px;

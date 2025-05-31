@@ -510,11 +510,19 @@
           Ready to Elevate Your Brand?
         </h2>
         <div class="branding-wrapper page-width">
-          <div class="item">
+          <div class="item item-hover-number">
             <div class="item-image">
               <img src="./assets/images/branding-1.png" alt="" />
             </div>
             <div class="item-title" style="--data-color: #000">Medical</div>
+            <div
+              class="item-number"
+              style="--data-color: #000"
+              data-target="199"
+              data-suffix="+"
+            >
+              000+
+            </div>
           </div>
           <div class="item branding">
             <div class="list-item">
@@ -668,9 +676,17 @@
               sustainable, more human & more actionable.
             </div>
           </div>
-          <div class="item">
+          <div class="item has-hover video item-hover-video">
             <div class="item-image">
               <img src="./assets/images/branding-4.png" alt="" />
+            </div>
+            <div class="item-video">
+              <video
+                src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+                muted=""
+                playsinline=""
+                loop=""
+              ></video>
             </div>
             <div class="item-title" style="--data-color: #fff">Hospitality</div>
           </div>
@@ -695,6 +711,17 @@
         <div class="container-fluid page-width">
           <div class="row">
             <div class="col-lg-6 col-12 col-left">
+              <div
+                class="tag tag-typo text-uppercase color-black effect-fade-content"
+              >
+                Connect with us
+              </div>
+              <h2
+                class="h2-heading color-black title effect-heading-mask-line scroll-trigger"
+              >
+                Alpha Creative is always listening & ready to answer any
+                concerns.
+              </h2>
               <div class="box">
                 <div
                   class="tag color-black text-uppercase tag-typo effect-fade-content"
@@ -723,17 +750,6 @@
               </div>
             </div>
             <div class="col-lg-6 col-12 col-right">
-              <div
-                class="tag tag-typo text-uppercase color-black effect-fade-content"
-              >
-                Connect with us
-              </div>
-              <h2
-                class="h2-heading color-black title effect-heading-mask-line scroll-trigger"
-              >
-                Alpha Creative is always listening & ready to answer any
-                concerns.
-              </h2>
               <div class="form-wrapper">
                 <form action="" class="contact-form" id="contact-form">
                   <div class="field-group">
@@ -811,7 +827,12 @@
                   <div class="form-bottom">
                     <p class="color-black body-sm-regular">
                       By submitting, I certify that I have read & accepted the
-                      <a href="#">Privacy Policy.</a>
+                      <a
+                        href="#"
+                        class="rolling-text color-black"
+                        data-replace="Privacy Policy."
+                        ><span>Privacy Policy.</span></a
+                      >
                     </p>
                     <button
                       type="submit"
@@ -883,8 +904,11 @@
             <p class="copyright body-sm color-white">
               © 2025 Alpha Creative • Agency in Vietnam
             </p>
-            <a href="#" class="body-sm color-white link-hover policy"
-              >Privacy Policy</a
+            <a
+              href="#"
+              class="body-sm color-white rolling-text policy"
+              data-replace="Privacy Policy"
+              ><span>Privacy Policy</span></a
             >
           </div>
         </div>

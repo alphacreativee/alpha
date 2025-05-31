@@ -158,19 +158,35 @@
 }
 
 .modal-recruitment {
+  top: unset;
+  bottom: 0;
+  transition: all 0.3s ease;
+  display: flex !important;
+  align-items: flex-end !important;
+  visibility: visible;
+
+  &:not(.show) {
+    opacity: 0;
+    visibility: hidden;
+  }
+
   .modal-dialog {
     max-width: 100%;
     width: 100%;
+    transform: none !important;
+    margin: 0 !important;
   }
 
   .modal-content {
     border: none;
     border-radius: unset;
     height: 100%;
+    align-items: flex-end;
   }
 
   .modal-body {
     padding: 120px 80px;
+    width: 100%;
 
     .tag {
       font-size: 10px;
@@ -182,6 +198,16 @@
 
     .title {
       margin-top: 4px;
+    }
+
+    .field-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+      @media (max-width: 991px) {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
     }
 
     .field {
@@ -198,7 +224,7 @@
         font-size: 16px;
         line-height: 24px;
         color: var(--color-black);
-        transition: all 0.3s ease;
+        // transition: all 0.3s ease;
 
         &::placeholder {
           color: #b0b0b0;
@@ -241,8 +267,8 @@
           display: flex;
           align-items: center;
           gap: 4px;
-          padding: 8px 10px;
-          border-radius: 500px;
+          padding: 8px 16px;
+          border-radius: 4px;
           background-color: #e7e7e7;
           width: max-content;
           cursor: pointer;
@@ -252,7 +278,10 @@
 
     .note {
       margin-top: 24px;
-      max-width: 50%;
+      max-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 5px;
 
       a {
         font-weight: 700;
@@ -275,17 +304,20 @@
       background: unset;
       box-shadow: none;
       border: none;
-      opacity: 1;
+      opacity: 0.6;
       border-radius: 0;
+      transition: all 0.4s ease;
+
+      &:hover {
+        opacity: 1;
+      }
     }
   }
 }
 .modal {
   &.show {
-    display: flex !important;
-    align-items: flex-end !important;
     .modal-dialog {
-      min-height: 610px;
+      // min-height: 550px;
       margin: 0;
     }
   }

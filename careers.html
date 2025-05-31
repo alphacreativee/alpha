@@ -634,6 +634,8 @@
                 <div class="image">
                   <video
                     src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4"
+                    muted
+                    playsinline
                   ></video>
                 </div>
               </div>
@@ -673,7 +675,7 @@
       tabindex="-1"
       aria-hidden="true"
     >
-      <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-body">
             <button
@@ -703,21 +705,23 @@
               </div>
               <div class="col-lg-6 col-12 col-form">
                 <form action="" class="form-recruitment">
-                  <div class="field">
-                    <input
-                      type="name"
-                      name="name"
-                      autocomplete="off"
-                      placeholder="Full Name*"
-                    />
-                  </div>
-                  <div class="field">
-                    <input
-                      type="email"
-                      name="email"
-                      autocomplete="off"
-                      placeholder="Email*"
-                    />
+                  <div class="field-group">
+                    <div class="field">
+                      <input
+                        type="name"
+                        name="name"
+                        autocomplete="off"
+                        placeholder="Full Name*"
+                      />
+                    </div>
+                    <div class="field">
+                      <input
+                        type="email"
+                        name="email"
+                        autocomplete="off"
+                        placeholder="Email*"
+                      />
+                    </div>
                   </div>
                   <div class="field">
                     <input
@@ -761,13 +765,19 @@
                         />
                       </svg>
                       <span class="color-black button-typo fw-medium"
-                        >Upload file under 5MB</span
+                        >Upload file</span
                       >
                     </label>
                   </div>
                   <p class="note color-black body-sm-regular">
                     By clicking the Submit button you agree to our
-                    <a href="#">Privacy Policy</a> terms
+                    <a
+                      href="#"
+                      data-replace="Privacy Policy"
+                      class="rolling-text color-black"
+                      ><span>Privacy Policy</span></a
+                    >
+                    terms
                   </p>
                   <div class="btn-wrapper">
                     <button
@@ -806,8 +816,11 @@
             <p class="copyright body-sm color-white">
               © 2025 Alpha Creative • Agency in Vietnam
             </p>
-            <a href="#" class="body-sm color-white link-hover policy"
-              >Privacy Policy</a
+            <a
+              href="#"
+              class="body-sm color-white rolling-text policy"
+              data-replace="Privacy Policy"
+              ><span>Privacy Policy</span></a
             >
           </div>
         </div>
