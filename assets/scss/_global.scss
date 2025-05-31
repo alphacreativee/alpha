@@ -413,7 +413,7 @@ main {
     background-color: #11111133;
     transform: scale(0);
     transform-origin: center;
-
+    backdrop-filter: blur(20px);
     &.show {
       transform: scale(1);
     }
