@@ -447,6 +447,23 @@ function whyChooseUs() {
     });
   });
 
+  // hover video
+  document
+    .querySelectorAll(".why-choose-us .item-child.video")
+    .forEach((item) => {
+      const video = item.querySelector("video");
+
+      item.addEventListener("mouseenter", () => {
+        video.loop = true;
+        video.play();
+      });
+
+      item.addEventListener("mouseleave", () => {
+        video.pause();
+        video.currentTime = 0;
+      });
+    });
+
   if ($(".why-choose-us.page-expertise").length > 0) {
     ScrollTrigger.create({
       trigger: ".why-choose-us.page-expertise",
@@ -841,6 +858,77 @@ function effectTextBanner() {
     );
   });
 }
+
+function hoverVideo() {
+  if ($(".item-hover-video").length < 1) return;
+
+  document.querySelectorAll(".item-hover-video").forEach((item) => {
+    const video = item.querySelector("video");
+
+    item.addEventListener("mouseenter", () => {
+      video.loop = true;
+      video.play();
+    });
+
+    item.addEventListener("mouseleave", () => {
+      video.pause();
+      video.currentTime = 0;
+      video.load();
+    });
+  });
+}
+
+function hoverNumberCount() {
+  const items = document.querySelectorAll(".item-hover-number .item-number");
+
+  items.forEach((item) => {
+    const target = parseInt(item.dataset.target, 10) || 0;
+    const suffix = item.dataset.suffix || "";
+    let countObj = { val: 0 };
+
+    const showTween = () => {
+      gsap.to(item, {
+        opacity: 1,
+        y: "0%",
+        duration: 0.6,
+        ease: "power2.out"
+      });
+
+      gsap.to(countObj, {
+        val: target,
+        duration: 1,
+        ease: "power2.out",
+        onUpdate: () => {
+          item.textContent = Math.floor(countObj.val).toLocaleString() + suffix;
+        }
+      });
+    };
+
+    const hideTween = () => {
+      gsap.to(item, {
+        opacity: 0,
+        y: "20%",
+        duration: 0.6,
+        ease: "power2.in"
+      });
+
+      gsap.to(countObj, {
+        val: 0,
+        duration: 1,
+        ease: "power2.in",
+        onUpdate: () => {
+          item.textContent = Math.floor(countObj.val).toLocaleString() + suffix;
+        }
+      });
+    };
+
+    const parent = item.closest(".item-hover-number");
+
+    parent.addEventListener("mouseenter", showTween);
+    parent.addEventListener("mouseleave", hideTween);
+  });
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
@@ -851,6 +939,8 @@ const init = () => {
   coreValue();
   magicCursor();
   addThemeLightToHeader();
+  hoverVideo();
+  hoverNumberCount();
   setTimeout(() => {
     cookieModal();
   }, 1000);

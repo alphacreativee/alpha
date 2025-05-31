@@ -262,6 +262,9 @@ a {
     overflow: hidden;
     pointer-events: none;
     z-index: 4;
+    display: flex;
+    align-items: center;
+
     &-inner {
       --offset: 16px;
       --move-initial: calc(-25% + var(--offset));
@@ -455,6 +458,15 @@ main {
     }
   }
 }
+
+.modal-backdrop {
+  background-color: rgba($color: #000000, $alpha: 0.6);
+  backdrop-filter: blur(20px);
+  &.show {
+    opacity: 1;
+  }
+}
+
 // loading
 .loading {
   position: fixed;
