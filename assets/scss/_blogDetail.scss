@@ -57,7 +57,7 @@
       padding-right: 80px;
       &-top {
         padding-top: 160px;
-        padding-bottom: 120px;
+        padding-bottom: 80px;
         border-bottom: 3px solid var(--color-black);
         .title {
           margin-bottom: 24px;
@@ -81,8 +81,14 @@
           margin-bottom: 24px;
         }
       }
+      &-center {
+        margin-bottom: 80px;
+        .title {
+          margin-top: 24px;
+          margin-bottom: 24px;
+        }
+      }
       &-bottom {
-        padding-top: 24px;
         .image {
           margin-bottom: 40px;
           width: 100%;
@@ -94,6 +100,9 @@
             height: 100%;
             object-fit: cover;
           }
+        }
+        .sub {
+          margin-bottom: 24px;
         }
         .title {
           margin-bottom: 24px;
