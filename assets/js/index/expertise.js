@@ -230,7 +230,7 @@ function introBrading() {
   const frameCount2 = 74;
 
   let currentFrame = (index) =>
-    `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
+    `./assets/images/chess-table/img-${(index + 1).toString()}.jpg`;
 
   const images2 = [];
   const imageSeq2 = { frame: 0 };
@@ -258,7 +258,7 @@ function introBrading() {
     snap: "frame",
     ease: "none",
     scrollTrigger: {
-      scrub: 1,
+      scrub: 2,
       trigger: "#intro-branding",
       start: "top bottom",
       end: "bottom top",
