@@ -1,5 +1,56 @@
 import { preloadImages } from "../../libs/utils.js";
 let lenis;
+function handlePageVisibilityAndFavicon() {
+  const originalTitle = document.title;
+  let faviconInterval;
+  let isBlinking = false;
+
+  document.addEventListener("visibilitychange", function () {
+    if (document.hidden) {
+      document.title = "Alpha Creative - Thiết kế cảm xúc cho thương hiệu";
+      startFaviconBlinking();
+    } else {
+      document.title = originalTitle;
+      stopFaviconBlinking();
+    }
+  });
+
+  function changeFavicon(src) {
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement("link");
+      link.rel = "icon";
+      link.type = "image/svg+xml"; // Thêm MIME type cho SVG
+      document.head.appendChild(link);
+    }
+    link.href = `${src}?v=${new Date().getTime()}`;
+  }
+
+  function startFaviconBlinking() {
+    if (isBlinking) return; // Tránh chạy nhiều interval
+
+    isBlinking = true;
+    const favicons = [
+      "./assets/images/use/favicon-gold.svg",
+      "./assets/images/use/favicon-black.svg",
+    ];
+    let faviconIndex = 0;
+
+    faviconInterval = setInterval(() => {
+      changeFavicon(favicons[faviconIndex]);
+      faviconIndex = (faviconIndex + 1) % favicons.length;
+    }, 500);
+  }
+
+  function stopFaviconBlinking() {
+    clearInterval(faviconInterval);
+    isBlinking = false;
+    changeFavicon("./assets/images/use/favicon-black.svg");
+  }
+}
+window.addEventListener("load", (event) => {
+  handlePageVisibilityAndFavicon();
+});
 
 function customDropdown() {
   const $dropdowns = $(".dropdown-custom");

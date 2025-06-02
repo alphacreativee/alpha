@@ -34,6 +34,10 @@
     .title {
       margin-bottom: 40px;
     }
+    .group-box {
+      display: flex;
+      gap: 40px;
+    }
 
     @media (max-width: 991px) {
       margin-bottom: 48px;
