@@ -12,9 +12,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true
+        scrub: true,
       },
-      ease: "none"
+      ease: "none",
     }
   );
 
@@ -36,9 +36,9 @@ function sectionSpecialize() {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
         $(".header-menu-container").removeClass("theme-light");
-      }
+      },
     },
-    ease: "none"
+    ease: "none",
   });
 
   let hasCounted = false;
@@ -51,7 +51,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    }
+    },
   });
 
   $(".section-specialize .number").each(function () {
@@ -161,7 +161,7 @@ function gsapExpertise() {
       return gsap.to(element, {
         x: -scrollAmount,
         duration: 3,
-        ease: "none"
+        ease: "none",
       });
     };
 
@@ -185,14 +185,15 @@ function gsapExpertise() {
       const isDesktop = window.innerWidth > 991;
       ScrollTrigger.create({
         trigger: wrapper,
-        start: "top 30%",
+        start: "top 20%",
         end: `+=${scrollAmount}`,
         pin: isDesktop,
         animation: tween,
         scrub: 1,
         pinSpacing: false,
         invalidateOnRefresh: true,
-        id: `expertiseScroll-${index}`
+        id: `expertiseScroll-${index}`,
+        // markers: true,
       });
     };
 
@@ -228,8 +229,8 @@ function gsapExpertise() {
               start: "left 80%",
               end: "center 60%",
               scrub: true,
-              invalidateOnRefresh: true
-            }
+              invalidateOnRefresh: true,
+            },
           }
         );
       } else {
@@ -245,8 +246,8 @@ function gsapExpertise() {
               start: "top 80%", // Bắt đầu khi item vào viewport
               end: "center 60%", // Kết thúc khi item gần trung tâm
               scrub: true,
-              invalidateOnRefresh: true
-            }
+              invalidateOnRefresh: true,
+            },
           }
         );
       }
