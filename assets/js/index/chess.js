@@ -26,6 +26,10 @@ document.getElementById("chess-3d").appendChild(renderer.domElement);
 const scene = new THREE.Scene();
 const light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
+// Thêm một đèn DirectionalLight
+const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+directionalLight.position.set(5, 5, 5);
+scene.add(directionalLight);
 
 // Controls
 const controls = new OrbitControls(camera, renderer.domElement);
