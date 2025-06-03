@@ -33,6 +33,7 @@ function ourStory() {
     end: `+=${totalHeight}`, // dùng chiều cao động
     pin: true,
     scrub: true,
+    // markers: true,
     animation: contentTimeline,
     pinSpacing: false,
     onUpdate: (self) => {
@@ -52,7 +53,7 @@ function ourStory() {
     contentTimeline.to(content, {
       yPercent: 0,
       duration: 0.5,
-      boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
+      // boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
       ease: "power2.out"
     });
   });
