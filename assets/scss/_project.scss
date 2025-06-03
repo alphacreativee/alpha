@@ -1,6 +1,64 @@
 .project {
   padding-top: 260px;
   padding-bottom: 120px;
+
+  &.page-project {
+    .project-filter ul {
+      gap: 24px;
+    }
+
+    .nav-item {
+      &:not(:first-child) {
+        .nav-link {
+          width: 42px;
+          height: 40px;
+          position: relative;
+          transition: width 0.4s ease;
+          // border-color: #3c3c3c !important;
+
+          img {
+            width: 27px;
+            height: auto;
+            position: absolute;
+            z-index: 2;
+            bottom: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+          }
+
+          .project-title {
+            width: 0;
+            opacity: 0;
+            white-space: nowrap;
+          }
+
+          &.active {
+            transition: width 0.5s ease;
+            width: 185px !important;
+            max-width: 200px;
+            pointer-events: none;
+            background-color: rgba(217, 217, 217, 0.2);
+            backdrop-filter: blur(15px);
+            border-color: transparent;
+
+            .project-title {
+              width: 100%;
+              opacity: 1;
+              transition: opacity 0.4s ease;
+              transition-delay: 0.4s;
+            }
+
+            img {
+              left: 0;
+              transform: translateX(-50%);
+              bottom: 8px;
+            }
+          }
+        }
+      }
+    }
+  }
+
   &.theme-light {
     .project-top {
       .title {
