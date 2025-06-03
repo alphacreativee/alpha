@@ -38,6 +38,11 @@
           .title {
             color: var(--color-white);
           }
+
+          .item-bottom li {
+            color: var(--color-white);
+            border-color: rgba($color: #ffffff, $alpha: 0.2);
+          }
         }
 
         .title {
@@ -55,13 +60,13 @@
           li {
             font-size: 10px;
             line-height: 14px;
-            color: var(--color-white);
+            color: #8d8d8d;
             text-transform: uppercase;
             padding: 9px 16px;
             border-radius: 4px;
-            background-color: rgba(0, 0, 0, 0.2);
+            background-color: transparent;
             backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(0, 0, 0, 0.2);
           }
         }
       }
