@@ -255,12 +255,38 @@ function gsapExpertise() {
   });
 }
 
+function brandingAnimation() {
+  if (!$(".branding-wrapper").length) return;
+  const brandingItem = gsap.utils.toArray(".branding-wrapper .item");
+  gsap.set(brandingItem, {
+    yPercent: 40,
+    autoAlpha: 0,
+  });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".branding-wrapper",
+      start: "top 90%",
+      end: "bottom 70%",
+      scrub: 1,
+      // markers: true,
+    },
+  });
+
+  tl.to(brandingItem, {
+    yPercent: 0,
+    autoAlpha: 1,
+    duration: 1,
+    ease: "power2.out",
+    stagger: 0.2,
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   gsapExpertise();
   sectionSpecialize();
   clientInsight();
-
+  brandingAnimation();
   ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {
