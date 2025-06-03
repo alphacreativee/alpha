@@ -45,7 +45,7 @@ function ourStory() {
       texts.forEach((text, index) => {
         text.classList.toggle("active", index === activeIndex);
       });
-    },
+    }
   });
 
   contents.forEach((content, i) => {
@@ -53,7 +53,7 @@ function ourStory() {
       yPercent: 0,
       duration: 0.5,
       boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
-      ease: "power2.out",
+      ease: "power2.out"
     });
   });
 }
@@ -76,7 +76,7 @@ function gsapexpertise2() {
         return gsap.to(expertise2, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none",
+          ease: "none"
         });
       };
 
@@ -114,7 +114,7 @@ function gsapexpertise2() {
           scrub: 1,
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: `expertise2Scroll-${index}`,
+          id: `expertise2Scroll-${index}`
           // markers: true,
         });
       };
@@ -143,7 +143,7 @@ function gsapexpertise2() {
         start: "left 80%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
-        invalidateOnRefresh: true,
+        invalidateOnRefresh: true
         // markers: true,
       });
     });
@@ -166,12 +166,22 @@ function gsapexpertise2() {
         document
           .querySelector(".header-menu-container")
           .classList.remove("theme-light");
-      },
+      }
       // markers: true
     });
 
     // Làm mới ScrollTrigger
     ScrollTrigger.refresh();
+
+    const itemImgExpertise2 = $(
+      ".wrapper-expertise2 .expertise2-item .item-content:not(.empty)"
+    );
+    itemImgExpertise2.on("mouseenter", function () {
+      $(this).addClass("hover");
+    });
+    itemImgExpertise2.on("mouseleave", function () {
+      $(this).removeClass("hover");
+    });
   }
 }
 
@@ -180,7 +190,7 @@ function ourTeam() {
 
   gsap.set(teamItems, {
     opacity: 0,
-    y: 100,
+    y: 100
   });
 
   const tl = gsap.timeline({
@@ -188,9 +198,9 @@ function ourTeam() {
       trigger: ".our-team-list",
       start: "top 90%",
       end: "bottom 60%",
-      scrub: 1,
+      scrub: 1
       // markers: true,
-    },
+    }
   });
 
   tl.to(teamItems, {
@@ -198,7 +208,7 @@ function ourTeam() {
     y: 0,
     duration: 1,
     ease: "power2.out",
-    stagger: 0.15,
+    stagger: 0.15
   });
 }
 
@@ -210,11 +220,12 @@ function swiperTeam() {
 
   const swiper = new Swiper(".swiper-team", {
     slidesPerView: 1,
+    effect: "fade",
     spaceBetween: 0,
     navigation: {
       nextEl: ".swiper-team .swiper-button-next",
-      prevEl: ".swiper-team .swiper-button-prev",
-    },
+      prevEl: ".swiper-team .swiper-button-prev"
+    }
   });
 
   itemModal.on("click", function (e) {
