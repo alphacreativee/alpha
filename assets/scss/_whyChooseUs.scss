@@ -32,8 +32,34 @@
         aspect-ratio: 302 / 405;
         transition: all 0.4s ease;
 
+        &.has-hover {
+          overflow: hidden;
+
+          &:hover {
+            background-color: transparent;
+          }
+
+          .image {
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            left: 0;
+            border: none;
+            border-radius: unset;
+
+            img {
+              filter: none;
+            }
+
+            &::before {
+              background-color: var(--color-white);
+            }
+          }
+        }
+
         &:hover {
           background-color: var(--color-black);
+          border-color: transparent;
 
           .title {
             color: var(--color-white);
@@ -46,9 +72,12 @@
         }
 
         .title {
-          position: unset;
+          position: relative;
+          z-index: 3;
+          top: unset;
+          left: unset;
           width: 100%;
-          transition: all 0.4s ease;
+          transition: all 0.3s ease;
         }
 
         .item-bottom {
@@ -56,6 +85,8 @@
           align-items: center;
           flex-wrap: wrap;
           gap: 12px;
+          position: relative;
+          z-index: 3;
 
           li {
             font-size: 10px;
