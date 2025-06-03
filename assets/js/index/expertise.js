@@ -13,7 +13,7 @@ function animateChessItems() {
     chessItemsHeight += item.getBoundingClientRect().height;
   });
 
-  const totalHeight = chessItemsHeight + 200;
+  const totalHeight = chessItemsHeight - 200;
 
   // Tạo spacer
   let spacer = document.querySelector(".banner-expertise-spacer");
@@ -24,7 +24,7 @@ function animateChessItems() {
       .querySelector(".banner-expertise")
       .insertAdjacentElement("afterend", spacer);
   }
-  spacer.style.height = `${totalHeight}px`;
+  spacer.style.height = `${totalHeight / 2}px`;
 
   const items = gsap.utils.toArray(".wrapper-chess .chess-item");
 
@@ -34,10 +34,11 @@ function animateChessItems() {
     scrollTrigger: {
       trigger: ".banner-expertise",
       start: "top top",
-      end: `+=${totalHeight}px`,
+      end: `+=100%`,
       scrub: true,
       pin: true,
       pinSpacing: false,
+      // markers: true,
     },
   });
 
@@ -49,6 +50,30 @@ function animateChessItems() {
     });
   });
 }
+// function animateChessItems() {
+//   if (!$(".banner-expertise").length) return;
+
+//   const items = gsap.utils.toArray(".wrapper-chess .chess-item");
+
+//   gsap.set(items, { y: "100%", opacity: 0 });
+
+//   const tl = gsap.timeline({
+//     scrollTrigger: {
+//       trigger: ".wrapper-chess",
+//       start: "top 30%",
+//       toggleActions: "play none none reverse",
+//       markers: true,
+//     },
+//   });
+
+//   tl.to(items, {
+//     y: "0%",
+//     opacity: 1,
+//     duration: 0.6,
+//     ease: "power2.out",
+//     stagger: 0.3,
+//   });
+// }
 
 function buildABrand() {
   if ($(".build-a-brand").length < 1) return;
@@ -205,7 +230,7 @@ function introBrading() {
   const frameCount2 = 74;
 
   let currentFrame = (index) =>
-    `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
+    `./assets/images/chess-table/img-${(index + 1).toString()}.jpg`;
 
   const images2 = [];
   const imageSeq2 = { frame: 0 };
@@ -233,7 +258,7 @@ function introBrading() {
     snap: "frame",
     ease: "none",
     scrollTrigger: {
-      scrub: 1,
+      scrub: 2,
       trigger: "#intro-branding",
       start: "top bottom",
       end: "bottom top",

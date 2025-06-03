@@ -115,7 +115,7 @@ function gsapexpertise2() {
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
           id: `expertise2Scroll-${index}`,
-          // markers: true, // Bật để debug
+          // markers: true,
         });
       };
 
@@ -140,7 +140,7 @@ function gsapexpertise2() {
       ScrollTrigger.create({
         trigger: item,
         containerAnimation: containerTrigger.animation,
-        start: "left 85%",
+        start: "left 80%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
         invalidateOnRefresh: true,
