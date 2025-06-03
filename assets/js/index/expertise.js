@@ -218,7 +218,7 @@ function introBrading() {
     render2();
   });
 
-  const frameCount2 = 74;
+  const frameCount2 = 68;
 
   let currentFrame = (index) =>
     `./assets/images/chess-table/img-${(index + 1).toString()}.jpg`;
