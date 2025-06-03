@@ -73,10 +73,10 @@ function formReruitment() {
     }
   });
 
-  $(document).on("click", ".our-works a[data-bs-toggle='modal']", function () {
-    const title = $(this).data("title");
-    $(".modal-recruitment .col-content .title").text(title);
-  });
+  // $(document).on("click", ".our-works a[data-bs-toggle='modal']", function () {
+  //   const title = $(this).data("title");
+  //   $(".modal-recruitment .col-content .title").text(title);
+  // });
 
   ScrollTrigger.create({
     trigger: ".our-works",
