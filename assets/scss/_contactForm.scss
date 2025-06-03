@@ -99,6 +99,9 @@
         height: 48px;
         border: 1px solid #dfdfdf;
         border-radius: 4px;
+        &.--active {
+          border: 1px solid var(--color-black) !important;
+        }
       }
 
       .dropdown-custom__menu {
