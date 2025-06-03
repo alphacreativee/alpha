@@ -46,11 +46,9 @@ loader.setDRACOLoader(dracoLoader);
 const arrPositionModel = [
   {
     id: "section-specialize",
-    position: { x: 0, y: 0.5, z: 20 },
+    position: { x: 0, y: 0.35, z: 20 },
     rotation: { x: 0, y: 0.56, z: 0 },
-    scale: { x: 1.5, y: 1.5, z: 1.5 },
   },
-  // Thêm section khác tại đây nếu cần
 ];
 
 // Tải mô hình
@@ -60,8 +58,21 @@ loader.load(
     chess = gltf.scene;
     chess.position.set(0, 0, 15);
     chess.scale.set(0.5, 0.5, 0.5);
-    scene.add(chess);
 
+    const newMaterial = new THREE.MeshStandardMaterial({
+      color: 0xff0, // Màu đỏ
+      metalness: 0.7, // Độ kim loại
+      roughness: 0.3, // Độ nhám
+    });
+
+    // Duyệt qua tất cả các mesh trong scene và gán chất liệu mới
+    chess.traverse((child) => {
+      if (child.isMesh) {
+        child.material = newMaterial;
+      }
+    });
+
+    scene.add(chess);
     // Tạo GUI
     const gui = new dat.GUI();
     const positionFolder = gui.addFolder("Position");
@@ -117,16 +128,6 @@ loader.load(
             ease: "power2.out",
           },
           0
-        )
-        .to(
-          chess.scale,
-          {
-            x: item.scale.x,
-            y: item.scale.y,
-            z: item.scale.z,
-            ease: "power2.out",
-          },
-          0
         );
     });
 
@@ -134,20 +135,27 @@ loader.load(
     ScrollTrigger.create({
       trigger: "#section-specialize",
       start: "top bottom",
-      end: "bottom top",
+      end: "bottom 80%",
       markers: true,
       onUpdate: (self) => {
         const progress = self.progress;
-        const targetScale = 0.5 + progress * 0.85;
+        const targetScale = progress; // Scale from 0 to 1
         const targetRotation = progress * Math.PI * 2;
-
+        // Tính toán vị trí Y để scale từ bottom
+        const initialHeight = 1; // Giả sử chiều cao ban đầu của mô hình (có thể điều chỉnh tùy mô hình)
+        const scaleDiff = targetScale - 0.5; // Sự thay đổi scale
+        const offsetY = (initialHeight * scaleDiff) / 2;
+        gsap.to(chess.position, {
+          y: offsetY, // Điều chỉnh vị trí Y để scale từ bottom
+          duration: 0.1,
+          overwrite: true,
+        });
         gsap.to(chess.scale, {
           x: targetScale,
           y: targetScale,
           z: targetScale,
           duration: 0.1,
           overwrite: true,
-          transformOrigin: "bottom",
         });
 
         gsap.to(chess.rotation, {
