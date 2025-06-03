@@ -407,20 +407,34 @@ main {
   }
   &.about-page {
     .cursor {
-      width: 120px;
-      height: 120px;
-      background-color: rgba(217, 217, 217, 0.2);
-      backdrop-filter: blur(15px);
+      width: 100px;
+      height: 100px;
       display: flex;
       align-items: center;
       justify-content: center;
+      background-color: rgba(17, 17, 17, 0.2);
+      backdrop-filter: blur(20px);
+
+      &.arrow {
+        width: 120px;
+        height: 120px;
+        background-color: rgba(217, 217, 217, 0.2);
+        backdrop-filter: blur(15px);
+        .text {
+          display: none;
+        }
+        .icon {
+          display: block;
+        }
+      }
     }
 
     .text {
-      display: none;
+      display: block;
     }
 
     .icon {
+      display: none;
       position: absolute;
       top: 50%;
       left: 50%;

@@ -660,7 +660,9 @@ function magicCursor() {
     ".magic-cursor .cursor .text-content"
   );
 
-  const itemsContent = document.querySelectorAll(".project-item");
+  const itemsContent = document.querySelectorAll(
+    ".project-item, .our-team-item"
+  );
   itemsContent.forEach((item) => {
     item.addEventListener("mouseenter", () => {
       cursorDot.classList.add("show");
