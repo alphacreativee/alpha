@@ -38,16 +38,16 @@ function animateChessItems() {
       end: `+=100%`,
       scrub: true,
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none"
+      ease: "none",
     });
   });
 }
@@ -103,7 +103,7 @@ function buildABrand() {
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
       linesClass: "line",
-      mask: "lines"
+      mask: "lines",
     });
 
     // Tạo timeline mới
@@ -116,7 +116,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.6,
         stagger: 0.13,
-        ease: "expo.out"
+        ease: "expo.out",
       }
     );
     // Hiệu ứng cho tag
@@ -197,22 +197,12 @@ function buildABrand() {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    }
+    },
   });
 }
 function introBrading() {
   if (document.querySelectorAll(".build-a-brand").length < 1) return;
 
-  // Khởi tạo Lenis cho cuộn mượt
-  const lenis = new Lenis();
-  lenis.on("scroll", () => ScrollTrigger.update());
-  const scrollFn = (time) => {
-    lenis.raf(time * 1000);
-    requestAnimationFrame(scrollFn);
-  };
-  requestAnimationFrame(scrollFn);
-
-  // Đăng ký plugin ScrollTrigger và SplitText
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
   // Thiết lập canvas
@@ -262,10 +252,10 @@ function introBrading() {
       scrub: 2,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top"
+      end: "bottom top",
       // markers: true
     },
-    onUpdate: render2
+    onUpdate: render2,
   });
 
   function render2() {
@@ -304,16 +294,16 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 function showCoreValue() {
   if ($(".expertise-core-value").length < 1) return;
 
   gsap.set(".expertise-core-value .content-ovl", {
-    autoAlpha: 0
+    autoAlpha: 0,
   });
 
   const tl2 = gsap.timeline({
@@ -329,8 +319,8 @@ function showCoreValue() {
         } else {
           $(".expertise-core-value .content-ovl").removeClass("active");
         }
-      }
-    }
+      },
+    },
   });
 
   // Thêm animation vào timeline
@@ -338,7 +328,7 @@ function showCoreValue() {
     autoAlpha: 1,
     y: 0,
     duration: 1,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 
@@ -355,7 +345,7 @@ function parallaxIt(e, target, movement) {
     duration: 0.3,
     x: parallaxX,
     y: parallaxY,
-    ease: "power2.out"
+    ease: "power2.out",
   });
 }
 
@@ -391,7 +381,7 @@ function hoverIcon() {
         width: 42,
         x: 0,
         y: 0,
-        ease: "power2.out"
+        ease: "power2.out",
       });
       const img = item.querySelector("img");
       if (img) {
@@ -400,7 +390,7 @@ function hoverIcon() {
           x: 0,
           y: 0,
           scale: 1,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     });
@@ -411,7 +401,7 @@ function hoverIcon() {
         gsap.to(img, {
           duration: 0.3,
           scale: 0.9,
-          ease: "power2.out"
+          ease: "power2.out",
         });
       }
     });

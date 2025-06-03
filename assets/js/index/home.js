@@ -259,14 +259,14 @@ function brandingAnimation() {
   if (!$(".branding-wrapper").length) return;
   const brandingItem = gsap.utils.toArray(".branding-wrapper .item");
   gsap.set(brandingItem, {
-    yPercent: 40,
-    autoAlpha: 0,
+    yPercent: 50,
+    opacity: 0,
   });
 
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".branding-wrapper",
-      start: "top 90%",
+      start: "top 85%",
       end: "bottom 70%",
       scrub: 1,
       // markers: true,
@@ -275,10 +275,10 @@ function brandingAnimation() {
 
   tl.to(brandingItem, {
     yPercent: 0,
-    autoAlpha: 1,
-    duration: 1,
+    opacity: 1,
+    duration: 1.5,
     ease: "power2.out",
-    stagger: 0.2,
+    stagger: 0.1,
   });
 }
 const init = () => {
