@@ -194,10 +194,10 @@ function introBrading() {
     render2();
   });
 
-  const frameCount2 = 68;
+  const frameCount2 = 131;
 
   let currentFrame = (index) =>
-    `./assets/images/chess-table/img-${(index + 1).toString()}.jpg`;
+    `./assets/images/expertise-img/img-${(index + 1).toString()}.jpg`;
 
   const images2 = [];
   const imageSeq2 = { frame: 0 };
