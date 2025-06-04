@@ -190,16 +190,10 @@ function changeColor() {
     onEnter: () => {
       blogContainer.classList.add("theme-light");
       mainElement.classList.add("theme-light");
-      document
-        .querySelector(".header-menu-container")
-        .classList.add("theme-light");
     },
     onLeaveBack: () => {
       mainElement.classList.remove("theme-light");
       blogContainer.classList.remove("theme-light");
-      document
-        .querySelector(".header-menu-container")
-        .classList.remove("theme-light");
     }
   });
 }

@@ -17,8 +17,11 @@
   }
   &-item {
     overflow: hidden;
+    cursor: none;
 
     &:hover {
+      cursor: none;
+
       .our-team-bg {
         &::after {
           opacity: 0;
@@ -285,6 +288,7 @@
     z-index: 10;
     top: 0;
     transform: none;
+    cursor: none;
   }
 
   .swiper-button-next::after,
