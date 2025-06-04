@@ -37,8 +37,8 @@
             width: 185px !important;
             max-width: 200px;
             pointer-events: none;
-            background-color: rgba(217, 217, 217, 0.2);
-            backdrop-filter: blur(15px);
+            background-color: rgba(60, 60, 60, 0.5);
+            backdrop-filter: blur(10px);
             border-color: transparent;
 
             .project-title {
@@ -69,7 +69,7 @@
       }
     }
     .project-filter .nav-link {
-      border: 1px solid rgba(189, 189, 189, 1);
+      border: 1px solid rgba(60, 60, 60, 0.5);
       &:hover {
         border: 1px solid #9e9e9e;
         .project-title {
@@ -100,13 +100,14 @@
     margin-bottom: 120px;
     position: sticky;
 
-    top: 84px;
+    top: 96px;
     z-index: 20;
     pointer-events: auto;
     &.sticky {
       .nav-link {
-        background-color: rgba(0, 0, 0, 0.2);
-        border: 1px solid rgba(0, 0, 0, 0.2) !important;
+        background-color: rgba(60, 60, 60, 0.5);
+        border: 1px solid transparent !important;
+        backdrop-filter: blur(10px);
       }
       .project-title {
         color: var(--color-white) !important;
@@ -118,13 +119,15 @@
     }
     .nav-link {
       border-radius: 4px;
-      border: 1px solid #3c3c3c;
+      border: 1px solid transparent;
+      background-color: rgba(60, 60, 60, 0.5);
+      backdrop-filter: blur(10px);
       transition: all 0.3s ease;
       padding: 9px 24px;
       &:hover {
-        border: 1px solid #595959;
+        border: 1px solid transparent;
         &.active {
-          border: 1px solid #373737;
+          border: 1px solid transparent;
         }
         .project-title {
           color: #dedede;
@@ -146,7 +149,7 @@
   &-list {
     display: flex;
     flex-wrap: wrap;
-    gap: 120px 80px;
+    gap: 90px 80px;
     &.blog-list {
       gap: 80px 60px;
       .project-item {
@@ -235,7 +238,8 @@
         }
       }
       .project-tag {
-        bottom: 24px;
+        transform: translateY(-24px);
+        opacity: 1;
       }
     }
   }
@@ -254,9 +258,11 @@
   &-tag {
     position: absolute;
     left: 24px;
-    bottom: -40px;
+    bottom: 0;
+    opacity: 0;
     z-index: 2;
-    transition: all 0.5s ease;
+    width: calc(100% - 48px);
+    transition: transform 0.5s ease, opacity 0.5s ease;
     ul {
       display: flex;
       align-items: center;
@@ -266,9 +272,10 @@
         .tag {
           display: inline-block;
           border-radius: 4px;
-          padding: 6px 16px;
-          background-color: rgba(0, 0, 0, 0.2);
-          backdrop-filter: blur(15px);
+          padding: 10px 24px;
+          background-color: rgba(60, 60, 60, 0.5);
+          backdrop-filter: blur(10px);
+          transition: none;
         }
       }
     }

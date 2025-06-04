@@ -48,7 +48,8 @@
     isolation: isolate;
     &-container {
       padding: 14px 24px;
-      background-color: rgba(217, 217, 217, 0.2);
+      background-color: rgba(60, 60, 60, 0.5);
+      backdrop-filter: blur(10px);
       border-radius: 4px;
       transition: transform 0.5s ease;
       // &.hide {
