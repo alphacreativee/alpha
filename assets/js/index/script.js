@@ -317,21 +317,21 @@ function introChess() {
     render();
   });
 
-  const frameCount = 74;
+  const frameCount = 130;
   // Kiểm tra class của .section-intro
   const sectionIntro = document.querySelector(".section-intro");
   let currentFrame;
 
   if (sectionIntro.classList.contains("home")) {
     currentFrame = (index) =>
-      `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`;
+      `./assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
   } else if (sectionIntro.classList.contains("about")) {
     currentFrame = (index) =>
       `./assets/images/img-about/chess-${(index + 1).toString()}.jpg`;
   } else {
     // Nếu không có class home hoặc about, có thể gán mặc định hoặc báo lỗi
     currentFrame = (index) =>
-      `./assets/images/img-chess/chess-${(index + 1).toString()}.jpg`; // Mặc định
+      `./assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
   }
   const images = [];
   const imageSeq = { frame: 0 };
@@ -368,6 +368,7 @@ function introChess() {
   });
 
   // Hiệu ứng cho section-intro-content
+  const sectionIntroContent = document.querySelector(".section-intro-content");
   const tagElement = document.querySelector(".section-intro-content .tag");
   const contentElement = document.querySelector(
     ".section-intro-content .h2-heading"
@@ -384,12 +385,12 @@ function introChess() {
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#canvas-chess",
-      start: `top+=${(70 / frameCount) * 100 - 50}% top`,
-      end: `top+=${(70 / frameCount) * 100 + 50}% top`,
+      start: `top+=${(110 / frameCount) * 100 - 20}% top`,
+      end: `top+=${(110 / frameCount) * 100 + 20}% top`,
       toggleActions: "play none none reverse",
     },
   });
-
+  tl.fromTo(sectionIntroContent, { opacity: 0 }, { opacity: 1, duration: 0.4 });
   // Thêm hiệu ứng cho tag
   tl.fromTo(
     tagElement,
