@@ -1048,7 +1048,6 @@ function hoverNumberCount() {
   });
 }
 function scrollToForm() {
-  gsap.registerPlugin(ScrollToPlugin);
   const buttonContact = document.querySelector("#button-contact");
   const contactForm = document.querySelector("#section-contact");
 
@@ -1057,6 +1056,7 @@ function scrollToForm() {
       e.preventDefault();
 
       if (contactForm) {
+        gsap.registerPlugin(ScrollToPlugin);
         const sectionBottom = contactForm.offsetTop + contactForm.offsetHeight;
         const scrollPosition = sectionBottom - window.innerHeight;
 
