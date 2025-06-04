@@ -13,6 +13,7 @@
     align-items: stretch;
     gap: 60px;
     transition: transform 1s ease-out;
+    cursor: none;
 
     .client-item {
       flex: 1;
