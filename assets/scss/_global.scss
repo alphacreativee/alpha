@@ -395,14 +395,14 @@ main {
       width: 100px;
       height: 100px;
       border-radius: 50%;
-      background-color: rgba(255, 255, 255, 0.2);
-      backdrop-filter: blur(20px);
+      background-color: rgba(60, 60, 60, 0.5);
+      backdrop-filter: blur(10px);
     }
   }
   &.blog-page {
     .cursor {
-      background-color: #11111133;
-      backdrop-filter: blur(6px);
+      background-color: rgba(60, 60, 60, 0.5);
+      backdrop-filter: blur(10px);
     }
   }
   &.about-page {
@@ -412,14 +412,10 @@ main {
       display: flex;
       align-items: center;
       justify-content: center;
-      background-color: rgba(17, 17, 17, 0.2);
-      backdrop-filter: blur(20px);
+      background-color: rgba(60, 60, 60, 0.5);
+      backdrop-filter: blur(10px);
 
       &.arrow {
-        width: 120px;
-        height: 120px;
-        background-color: rgba(217, 217, 217, 0.2);
-        backdrop-filter: blur(15px);
         .text {
           display: none;
         }
@@ -449,10 +445,10 @@ main {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #11111133;
     transform: scale(0);
     transform-origin: center;
-    backdrop-filter: blur(20px);
+    background-color: rgba(60, 60, 60, 0.5);
+    backdrop-filter: blur(10px);
     &.show {
       transform: scale(1);
     }
