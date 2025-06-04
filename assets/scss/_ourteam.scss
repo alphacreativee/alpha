@@ -16,6 +16,8 @@
     gap: 80px 60px;
   }
   &-item {
+    overflow: hidden;
+
     &:hover {
       .our-team-bg {
         &::after {
@@ -29,7 +31,7 @@
     aspect-ratio: 386 / 290;
     border-radius: 12px;
     overflow: hidden;
-    background: var(--color-white);
+    // background: var(--color-white);
     margin-bottom: 30px;
     background-size: 200%;
     background-position: center;
@@ -37,8 +39,8 @@
     position: relative;
 
     img {
-      width: 100%;
-      height: 100%;
+      width: 105%;
+      height: 105%;
       object-fit: cover;
       position: relative;
       z-index: 3;
@@ -49,11 +51,12 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    z-index: 2;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: hidden;
-    background-color: var(--color-white);
+    // background-color: var(--color-white);
 
     &::after {
       content: "";
@@ -201,7 +204,7 @@
   }
 
   .modal-teams-content {
-    padding: 180px 160px;
+    padding: 180px 120px;
     height: 100%;
     max-height: 100dvh;
 
@@ -225,12 +228,27 @@
       .slogan {
         margin-top: auto;
         transition-delay: 1.2s;
-        background: linear-gradient(to right, #ffffff 27%, #d1b57e 89%);
+        background: linear-gradient(
+          to right,
+          #fff 20%,
+          #d1b57e 40%,
+          #d1b57e 60%,
+          #fff 80%
+        );
+        background-size: 200% auto;
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
 
         background-clip: text;
         color: transparent;
+        -webkit-text-fill-color: transparent;
+        animation: shine 5s linear infinite;
+      }
+
+      @keyframes shine {
+        to {
+          background-position: 200% center;
+        }
       }
 
       * {
