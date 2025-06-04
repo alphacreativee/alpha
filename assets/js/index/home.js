@@ -12,9 +12,9 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true,
+        scrub: true
       },
-      ease: "none",
+      ease: "none"
     }
   );
 
@@ -23,22 +23,20 @@ function sectionSpecialize() {
     xPercent: -160,
     scrollTrigger: {
       trigger: ".section-specialize",
-      start: "top 20%",
+      start: "top 50%",
       end: "bottom 20%",
       scrub: true,
       // markers: true,
       onEnter: () => {
         $(".section-specialize").addClass("theme-light");
         $("main").addClass("theme-light");
-        $(".header-menu-container").addClass("theme-light");
       },
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-        $(".header-menu-container").removeClass("theme-light");
-      },
+      }
     },
-    ease: "none",
+    ease: "none"
   });
 
   let hasCounted = false;
@@ -51,7 +49,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    },
+    }
   });
 
   $(".section-specialize .number").each(function () {
@@ -154,14 +152,15 @@ function gsapExpertise() {
 
     const getScrollAmount = () => {
       const racesWidth = expertise.scrollWidth;
-      return racesWidth - window.innerWidth + 150;
+      const addScrollHeight = window.innerWidth < 1440 ? 150 : 250;
+      return racesWidth - window.innerWidth + addScrollHeight;
     };
 
     const createTween = (element, scrollAmount) => {
       return gsap.to(element, {
         x: -scrollAmount,
         duration: 3,
-        ease: "none",
+        ease: "none"
       });
     };
 
@@ -192,7 +191,7 @@ function gsapExpertise() {
         scrub: 1,
         pinSpacing: false,
         invalidateOnRefresh: true,
-        id: `expertiseScroll-${index}`,
+        id: `expertiseScroll-${index}`
         // markers: true,
       });
     };
@@ -229,8 +228,8 @@ function gsapExpertise() {
               start: "left 80%",
               end: "center 60%",
               scrub: true,
-              invalidateOnRefresh: true,
-            },
+              invalidateOnRefresh: true
+            }
           }
         );
       } else {
@@ -246,8 +245,8 @@ function gsapExpertise() {
               start: "top 80%", // Bắt đầu khi item vào viewport
               end: "center 60%", // Kết thúc khi item gần trung tâm
               scrub: true,
-              invalidateOnRefresh: true,
-            },
+              invalidateOnRefresh: true
+            }
           }
         );
       }
@@ -260,7 +259,7 @@ function brandingAnimation() {
   const brandingItem = gsap.utils.toArray(".branding-wrapper .item");
   gsap.set(brandingItem, {
     yPercent: 50,
-    opacity: 0,
+    opacity: 0
   });
 
   const tl = gsap.timeline({
@@ -268,9 +267,9 @@ function brandingAnimation() {
       trigger: ".branding-wrapper",
       start: "top 85%",
       end: "bottom 70%",
-      scrub: 1,
+      scrub: 1
       // markers: true,
-    },
+    }
   });
 
   tl.to(brandingItem, {
@@ -278,7 +277,7 @@ function brandingAnimation() {
     opacity: 1,
     duration: 1.5,
     ease: "power2.out",
-    stagger: 0.1,
+    stagger: 0.1
   });
 }
 const init = () => {

@@ -1,6 +1,10 @@
 .wrapper-expertise {
   overflow: hidden;
-  height: 70vh;
+  height: 80vh;
+
+  @media (min-width: 1440px) {
+    height: 70vh;
+  }
 
   @media (max-width: 991px) {
     height: auto;
@@ -81,9 +85,9 @@
     }
 
     &-tag {
-      padding: 12px 24px;
-      background-color: rgba($color: #d9d9d9, $alpha: 0.2);
-      backdrop-filter: 10px;
+      padding: 10px 24px;
+      background-color: rgba(60, 60, 60, 0.5);
+      backdrop-filter: blur(10px);
       width: max-content;
       border-radius: 4px;
 
@@ -103,7 +107,7 @@
     &-services {
       display: flex;
       flex-wrap: wrap;
-      max-width: 90%;
+      max-width: 80%;
       gap: 12px 24px;
 
       @media (max-width: 991px) {

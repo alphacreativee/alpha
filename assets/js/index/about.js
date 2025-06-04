@@ -198,16 +198,16 @@ function ourTeam() {
     scrollTrigger: {
       trigger: ".our-team-list",
       start: "top 90%",
-      end: "bottom 60%",
+      end: "bottom 70%",
       scrub: 1
-      // markers: true,
+      // markers: true
     }
   });
 
   tl.to(teamItems, {
     opacity: 1,
     y: 0,
-    duration: 1,
+    duration: 0.8,
     ease: "power2.out",
     stagger: 0.15
   });
