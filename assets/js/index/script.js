@@ -187,10 +187,10 @@ function effectText() {
           if (isScrollTrigger) {
             // ScrollTrigger case
             splitTitle = gsap.from(self.lines, {
-              duration: 0.4,
+              duration: 0.8,
               yPercent: 100,
               opacity: 0,
-              stagger: 0.1,
+              stagger: 0.2,
               ease: "expo.out",
               scrollTrigger: {
                 trigger: element,
@@ -730,7 +730,7 @@ function pinSectionBanner() {
         pin: true,
         pinSpacing: false,
         start: "top top",
-        end: "+=500",
+        end: `+=${window.innerHeight}`,
         scrub: true,
         onUpdate: (self) => {
           if (self.progress === 1 && !isTitleHidden) {
@@ -832,7 +832,7 @@ function loading() {
           scaleY: 0,
           duration: 1.5,
         },
-        1
+        0.75
       )
       .to(loading, {
         autoAlpha: 0,
@@ -871,7 +871,7 @@ function loading() {
           opacity: 0,
           y: -60,
         },
-        3.5
+        3
       )
 
       .to(
@@ -880,7 +880,7 @@ function loading() {
           scaleY: 0,
           duration: 1.5,
         },
-        3.75
+        3.25
       )
       .to(loading, {
         autoAlpha: 0,
@@ -1047,10 +1047,34 @@ function hoverNumberCount() {
     parent.addEventListener("mouseleave", hideTween);
   });
 }
+function scrollToForm() {
+  gsap.registerPlugin(ScrollToPlugin);
+  const buttonContact = document.querySelector("#button-contact");
+  const contactForm = document.querySelector("#section-contact");
 
+  if (buttonContact) {
+    buttonContact.addEventListener("click", (e) => {
+      e.preventDefault();
+
+      if (contactForm) {
+        const sectionBottom = contactForm.offsetTop + contactForm.offsetHeight;
+        const scrollPosition = sectionBottom - window.innerHeight;
+
+        gsap.to(window, {
+          duration: 0.8,
+          scrollTo: scrollPosition,
+          ease: "power2.out",
+        });
+      } else {
+        window.location.href = "index.html#section-contact";
+      }
+    });
+  }
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
+  scrollToForm();
   stickyFilter();
   pinSectionBanner();
   customDropdown();
