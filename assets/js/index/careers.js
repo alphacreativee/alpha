@@ -3,7 +3,11 @@ import { preloadImages } from "../../libs/utils.js";
 function formReruitment() {
   if ($(".our-works").length < 1) return;
 
-  $("#file-attach").on("change", function () {
+  function truncateText(text, maxLength) {
+    return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+  }
+
+  $(".modal-recruitment .file-attach").on("change", function () {
     const file = this.files[0];
     const $input = $(this);
     const $labelSpan = $input.next("label").find("span");
@@ -12,6 +16,15 @@ function formReruitment() {
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ];
     const maxSize = 5 * 1024 * 1024;
+
+    function truncateText(text, maxLength) {
+      return text.length > maxLength ? text.slice(0, maxLength) + "..." : text;
+    }
+
+    function formatFileName(name) {
+      const lower = name.toLowerCase();
+      return lower.charAt(0).toUpperCase() + lower.slice(1);
+    }
 
     $input.removeClass("error");
     $labelSpan.text("Upload file under 5MB");
@@ -32,7 +45,9 @@ function formReruitment() {
       return;
     }
 
-    $labelSpan.text(file.name);
+    const formattedName = formatFileName(truncateText(file.name, 28));
+    $labelSpan.text(formattedName);
+    $labelSpan.addClass("has-file");
   });
 
   $("form.form-recruitment").on("submit", function (e) {
@@ -72,11 +87,6 @@ function formReruitment() {
       }, 5000);
     }
   });
-
-  // $(document).on("click", ".our-works a[data-bs-toggle='modal']", function () {
-  //   const title = $(this).data("title");
-  //   $(".modal-recruitment .col-content .title").text(title);
-  // });
 
   ScrollTrigger.create({
     trigger: ".our-works",

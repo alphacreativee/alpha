@@ -1108,8 +1108,6 @@ function callParallax(e) {
 }
 
 function hoverIcon() {
-  console.log(document.querySelector(".build-a-brand"));
-
   if (
     !document.querySelector(".build-a-brand") &&
     !document.querySelector("section.project")
