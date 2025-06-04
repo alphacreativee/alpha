@@ -125,10 +125,10 @@
         }
       }
       &.active {
-        background-color: var(--color-filter);
+        background-color: rgba(60, 60, 60, 0.5);
         border: 1px solid transparent;
         .project-title {
-          color: #dedede;
+          color: var(--color-primary);
         }
       }
       .project-title {
