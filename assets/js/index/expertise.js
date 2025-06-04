@@ -51,30 +51,6 @@ function animateChessItems() {
     });
   });
 }
-// function animateChessItems() {
-//   if (!$(".banner-expertise").length) return;
-
-//   const items = gsap.utils.toArray(".wrapper-chess .chess-item");
-
-//   gsap.set(items, { y: "100%", opacity: 0 });
-
-//   const tl = gsap.timeline({
-//     scrollTrigger: {
-//       trigger: ".wrapper-chess",
-//       start: "top 30%",
-//       toggleActions: "play none none reverse",
-//       markers: true,
-//     },
-//   });
-
-//   tl.to(items, {
-//     y: "0%",
-//     opacity: 1,
-//     duration: 0.6,
-//     ease: "power2.out",
-//     stagger: 0.3,
-//   });
-// }
 
 function buildABrand() {
   if ($(".build-a-brand").length < 1) return;
@@ -556,7 +532,6 @@ const init = () => {
   buildABrand();
   introBrading();
   showCoreValue();
-  hoverIcon();
   ScrollTrigger.refresh();
 };
 preloadImages("img").then(() => {

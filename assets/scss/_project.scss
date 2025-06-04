@@ -70,11 +70,6 @@
     }
     .project-filter .nav-link {
       border: 1px solid transparent;
-      &:hover {
-        .project-title {
-          color: var(--color-white);
-        }
-      }
     }
   }
   &-top {
@@ -86,57 +81,59 @@
     .title {
       margin-bottom: 40px;
     }
+
+    .desc {
+      max-width: 846px;
+      margin: 0 auto;
+    }
   }
-  &-filter {
+
+  ul.nav {
+    gap: 24px;
     margin-bottom: 120px;
     position: sticky;
 
     top: 96px;
     z-index: 20;
     pointer-events: auto;
-    &.sticky {
-      .nav-link {
-        background-color: rgba(60, 60, 60, 0.5);
-        border: 1px solid transparent !important;
-        backdrop-filter: blur(10px);
-      }
-      .project-title {
-        color: var(--color-white) !important;
-      }
-    }
 
-    ul {
-      gap: 12px;
-    }
-    .nav-link {
-      border-radius: 4px;
-      border: 1px solid transparent;
-      background-color: rgba(60, 60, 60, 0.5);
+    .nav-item {
       backdrop-filter: blur(10px);
-      transition: all 0.3s ease;
-      padding: 9px 24px;
-      &:hover {
-        border: 1px solid transparent;
-        &.active {
-          border: 1px solid transparent;
-        }
-        .project-title {
-          color: var(--color-white);
-        }
-      }
+      border-radius: 4px;
+      position: relative;
+    }
+  }
+  .nav-link {
+    border-radius: 4px;
+    border: 1px solid transparent;
+    background-color: rgba(60, 60, 60, 0.5);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+    padding: 9px 24px;
+    &:hover {
+      border: 1px solid transparent;
       &.active {
-        background-color: rgba(60, 60, 60, 0.5);
         border: 1px solid transparent;
-        .project-title {
-          color: var(--color-primary);
-        }
       }
       .project-title {
         color: var(--color-white);
-        transition: all 0.3s ease;
       }
     }
+    &.active {
+      background-color: rgba(60, 60, 60, 0.5);
+      border: 1px solid transparent;
+      pointer-events: none;
+
+      .project-title {
+        color: var(--color-primary);
+      }
+    }
+    .project-title {
+      color: var(--color-white);
+      transition: all 0.3s ease;
+    }
   }
+
   &-list {
     display: flex;
     flex-wrap: wrap;
