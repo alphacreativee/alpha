@@ -301,37 +301,179 @@ function introBrading() {
 }
 function showCoreValue() {
   if ($(".expertise-core-value").length < 1) return;
+  const contentItems = document.querySelectorAll(".content-item-lg");
+  const contentOvl = document.querySelector(
+    ".expertise-core-value .content-ovl"
+  );
 
-  gsap.set(".expertise-core-value .content-ovl", {
+  gsap.set(contentOvl, {
     autoAlpha: 0,
+  });
+  if (contentItems.length === 0) return;
+
+  gsap.set(contentItems[0], { fontSize: "80px", lineHeight: "88px" });
+  gsap.set(Array.from(contentItems).slice(1), {
+    fontSize: "20px",
+    lineHeight: "28px",
   });
 
   const tl2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".expertise-core-value",
-      start: "top 10%",
-      end: "bottom bottom",
+      start: "top top",
+      end: "+=300%",
       scrub: true,
-      // markers: true
+      // markers: true,
+      pin: true,
       onUpdate: (self) => {
-        if (self.progress === 1) {
-          $(".expertise-core-value .content-ovl").addClass("active");
-        } else {
-          $(".expertise-core-value .content-ovl").removeClass("active");
-        }
+        // console.log(self.progress);
       },
     },
   });
 
-  // Thêm animation vào timeline
-  tl2.to(".expertise-core-value .content-ovl", {
-    autoAlpha: 1,
-    y: 0,
-    duration: 1,
-    ease: "power2.out",
+  let currentTime = 0;
+
+  // Item đầu tiên: từ 80px xuống 20px
+  tl2.to(
+    contentItems[0],
+    {
+      fontSize: "20px",
+      lineHeight: "28px",
+      duration: 0.5, // Giảm từ 1 xuống 0.5
+      ease: "none",
+    },
+    currentTime
+  );
+  currentTime += 0.5; // Cập nhật theo duration mới
+
+  // Các item còn lại: lần lượt từ 20px lên 80px
+  contentItems.forEach((item, index) => {
+    if (index > 0) {
+      // Lên 80px
+      tl2.to(
+        item,
+        {
+          fontSize: "80px",
+          lineHeight: "88px",
+          duration: 0.5, // Giảm từ 1 xuống 0.5
+          ease: "none",
+        },
+        currentTime
+      );
+      currentTime += 0.5; // Cập nhật theo duration mới
+
+      // Chỉ xuống 20px nếu KHÔNG phải item cuối cùng
+      if (index < contentItems.length - 1) {
+        tl2.to(
+          item,
+          {
+            fontSize: "20px",
+            lineHeight: "28px",
+            duration: 0.5, // Giảm từ 1 xuống 0.5
+            ease: "none",
+          },
+          currentTime
+        );
+        currentTime += 0.5; // Cập nhật theo duration mới
+      }
+    }
+  });
+
+  // Hiển thị contentOvl sau khi tất cả animation hoàn thành
+  tl2.to(
+    contentOvl,
+    {
+      autoAlpha: 1,
+      duration: 0.5,
+      ease: "power2.out",
+      onStart: () => {
+        const contentBgOvl = document.querySelector(".content-bg-ovl");
+        if (contentBgOvl) {
+          contentBgOvl.classList.add("show");
+        }
+        effectTextCoreValue();
+      },
+      onReverseComplete: () => {
+        const contentBgOvl = document.querySelector(".content-bg-ovl");
+        if (contentBgOvl) {
+          contentBgOvl.classList.remove("show");
+        }
+      },
+    },
+    currentTime
+  );
+
+  // Tăng currentTime để tạo thêm khoảng scroll giữ contentOvl hiển thị
+  currentTime += 1;
+}
+function effectTextCoreValue() {
+  const elements = document.querySelectorAll(".effect-heading-mask-line-core");
+
+  elements.forEach((element) => {
+    gsap.set(element, { opacity: 0 }); // Set initial opacity to 0
+    let splitTitle;
+
+    SplitText.create(element, {
+      type: "words,lines",
+      linesClass: "line",
+      mask: "lines",
+      onSplit: (self) => {
+        // Auto-play animation
+        splitTitle = gsap.fromTo(
+          self.lines,
+          {
+            yPercent: 100,
+            opacity: 0, // Start from opacity 0
+          },
+          {
+            yPercent: 0,
+            opacity: 1, // Animate to opacity 1
+            duration: 0.4,
+            stagger: 0.1,
+            ease: "expo.out",
+          }
+        );
+
+        // Play animation immediately after fonts are loaded
+        gsap.to(splitTitle, {
+          timeScale: 0.2,
+          onStart: () => splitTitle.play(0),
+        });
+
+        // Set parent element opacity to 1 after animation starts
+        gsap.to(element, {
+          opacity: 1,
+          duration: 0, // Instant change
+          delay: 0.1, // Slight delay to ensure lines are visible
+        });
+
+        return splitTitle;
+      },
+    });
+  });
+
+  // effect fade in
+  gsap.utils.toArray(".effect-fade-content-core").forEach((element) => {
+    const additionalDelay = element.dataset.delay
+      ? parseFloat(element.dataset.delay)
+      : 0;
+    gsap.fromTo(
+      element,
+      {
+        "will-change": "opacity, transform",
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "sine.out",
+        delay: 0.5 + additionalDelay,
+      }
+    );
   });
 }
-
 function parallaxIt(e, target, movement) {
   const rect = target.getBoundingClientRect();
 

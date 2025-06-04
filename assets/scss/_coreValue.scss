@@ -2,8 +2,16 @@
   // padding-bottom: 200px;
   &.expertise-core-value {
     .content-top {
-      transform: translate(-50%, 0);
-      top: 80px;
+      top: 0;
+      height: 100%;
+      transform: translate(0);
+      left: 0;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      gap: 24px;
       .content-tag {
         margin-bottom: 120px;
         text-align: center;
@@ -18,39 +26,37 @@
         text-align: center;
       }
     }
-    .content-ovl {
-      background-color: var(--color-black);
+    .content-bg-ovl {
       position: absolute;
+      inset: 0;
+      width: 100%;
+      background-color: var(--color-black);
+      z-index: 3;
+      opacity: 0;
+      visibility: hidden;
+      transition: all 0.2s;
+      &.show {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+    .content-ovl {
+      position: absolute;
+      background-color: var(--color-black);
       inset: 0;
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: center;
+      flex-direction: column;
+      gap: 40px;
+      z-index: 3;
       &-container {
         text-align: center;
         max-width: 80%;
-
-        h2 {
-          margin-bottom: 40px;
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.4s ease;
-        }
-
-        .button-general {
-          opacity: 0;
-          transform: translateY(20px);
-          transition: all 0.4s ease;
-          transition-delay: 0.2s;
-        }
       }
-
-      &.active {
-        h2,
-        .button-general {
-          transform: translate(0);
-          opacity: 1;
-        }
+      h2 {
+        text-align: center;
       }
     }
   }
@@ -70,7 +76,7 @@
     .image {
       width: 100%;
       height: 100vh;
-      border-radius: 12px;
+      // border-radius: 12px;
       overflow: hidden;
       position: absolute;
       top: 50%;
