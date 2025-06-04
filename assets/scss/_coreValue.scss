@@ -1,6 +1,19 @@
 .core-value {
   // padding-bottom: 200px;
   &.expertise-core-value {
+    .content-tag {
+      top: 80px;
+      left: 50%;
+      position: absolute;
+      transform: translateX(-50%);
+      .tag {
+        color: white;
+        text-transform: uppercase;
+        font-size: 12px;
+        line-height: 20px;
+        font-weight: 400;
+      }
+    }
     .content-top {
       top: 0;
       height: 100%;
