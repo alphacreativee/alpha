@@ -126,8 +126,8 @@
       aspect-ratio: 375 / 500;
       position: relative;
       @media (max-width: 991px) {
-        min-width: 225px;
-        aspect-ratio: 225 / 342;
+        min-width: 255px;
+        aspect-ratio: 255 / 342;
       }
       &:hover {
         .image {
