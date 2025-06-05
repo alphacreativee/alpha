@@ -13,7 +13,7 @@ function formReruitment() {
     const $labelSpan = $input.next("label").find("span");
     const allowedTypes = [
       "application/pdf",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ];
     const maxSize = 5 * 1024 * 1024;
 
@@ -87,10 +87,11 @@ function formReruitment() {
       }, 5000);
     }
   });
-
+  const topValue = window.innerWidth > 991 ? "top 65%" : "top 40%";
   ScrollTrigger.create({
     trigger: ".our-works",
-    start: "top 65%",
+    start: topValue,
+
     onEnter: () => {
       document.querySelector(".our-works").classList.add("theme-light");
       document
@@ -106,7 +107,7 @@ function formReruitment() {
         .classList.remove("theme-light");
       document.querySelector("main").classList.remove("theme-light");
       document.querySelector(".section-banner").classList.remove("theme-light");
-    }
+    },
     // markers: true
   });
 }
