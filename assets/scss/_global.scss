@@ -473,7 +473,7 @@ main {
   left: 0;
   width: 100%;
   background-color: var(--color-black);
-  z-index: 999;
+  z-index: 198;
   transform: translateY(40px);
   opacity: 0;
   visibility: hidden;
@@ -494,7 +494,7 @@ main {
     .text {
       a {
         color: var(--color-white);
-        text-decoration: underline;
+        font-weight: 700;
       }
     }
 
@@ -504,7 +504,11 @@ main {
       gap: 12px;
 
       button {
-        padding: 12px 24px;
+        padding: 0 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 48px;
         border-radius: 4px;
         background-color: rgba(217, 217, 217, 0.2);
       }
