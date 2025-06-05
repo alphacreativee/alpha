@@ -1,5 +1,11 @@
 import { preloadImages } from "../../libs/utils.js";
-const lenis = new Lenis();
+const lenis = new Lenis({
+  duration: 1.4,
+  easing: (t) => 1 - Math.pow(1 - t, 4),
+  smooth: true,
+  smoothTouch: false
+});
+
 lenis.on("scroll", ScrollTrigger.update);
 
 gsap.ticker.add((time) => {
@@ -7,6 +13,7 @@ gsap.ticker.add((time) => {
 });
 
 gsap.ticker.lagSmoothing(0);
+
 function handlePageVisibilityAndFavicon() {
   const originalTitle = document.title;
   let faviconInterval;
