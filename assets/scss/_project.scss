@@ -1,7 +1,9 @@
 .project {
   padding-top: 260px;
   padding-bottom: 120px;
-
+  @media (max-width: 991px) {
+    padding-bottom: 80px;
+  }
   &.page-project {
     .project-filter ul {
       gap: 24px;
@@ -100,8 +102,13 @@
     z-index: 20;
     pointer-events: auto;
     @media (max-width: 991px) {
+      top: 60px;
       flex-wrap: nowrap;
-      // overflow-x: scroll;
+      overflow-x: scroll;
+      padding-top: 12px;
+      justify-content: flex-start !important;
+      padding-left: 24px;
+      margin-bottom: 64px;
       &::-webkit-scrollbar {
         display: none;
       }
@@ -149,8 +156,15 @@
     gap: 90px 80px;
     &.blog-list {
       gap: 80px 60px;
+      @media (max-width: 991px) {
+        padding: 0 24px;
+        gap: 64px 0;
+      }
       .project-item {
         width: calc((100% - 120px) / 3);
+        @media (max-width: 991px) {
+          width: 100%;
+        }
       }
       .project-parallax {
         height: 290px;
@@ -221,7 +235,9 @@
   }
   &-item {
     width: calc((100% - 80px) / 2);
-
+    @media (max-width: 991px) {
+      width: 100%;
+    }
     &:hover {
       cursor: none;
       .img-parallax {
