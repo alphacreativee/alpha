@@ -3,7 +3,7 @@ const lenis = new Lenis({
   duration: 1.4,
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
-  smoothTouch: false
+  smoothTouch: false,
 });
 
 lenis.on("scroll", ScrollTrigger.update);
@@ -1078,12 +1078,10 @@ function scrollToForm() {
         const scrollPosition = sectionBottom - window.innerHeight;
 
         gsap.to(window, {
-          duration: 0.8,
+          duration: 1,
           scrollTo: scrollPosition,
-          ease: "power2.out",
+          ease: "none",
         });
-      } else {
-        window.location.href = "index.html#section-contact";
       }
     });
   }
