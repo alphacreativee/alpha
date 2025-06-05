@@ -160,11 +160,14 @@
 
         .wrapper-btn {
           margin-top: 40px;
-          a {
-            width: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+          @media (max-width: 991px) {
+            margin-top: 24px;
+            a {
+              width: 100%;
+              display: flex;
+              justify-content: center;
+              align-items: center;
+            }
           }
         }
       }
