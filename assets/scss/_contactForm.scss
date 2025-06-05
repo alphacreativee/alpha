@@ -113,10 +113,20 @@
         border: 1px solid #dfdfdf;
         border-radius: 4px;
         padding: 0;
+        display: flex;
+        flex-direction: column;
+        padding: 8px 0;
 
         .dropdown-custom__item {
           padding: 8px 16px;
           text-align: left;
+          width: max-content;
+
+          &::before {
+            width: calc(100% - 32px);
+            bottom: 2px;
+            left: 16px;
+          }
         }
       }
     }
