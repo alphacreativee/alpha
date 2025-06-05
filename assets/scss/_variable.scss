@@ -56,6 +56,10 @@
   font-size: 32px;
   line-height: 40px;
   font-weight: 300;
+  @media (max-width: 991px) {
+    font-size: 20px;
+    line-height: 28px;
+  }
 }
 .sub-title-2 {
   font-family: var(--font-primary);

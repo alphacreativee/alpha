@@ -5,7 +5,7 @@
   z-index: 21;
 
   @media (max-width: 991px) {
-    padding: 64px 0;
+    padding: 80px 0;
     .page-width {
       padding: 0 24px;
     }
@@ -20,6 +20,11 @@
   .col-left {
     h2 {
       max-width: 80%;
+      @media (max-width: 991px) {
+        font-size: 32px;
+        line-height: 40px;
+        max-width: 100%;
+      }
     }
     .box {
       max-width: 180px;
@@ -39,14 +44,22 @@
   .col-left {
     .title {
       margin-bottom: 64px;
+      @media (max-width: 991px) {
+        margin-bottom: 40px;
+      }
     }
+
     .group-box {
       display: flex;
       gap: 40px;
+      @media (max-width: 991px) {
+        flex-direction: column;
+        gap: 24px;
+      }
     }
 
     @media (max-width: 991px) {
-      margin-bottom: 48px;
+      margin-bottom: 40px;
     }
   }
   .col-right {
@@ -59,7 +72,7 @@
   }
   .contact-form {
     @media (max-width: 991px) {
-      margin-top: 32px;
+      margin-top: 12px;
     }
     .field {
       width: 100%;
@@ -158,6 +171,7 @@
         width: calc(100% - 100px);
         @media (max-width: 991px) {
           width: 100%;
+          flex-wrap: wrap;
         }
         a {
           font-weight: 700;

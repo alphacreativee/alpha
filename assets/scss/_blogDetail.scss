@@ -15,7 +15,15 @@
       gap: 80px;
       @media (max-width: 991px) {
         display: flex;
+        flex-direction: column-reverse;
+        gap: 80px;
+      }
+    }
+    .top-wrapper {
+      @media (max-width: 991px) {
+        display: flex;
         flex-direction: column;
+        align-items: center;
       }
     }
     .detail-left {
@@ -29,11 +37,20 @@
       align-items: center;
       @media (max-width: 991px) {
         position: static;
+        height: auto;
+        padding: 40px 24px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 64px;
       }
       .back-blog {
         position: absolute;
         bottom: 40px;
         left: 80px;
+
+        @media (max-width: 991px) {
+          position: static;
+        }
       }
       .project-item {
         width: 100%;
@@ -69,12 +86,24 @@
     .the-content {
       margin-bottom: 120px;
       padding-right: 80px;
+      @media (max-width: 991px) {
+        padding-right: 24px;
+        padding-left: 24px;
+        margin-bottom: 0;
+      }
       &-top {
         padding-top: 160px;
         padding-bottom: 80px;
         border-bottom: 3px solid var(--color-black);
+        @media (max-width: 991px) {
+          padding-top: 100px;
+          padding-bottom: 40px;
+        }
         .title {
           margin-bottom: 24px;
+          @media (max-width: 991px) {
+            text-align: center;
+          }
         }
         .time {
           margin-bottom: 40px;
@@ -97,9 +126,16 @@
       }
       &-center {
         margin-bottom: 80px;
+        @media (max-width: 991px) {
+          margin-bottom: 40px;
+        }
         .title {
           margin-top: 24px;
           margin-bottom: 24px;
+          @media (max-width: 991px) {
+            font-size: 20px;
+            line-height: 28px;
+          }
         }
       }
       &-bottom {
@@ -117,6 +153,10 @@
         }
         .sub {
           margin-bottom: 24px;
+          @media (max-width: 991px) {
+            font-size: 20px;
+            line-height: 28px;
+          }
         }
         .title {
           margin-bottom: 24px;

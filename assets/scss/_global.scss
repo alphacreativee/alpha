@@ -1,5 +1,8 @@
 .page-width {
   padding: 0 80px;
+  @media (max-width: 991px) {
+    padding: 0 24px;
+  }
 }
 .effect-heading-mask-line {
   will-change: transform;
