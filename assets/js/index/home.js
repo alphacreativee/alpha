@@ -152,7 +152,7 @@ function gsapExpertise() {
 
     const getScrollAmount = () => {
       const racesWidth = expertise.scrollWidth;
-      const addScrollHeight = window.innerWidth < 1440 ? 150 : 250;
+      const addScrollHeight = window.innerWidth < 1600 ? 150 : 250;
       return racesWidth - window.innerWidth + addScrollHeight;
     };
 

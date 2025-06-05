@@ -2,10 +2,6 @@
   overflow: hidden;
   height: 80vh;
 
-  @media (min-width: 1440px) {
-    height: 70vh;
-  }
-
   @media (max-width: 991px) {
     height: auto;
   }
