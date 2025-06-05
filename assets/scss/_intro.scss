@@ -4,6 +4,7 @@
   position: relative;
   overflow: hidden;
   margin-bottom: 100vh;
+
   &::before {
     content: "";
     position: absolute;
@@ -21,6 +22,7 @@
     max-width: 100%;
     max-height: 100vh;
     height: 100%;
+    width: 100%;
   }
   &-content {
     position: absolute;
@@ -39,6 +41,9 @@
     &-wrapper {
       max-width: 1062px;
       width: 100%;
+      @media (max-width: 991px) {
+        max-width: calc(100% - 48px);
+      }
     }
 
     .line {
