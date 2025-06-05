@@ -1,6 +1,9 @@
 .section-contact {
   padding: 120px 0;
   background-color: var(--color-white);
+  position: relative;
+  z-index: 21;
+
   @media (max-width: 991px) {
     padding: 64px 0;
     .page-width {
