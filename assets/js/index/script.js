@@ -1116,6 +1116,8 @@ function callParallax(e) {
 }
 
 function hoverIcon() {
+  if (window.innerWidth < 992) return;
+
   if (
     !document.querySelector(".build-a-brand") &&
     !document.querySelector("section.project")
