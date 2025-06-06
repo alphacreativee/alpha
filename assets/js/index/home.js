@@ -1,4 +1,6 @@
 import { preloadImages } from "../../libs/utils.js";
+("use strict");
+$ = jQuery;
 
 function sectionSpecialize() {
   if ($(".section-specialize").length < 1) return;

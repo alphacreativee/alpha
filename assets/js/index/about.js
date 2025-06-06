@@ -244,6 +244,27 @@ function swiperTeam() {
     $("#modal-teams").removeClass("show");
     $("body").removeClass("overflow-hidden");
   });
+
+  let scrollTimeout;
+  $("#modal-teams").on("wheel", function (e) {
+    e.preventDefault();
+
+    if (scrollTimeout) return;
+
+    scrollTimeout = setTimeout(() => {
+      scrollTimeout = null;
+    }, 500);
+
+    const deltaY = e.originalEvent.deltaY;
+    const currentIndex = swiper.activeIndex;
+    const totalSlides = swiper.slides.length;
+
+    if (deltaY > 0 && currentIndex < totalSlides - 1) {
+      swiper.slideNext();
+    } else if (deltaY < 0 && currentIndex > 0) {
+      swiper.slidePrev();
+    }
+  });
 }
 
 const init = () => {
