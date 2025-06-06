@@ -12,19 +12,20 @@ function sectionSpecialize() {
         trigger: ".section-specialize",
         start: "center bottom",
         end: "bottom bottom",
-        scrub: true
+        scrub: true,
       },
-      ease: "none"
+      ease: "none",
     }
   );
 
-  // const xPercentMobile = $(window).width() > 991 ? "-160" : "0";
+  const startValue = $(window).width() > 991 ? "top 50%" : "top 5%";
+  const endValue = $(window).width() > 991 ? "bottom 20%" : "bottom top";
   gsap.to(".specialize-main-slider", {
     xPercent: -160,
     scrollTrigger: {
       trigger: ".section-specialize",
-      start: "top 50%",
-      end: "bottom 20%",
+      start: startValue,
+      end: endValue,
       scrub: true,
       // markers: true,
       onEnter: () => {
@@ -34,9 +35,9 @@ function sectionSpecialize() {
       onLeaveBack: () => {
         $("main").removeClass("theme-light");
         $(".section-specialize").removeClass("theme-light");
-      }
+      },
     },
-    ease: "none"
+    ease: "none",
   });
 
   let hasCounted = false;
@@ -49,7 +50,7 @@ function sectionSpecialize() {
         activeNumberCount();
         hasCounted = true;
       }
-    }
+    },
   });
 
   $(".section-specialize .number").each(function () {
@@ -160,7 +161,7 @@ function gsapExpertise() {
       return gsap.to(element, {
         x: -scrollAmount,
         duration: 3,
-        ease: "none"
+        ease: "none",
       });
     };
 
@@ -191,7 +192,7 @@ function gsapExpertise() {
         scrub: 1,
         pinSpacing: false,
         invalidateOnRefresh: true,
-        id: `expertiseScroll-${index}`
+        id: `expertiseScroll-${index}`,
         // markers: true,
       });
     };
@@ -228,8 +229,8 @@ function gsapExpertise() {
               start: "left 80%",
               end: "center 60%",
               scrub: true,
-              invalidateOnRefresh: true
-            }
+              invalidateOnRefresh: true,
+            },
           }
         );
       } else {
@@ -245,8 +246,8 @@ function gsapExpertise() {
               start: "top 80%", // Bắt đầu khi item vào viewport
               end: "center 60%", // Kết thúc khi item gần trung tâm
               scrub: true,
-              invalidateOnRefresh: true
-            }
+              invalidateOnRefresh: true,
+            },
           }
         );
       }
@@ -256,29 +257,50 @@ function gsapExpertise() {
 
 function brandingAnimation() {
   if (!$(".branding-wrapper").length) return;
+
   const brandingItem = gsap.utils.toArray(".branding-wrapper .item");
+  const isMobile = window.innerWidth <= 991;
+
   gsap.set(brandingItem, {
     yPercent: 50,
-    opacity: 0
+    opacity: 0,
   });
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".branding-wrapper",
-      start: "top 85%",
-      end: "bottom 70%",
-      scrub: 1
-      // markers: true,
-    }
-  });
+  if (isMobile) {
+    brandingItem.forEach((item, index) => {
+      gsap.to(item, {
+        yPercent: 0,
+        opacity: 1,
+        duration: 1.5,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 85%",
+          end: "bottom 70%",
+          scrub: 1,
+          // markers: true,
+        },
+      });
+    });
+  } else {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".branding-wrapper",
+        start: "top 85%",
+        end: "bottom 70%",
+        scrub: 1,
+        markers: true,
+      },
+    });
 
-  tl.to(brandingItem, {
-    yPercent: 0,
-    opacity: 1,
-    duration: 1.5,
-    ease: "power2.out",
-    stagger: 0.1
-  });
+    tl.to(brandingItem, {
+      yPercent: 0,
+      opacity: 1,
+      duration: 1.5,
+      ease: "power2.out",
+      stagger: 0.1,
+    });
+  }
 }
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);

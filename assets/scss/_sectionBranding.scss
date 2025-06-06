@@ -1,13 +1,17 @@
 .section-branding {
   padding: 80px 0 120px;
   background-color: var(--color-black);
-
+  @media (max-width: 991px) {
+    padding: 80px 0;
+  }
   .branding-wrapper {
     margin-top: 80px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 24px;
-
+    @media (max-width: 991px) {
+      grid-template-columns: 1fr;
+    }
     .item {
       display: flex;
       flex-direction: column;
@@ -22,7 +26,15 @@
       overflow: hidden;
       position: relative;
       aspect-ratio: 302 / 346;
-
+      @media (max-width: 991px) {
+        width: 100%;
+        grid-column: span 2;
+        aspect-ratio: 327 / 375;
+      }
+      @media (max-width: 767px) {
+        aspect-ratio: unset;
+        height: 375px;
+      }
       &.has-hover {
         .item-image {
           img {
