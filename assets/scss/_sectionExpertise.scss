@@ -13,11 +13,14 @@
   gap: 160px;
 
   @media (max-width: 991px) {
-    flex-direction: column;
-    gap: 48px;
+    gap: 24px;
     transform: translate(0) !important;
-    padding: 64px 24px;
+    padding: 64px 24px 64px 0;
     width: 100%;
+    overflow-x: scroll;
+    &::-webkit-scrollbar {
+      display: none;
+    }
   }
 }
 
@@ -35,6 +38,10 @@
     align-items: flex-start;
     gap: 24px;
     width: 100%;
+    min-width: 280px;
+    &:first-child {
+      min-width: 0;
+    }
   }
 
   &.item-title-large {
@@ -44,6 +51,7 @@
 
     @media (max-width: 991px) {
       width: max-content;
+      margin: 0 auto;
     }
 
     h2 {
