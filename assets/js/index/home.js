@@ -289,7 +289,7 @@ function brandingAnimation() {
         start: "top 85%",
         end: "bottom 70%",
         scrub: 1,
-        markers: true,
+        // markers: true,
       },
     });
 
