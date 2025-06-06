@@ -1175,7 +1175,186 @@ function hoverIcon() {
     });
   });
 }
+function showCoreValue() {
+  if ($(".expertise-core-value").length < 1) return;
+  const contentItems = document.querySelectorAll(".content-item-lg");
+  const contentOvl = document.querySelector(
+    ".expertise-core-value .content-ovl"
+  );
 
+  gsap.set(contentOvl, {
+    autoAlpha: 0,
+  });
+  if (contentItems.length === 0) return;
+
+  // Khởi tạo: item đầu tiên có class active, các item khác không
+  contentItems[0].classList.add("active");
+  Array.from(contentItems)
+    .slice(1)
+    .forEach((item) => {
+      item.classList.remove("active");
+    });
+
+  const totalItems = contentItems.length;
+  const stepDuration = 0.2; // Giảm từ 0.5 xuống 0.2 để animation nhanh hơn
+  const totalAnimationTime = (totalItems * 2 - 1) * stepDuration; // Tính tổng thời gian animation
+
+  const tl2 = gsap.timeline({
+    scrollTrigger: {
+      trigger: ".expertise-core-value",
+      start: "top top",
+      end: "+=200%", // Giảm từ 300% xuống 200% để scroll ngắn hơn
+      scrub: true,
+      // markers: true,
+      pin: true,
+      onUpdate: (self) => {
+        const progress = self.progress;
+        const animationProgress = Math.min(
+          (progress * (totalAnimationTime + 1)) / totalAnimationTime,
+          1
+        );
+
+        // Tính toán item nào đang active dựa trên progress
+        let activeIndex = 0;
+        const progressInAnimation = animationProgress * totalAnimationTime;
+
+        if (progressInAnimation <= stepDuration) {
+          // Giai đoạn đầu: item 0 từ active -> không active
+          activeIndex = progressInAnimation / stepDuration < 0.5 ? 0 : -1;
+        } else {
+          // Tính toán cho các item tiếp theo
+          const remainingProgress = progressInAnimation - stepDuration;
+          const currentStep = Math.floor(remainingProgress / stepDuration);
+          const stepProgress =
+            (remainingProgress % stepDuration) / stepDuration;
+
+          if (currentStep < totalItems - 1) {
+            // Đang trong quá trình chuyển đổi giữa các item
+            if (currentStep % 2 === 0) {
+              // Lần lượt: 0->1, 2->3, 4->5... (item lên active)
+              activeIndex = Math.floor(currentStep / 2) + 1;
+            } else {
+              // Lần lượt: 1->2, 3->4... (item xuống không active, trừ item cuối)
+              const itemIndex = Math.floor(currentStep / 2) + 1;
+              if (itemIndex === totalItems - 1) {
+                // Item cuối không bao giờ mất active
+                activeIndex = itemIndex;
+              } else {
+                activeIndex = stepProgress < 0.5 ? itemIndex : -1;
+              }
+            }
+          } else {
+            // Đã hoàn thành animation, item cuối active
+            activeIndex = totalItems - 1;
+          }
+        }
+
+        // Cập nhật class active
+        contentItems.forEach((item, index) => {
+          if (index === activeIndex) {
+            item.classList.add("active");
+          } else {
+            item.classList.remove("active");
+          }
+        });
+      },
+    },
+  });
+
+  // Tạo timeline trống để giữ ScrollTrigger hoạt động
+  tl2.to({}, { duration: totalAnimationTime });
+
+  // Hiển thị contentOvl sau khi tất cả animation hoàn thành
+  tl2.to(contentOvl, {
+    autoAlpha: 1,
+    duration: 0.5,
+    ease: "power2.out",
+    onStart: () => {
+      const contentBgOvl = document.querySelector(".content-bg-ovl");
+      if (contentBgOvl) {
+        contentBgOvl.classList.add("show");
+      }
+      effectTextCoreValue();
+    },
+    onReverseComplete: () => {
+      const contentBgOvl = document.querySelector(".content-bg-ovl");
+      if (contentBgOvl) {
+        contentBgOvl.classList.remove("show");
+      }
+    },
+  });
+
+  // Tăng thời gian để tạo thêm khoảng scroll giữ contentOvl hiển thị
+  tl2.to({}, { duration: 0.5 });
+}
+function effectTextCoreValue() {
+  const elements = document.querySelectorAll(".effect-heading-mask-line-core");
+
+  elements.forEach((element) => {
+    gsap.set(element, { opacity: 0 }); // Set initial opacity to 0
+    let splitTitle;
+
+    SplitText.create(element, {
+      type: "words,lines",
+      linesClass: "line",
+      mask: "lines",
+      onSplit: (self) => {
+        // Auto-play animation
+        splitTitle = gsap.fromTo(
+          self.lines,
+          {
+            yPercent: 100,
+            opacity: 0, // Start from opacity 0
+          },
+          {
+            yPercent: 0,
+            opacity: 1, // Animate to opacity 1
+            duration: 0.4,
+            stagger: 0.1,
+            ease: "expo.out",
+          }
+        );
+
+        // Play animation immediately after fonts are loaded
+        gsap.to(splitTitle, {
+          timeScale: 0.2,
+          onStart: () => splitTitle.play(0),
+        });
+
+        // Set parent element opacity to 1 after animation starts
+        gsap.to(element, {
+          opacity: 1,
+          duration: 0, // Instant change
+          delay: 0.1, // Slight delay to ensure lines are visible
+        });
+
+        return splitTitle;
+      },
+    });
+  });
+
+  // effect fade in
+  gsap.utils.toArray(".effect-fade-content-core").forEach((element) => {
+    const additionalDelay = element.dataset.delay
+      ? parseFloat(element.dataset.delay)
+      : 0;
+    gsap.fromTo(
+      element,
+      {
+        "will-change": "opacity, transform",
+        opacity: 0,
+        y: 20,
+      },
+      {
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "sine.out",
+        delay: 0.5 + additionalDelay,
+      }
+    );
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   header();
@@ -1187,6 +1366,7 @@ const init = () => {
   introChess();
   whyChooseUs();
   coreValue();
+  showCoreValue();
   magicCursor();
   addThemeLightToHeader();
   hoverVideo();
