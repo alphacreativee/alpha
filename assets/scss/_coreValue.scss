@@ -72,6 +72,18 @@
         text-align: center;
       }
     }
+    .content-item-lg {
+      transform-origin: center;
+      transform: rotate(0.1deg);
+      transition: all 0.3s ease-in-out;
+      font-size: 20px;
+      line-height: 28px;
+      &.active {
+        font-size: 80px;
+        line-height: 88px;
+        transform: rotate(0.1deg);
+      }
+    }
   }
 
   &.page-about {

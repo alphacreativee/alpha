@@ -263,7 +263,7 @@ function introBrading() {
 
   ScrollTrigger.create({
     trigger: ".build-a-brand",
-    start: "top+=10% top",
+    start: "top+=5% top",
     // markers: true,
     onEnter: () => {
       document.querySelector(".build-a-brand").classList.add("active");
@@ -299,107 +299,105 @@ function showCoreValue() {
   });
   if (contentItems.length === 0) return;
 
-  gsap.set(contentItems[0], {
-    fontSize: "80px",
-    lineHeight: "88px",
-    fontWeight: "100",
-  });
-  gsap.set(Array.from(contentItems).slice(1), {
-    fontSize: "20px",
-    lineHeight: "28px",
-  });
+  // Khởi tạo: item đầu tiên có class active, các item khác không
+  contentItems[0].classList.add("active");
+  Array.from(contentItems)
+    .slice(1)
+    .forEach((item) => {
+      item.classList.remove("active");
+    });
+
+  const totalItems = contentItems.length;
+  const stepDuration = 0.2; // Giảm từ 0.5 xuống 0.2 để animation nhanh hơn
+  const totalAnimationTime = (totalItems * 2 - 1) * stepDuration; // Tính tổng thời gian animation
 
   const tl2 = gsap.timeline({
     scrollTrigger: {
       trigger: ".expertise-core-value",
       start: "top top",
-      end: "+=300%",
+      end: "+=200%", // Giảm từ 300% xuống 200% để scroll ngắn hơn
       scrub: true,
       // markers: true,
       pin: true,
       onUpdate: (self) => {
-        // console.log(self.progress);
+        const progress = self.progress;
+        const animationProgress = Math.min(
+          (progress * (totalAnimationTime + 1)) / totalAnimationTime,
+          1
+        );
+
+        // Tính toán item nào đang active dựa trên progress
+        let activeIndex = 0;
+        const progressInAnimation = animationProgress * totalAnimationTime;
+
+        if (progressInAnimation <= stepDuration) {
+          // Giai đoạn đầu: item 0 từ active -> không active
+          activeIndex = progressInAnimation / stepDuration < 0.5 ? 0 : -1;
+        } else {
+          // Tính toán cho các item tiếp theo
+          const remainingProgress = progressInAnimation - stepDuration;
+          const currentStep = Math.floor(remainingProgress / stepDuration);
+          const stepProgress =
+            (remainingProgress % stepDuration) / stepDuration;
+
+          if (currentStep < totalItems - 1) {
+            // Đang trong quá trình chuyển đổi giữa các item
+            if (currentStep % 2 === 0) {
+              // Lần lượt: 0->1, 2->3, 4->5... (item lên active)
+              activeIndex = Math.floor(currentStep / 2) + 1;
+            } else {
+              // Lần lượt: 1->2, 3->4... (item xuống không active, trừ item cuối)
+              const itemIndex = Math.floor(currentStep / 2) + 1;
+              if (itemIndex === totalItems - 1) {
+                // Item cuối không bao giờ mất active
+                activeIndex = itemIndex;
+              } else {
+                activeIndex = stepProgress < 0.5 ? itemIndex : -1;
+              }
+            }
+          } else {
+            // Đã hoàn thành animation, item cuối active
+            activeIndex = totalItems - 1;
+          }
+        }
+
+        // Cập nhật class active
+        contentItems.forEach((item, index) => {
+          if (index === activeIndex) {
+            item.classList.add("active");
+          } else {
+            item.classList.remove("active");
+          }
+        });
       },
     },
   });
 
-  let currentTime = 0;
-
-  // Item đầu tiên: từ 80px xuống 20px
-  tl2.to(
-    contentItems[0],
-    {
-      fontSize: "20px",
-      lineHeight: "28px",
-      duration: 0.5, // Giảm từ 1 xuống 0.5
-      ease: "none",
-      fontWeight: "100",
-    },
-    currentTime
-  );
-  currentTime += 0.5; // Cập nhật theo duration mới
-
-  // Các item còn lại: lần lượt từ 20px lên 80px
-  contentItems.forEach((item, index) => {
-    if (index > 0) {
-      // Lên 80px
-      tl2.to(
-        item,
-        {
-          fontSize: "80px",
-          lineHeight: "88px",
-          duration: 0.5, // Giảm từ 1 xuống 0.5
-          ease: "none",
-          fontWeight: "100",
-        },
-        currentTime
-      );
-      currentTime += 0.5; // Cập nhật theo duration mới
-
-      // Chỉ xuống 20px nếu KHÔNG phải item cuối cùng
-      if (index < contentItems.length - 1) {
-        tl2.to(
-          item,
-          {
-            fontSize: "20px",
-            lineHeight: "28px",
-            duration: 0.5, // Giảm từ 1 xuống 0.5
-            ease: "none",
-            fontWeight: "100",
-          },
-          currentTime
-        );
-        currentTime += 0.5; // Cập nhật theo duration mới
-      }
-    }
-  });
+  // Tạo timeline trống để giữ ScrollTrigger hoạt động
+  tl2.to({}, { duration: totalAnimationTime });
 
   // Hiển thị contentOvl sau khi tất cả animation hoàn thành
-  tl2.to(
-    contentOvl,
-    {
-      autoAlpha: 1,
-      duration: 0.5,
-      ease: "power2.out",
-      onStart: () => {
-        const contentBgOvl = document.querySelector(".content-bg-ovl");
-        if (contentBgOvl) {
-          contentBgOvl.classList.add("show");
-        }
-        effectTextCoreValue();
-      },
-      onReverseComplete: () => {
-        const contentBgOvl = document.querySelector(".content-bg-ovl");
-        if (contentBgOvl) {
-          contentBgOvl.classList.remove("show");
-        }
-      },
+  tl2.to(contentOvl, {
+    autoAlpha: 1,
+    duration: 0.5,
+    ease: "power2.out",
+    onStart: () => {
+      const contentBgOvl = document.querySelector(".content-bg-ovl");
+      if (contentBgOvl) {
+        contentBgOvl.classList.add("show");
+      }
+      effectTextCoreValue();
     },
-    currentTime
-  );
+    onReverseComplete: () => {
+      const contentBgOvl = document.querySelector(".content-bg-ovl");
+      if (contentBgOvl) {
+        contentBgOvl.classList.remove("show");
+      }
+    },
+  });
 
-  // Tăng currentTime để tạo thêm khoảng scroll giữ contentOvl hiển thị
-  currentTime += 1;
+  // Tăng thời gian để tạo thêm khoảng scroll giữ contentOvl hiển thị
+  tl2.to({}, { duration: 0.5 });
 }
 function effectTextCoreValue() {
   const elements = document.querySelectorAll(".effect-heading-mask-line-core");
