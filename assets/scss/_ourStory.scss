@@ -3,12 +3,18 @@
     height: 100%;
     display: flex;
     align-items: center;
+    @media (max-width: 991px) {
+      align-items: flex-start;
+    }
   }
   &-container {
     height: 100vh;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
+    @media (max-width: 991px) {
+      grid-template-columns: 1fr;
+    }
   }
   &-content {
     position: relative;
@@ -19,6 +25,10 @@
     display: flex;
     align-items: center;
     overflow: hidden;
+    @media (max-width: 991px) {
+      height: auto;
+      aspect-ratio: 1;
+    }
     .content {
       width: 100%;
       height: 100%;
@@ -29,7 +39,9 @@
       border-radius: 12px;
       background-color: var(--color-white);
       padding: 40px;
-
+      @media (max-width: 991px) {
+        padding: 24px;
+      }
       &:nth-child(even) {
         background-color: #dfdfdf;
       }
@@ -41,6 +53,17 @@
         align-items: flex-start;
         height: 100%;
         width: 100%;
+        @media (max-width: 991px) {
+          h3 {
+            font-size: 20px;
+            line-height: 28px;
+            font-weight: 400;
+          }
+          .desc {
+            font-size: 14px;
+            line-height: 20px;
+          }
+        }
       }
     }
   }
@@ -54,6 +77,9 @@
     align-items: flex-start;
     gap: 24px;
     background-color: black;
+    @media (max-width: 991px) {
+      height: auto;
+    }
     &-item {
       transform-origin: left center;
       transform: rotate(0.1deg);
@@ -61,6 +87,10 @@
       &.active {
         line-height: 88px;
         transform: rotate(0.1deg) scale(4);
+        @media (max-width: 991px) {
+          line-height: 56px;
+          transform: rotate(0.1deg) scale(2.4);
+        }
       }
     }
   }

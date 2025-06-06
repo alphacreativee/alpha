@@ -1203,7 +1203,7 @@ function showCoreValue() {
     scrollTrigger: {
       trigger: ".expertise-core-value",
       start: "top top",
-      end: "+=200%", // Giảm từ 300% xuống 200% để scroll ngắn hơn
+      end: "+=150%",
       scrub: true,
       // markers: true,
       pin: true,

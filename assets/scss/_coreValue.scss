@@ -82,6 +82,10 @@
         font-size: 80px;
         line-height: 88px;
         transform: rotate(0.1deg);
+        @media (max-width: 991px) {
+          font-size: 32px;
+          line-height: 40px;
+        }
       }
     }
   }
