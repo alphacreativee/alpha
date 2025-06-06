@@ -38,16 +38,16 @@ function animateChessItems() {
       end: `+=100%`,
       scrub: true,
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 
   items.forEach((item) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
-      ease: "none"
+      ease: "none",
     });
   });
 }
@@ -79,7 +79,7 @@ function buildABrand() {
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
       linesClass: "line",
-      mask: "lines"
+      mask: "lines",
     });
 
     // Tạo timeline mới
@@ -92,7 +92,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.6,
         stagger: 0.13,
-        ease: "expo.out"
+        ease: "expo.out",
       }
     );
     // Hiệu ứng cho tag
@@ -173,7 +173,7 @@ function buildABrand() {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    }
+    },
   });
 }
 function introBrading() {
@@ -228,10 +228,10 @@ function introBrading() {
       scrub: 2,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top"
+      end: "bottom top",
       // markers: true
     },
-    onUpdate: render2
+    onUpdate: render2,
   });
 
   function render2() {
@@ -270,7 +270,7 @@ function introBrading() {
     },
     onLeaveBack: () => {
       document.querySelector(".build-a-brand").classList.remove("active");
-    }
+    },
   });
 
   // Ghim section-intro
@@ -282,9 +282,9 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 function showCoreValue() {
@@ -295,14 +295,18 @@ function showCoreValue() {
   );
 
   gsap.set(contentOvl, {
-    autoAlpha: 0
+    autoAlpha: 0,
   });
   if (contentItems.length === 0) return;
 
-  gsap.set(contentItems[0], { fontSize: "80px", lineHeight: "88px" });
+  gsap.set(contentItems[0], {
+    fontSize: "80px",
+    lineHeight: "88px",
+    fontWeight: "100",
+  });
   gsap.set(Array.from(contentItems).slice(1), {
     fontSize: "20px",
-    lineHeight: "28px"
+    lineHeight: "28px",
   });
 
   const tl2 = gsap.timeline({
@@ -315,8 +319,8 @@ function showCoreValue() {
       pin: true,
       onUpdate: (self) => {
         // console.log(self.progress);
-      }
-    }
+      },
+    },
   });
 
   let currentTime = 0;
@@ -328,7 +332,8 @@ function showCoreValue() {
       fontSize: "20px",
       lineHeight: "28px",
       duration: 0.5, // Giảm từ 1 xuống 0.5
-      ease: "none"
+      ease: "none",
+      fontWeight: "100",
     },
     currentTime
   );
@@ -344,7 +349,8 @@ function showCoreValue() {
           fontSize: "80px",
           lineHeight: "88px",
           duration: 0.5, // Giảm từ 1 xuống 0.5
-          ease: "none"
+          ease: "none",
+          fontWeight: "100",
         },
         currentTime
       );
@@ -358,7 +364,8 @@ function showCoreValue() {
             fontSize: "20px",
             lineHeight: "28px",
             duration: 0.5, // Giảm từ 1 xuống 0.5
-            ease: "none"
+            ease: "none",
+            fontWeight: "100",
           },
           currentTime
         );
@@ -386,7 +393,7 @@ function showCoreValue() {
         if (contentBgOvl) {
           contentBgOvl.classList.remove("show");
         }
-      }
+      },
     },
     currentTime
   );
@@ -411,32 +418,32 @@ function effectTextCoreValue() {
           self.lines,
           {
             yPercent: 100,
-            opacity: 0 // Start from opacity 0
+            opacity: 0, // Start from opacity 0
           },
           {
             yPercent: 0,
             opacity: 1, // Animate to opacity 1
             duration: 0.4,
             stagger: 0.1,
-            ease: "expo.out"
+            ease: "expo.out",
           }
         );
 
         // Play animation immediately after fonts are loaded
         gsap.to(splitTitle, {
           timeScale: 0.2,
-          onStart: () => splitTitle.play(0)
+          onStart: () => splitTitle.play(0),
         });
 
         // Set parent element opacity to 1 after animation starts
         gsap.to(element, {
           opacity: 1,
           duration: 0, // Instant change
-          delay: 0.1 // Slight delay to ensure lines are visible
+          delay: 0.1, // Slight delay to ensure lines are visible
         });
 
         return splitTitle;
-      }
+      },
     });
   });
 
@@ -450,14 +457,14 @@ function effectTextCoreValue() {
       {
         "will-change": "opacity, transform",
         opacity: 0,
-        y: 20
+        y: 20,
       },
       {
         opacity: 1,
         y: 0,
         duration: 0.3,
         ease: "sine.out",
-        delay: 0.5 + additionalDelay
+        delay: 0.5 + additionalDelay,
       }
     );
   });
