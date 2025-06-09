@@ -1,6 +1,11 @@
 .core-value {
   // padding-bottom: 200px;
+
   &.expertise-core-value {
+    background-color: var(--color-black);
+    .core-value__top .image {
+      height: auto;
+    }
     .content-tag {
       top: 80px;
       left: 50%;
@@ -116,7 +121,8 @@
         width: 100%;
         height: 100%;
         object-fit: cover;
-        filter: blur(10px);
+        // object-position: bottom;
+        // filter: blur(10px);
       }
     }
 

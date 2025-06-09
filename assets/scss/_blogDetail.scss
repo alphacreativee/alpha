@@ -13,6 +13,7 @@
       display: grid;
       grid-template-columns: 545px auto;
       gap: 80px;
+      border: 1px solid #f7f7f7;
       @media (max-width: 991px) {
         display: flex;
         flex-direction: column-reverse;
