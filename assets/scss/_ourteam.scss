@@ -1,8 +1,14 @@
 .our-team {
   padding: 120px 0;
+  @media (max-width: 991px) {
+    padding: 80px 0;
+  }
   &-content {
     text-align: center;
     margin-bottom: 120px;
+    @media (max-width: 991px) {
+      margin-bottom: 64px;
+    }
     .tag {
       margin-bottom: 32px;
     }
@@ -14,6 +20,10 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 80px 60px;
+    @media (max-width: 991px) {
+      grid-template-columns: 1fr;
+      gap: 24px 0;
+    }
   }
   &-item {
     overflow: hidden;

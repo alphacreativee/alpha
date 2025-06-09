@@ -273,13 +273,12 @@ function brandingAnimation() {
       gsap.to(item, {
         yPercent: 0,
         opacity: 1,
-        duration: 1.5,
-        ease: "power2.out",
+        duration: 1,
+        ease: "none",
         scrollTrigger: {
           trigger: item,
-          start: "top 85%",
-          end: "bottom 70%",
-          scrub: 1,
+          start: "top 90%",
+          end: "bottom 90%",
           // markers: true,
         },
       });
