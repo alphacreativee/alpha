@@ -60,6 +60,7 @@ function ourStory() {
 }
 
 function gsapexpertise2() {
+  if (window.innerWidth < 991) return;
   const wrapperexpertise2 = $(".wrapper-expertise2");
 
   if (wrapperexpertise2.length > 0) {
@@ -350,6 +351,33 @@ function swiperTeam() {
     }
   });
 }
+function coreValueItemMobile() {
+  if (!$(".wrapper-expertise2").length && window.innerWidth < 991) return;
+
+  const coreValueItem = gsap.utils.toArray(
+    ".wrapper-expertise2 .expertise2-item"
+  );
+
+  gsap.set(coreValueItem, {
+    yPercent: 50,
+    opacity: 0,
+  });
+
+  coreValueItem.forEach((item, index) => {
+    gsap.to(item, {
+      yPercent: 0,
+      opacity: 1,
+      duration: 0.5,
+      ease: "none",
+      scrollTrigger: {
+        trigger: item,
+        start: "top bottom+=24px",
+        end: "bottom bottom",
+        // markers: true,
+      },
+    });
+  });
+}
 
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
@@ -357,6 +385,7 @@ const init = () => {
   ourStory();
   gsapexpertise2();
   swiperTeam();
+  coreValueItemMobile();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body

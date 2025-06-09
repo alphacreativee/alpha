@@ -98,6 +98,11 @@
     position: relative;
     z-index: 3;
     mix-blend-mode: difference;
+    .core-value__top .content-top {
+      @media (max-width: 991px) {
+        top: calc(50% - 80px);
+      }
+    }
   }
 
   &__top {

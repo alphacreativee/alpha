@@ -624,16 +624,19 @@ function coreValue() {
   // pin core value
   if ($("#core-value-text").length < 1) return;
 
+  const xPercentValue = window.innerWidth < 991 ? "0" : "-300";
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#core-value-text",
       start: "center center",
-      // end: "+=40%",
-      end: "+=200%",
+      end:
+        window.innerWidth < 991
+          ? `+=${window.innerHeight * 0.5 + 100}px`
+          : "+=200%",
       scrub: true,
       pin: true,
       toggleClass: { targets: ".core-value", className: "active" },
-      // markers: true
+      // markers: true,
     },
   });
 
@@ -644,7 +647,7 @@ function coreValue() {
   });
 
   tl.to("#core-value-text", {
-    xPercent: -300,
+    xPercent: xPercentValue,
     duration: 0.5,
     ease: "none",
   });
