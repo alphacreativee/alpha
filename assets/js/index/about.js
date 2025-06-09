@@ -46,7 +46,7 @@ function ourStory() {
       texts.forEach((text, index) => {
         text.classList.toggle("active", index === activeIndex);
       });
-    }
+    },
   });
 
   contents.forEach((content, i) => {
@@ -54,7 +54,7 @@ function ourStory() {
       yPercent: 0,
       duration: 0.5,
       // boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
-      ease: "power2.out"
+      ease: "power2.out",
     });
   });
 }
@@ -77,7 +77,7 @@ function gsapexpertise2() {
         return gsap.to(expertise2, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none"
+          ease: "none",
         });
       };
 
@@ -115,7 +115,7 @@ function gsapexpertise2() {
           scrub: 1,
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: `expertise2Scroll-${index}`
+          id: `expertise2Scroll-${index}`,
           // markers: true,
         });
       };
@@ -144,7 +144,7 @@ function gsapexpertise2() {
         start: "left 80%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
-        invalidateOnRefresh: true
+        invalidateOnRefresh: true,
         // markers: true,
       });
     });
@@ -167,7 +167,7 @@ function gsapexpertise2() {
         document
           .querySelector(".header-menu-container")
           .classList.remove("theme-light");
-      }
+      },
       // markers: true
     });
 
@@ -191,26 +191,42 @@ function ourTeam() {
 
   gsap.set(teamItems, {
     opacity: 0,
-    y: 100
+    y: 100,
   });
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: ".our-team-list",
-      start: "top 90%",
-      end: "bottom 70%",
-      scrub: 1
-      // markers: true
-    }
-  });
+  if (window.innerWidth > 991) {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: ".our-team-list",
+        start: "top 90%",
+        end: "bottom 70%",
+        scrub: 1,
+      },
+    });
 
-  tl.to(teamItems, {
-    opacity: 1,
-    y: 0,
-    duration: 0.8,
-    ease: "power2.out",
-    stagger: 0.15
-  });
+    tl.to(teamItems, {
+      opacity: 1,
+      y: 0,
+      duration: 0.8,
+      ease: "power2.out",
+      stagger: 0.15,
+    });
+  } else {
+    teamItems.forEach((item, index) => {
+      gsap.to(item, {
+        opacity: 1,
+        y: 0,
+        duration: 0.8,
+        ease: "power2.out",
+        scrollTrigger: {
+          trigger: item,
+          start: "top 90%",
+          toggleActions: "play none none reverse",
+          // markers: true,
+        },
+      });
+    });
+  }
 }
 
 function swiperTeam() {
@@ -218,6 +234,36 @@ function swiperTeam() {
 
   const itemModal = $("[modal-team]");
   const itemModalClose = $("#modal-teams").find(".btn-close");
+  const defaultDuration = 15000;
+
+  // Hàm cập nhật progress bar
+  function updateProgressBars(swiper) {
+    var bullets = swiper.pagination.bullets;
+    bullets.forEach((bullet, index) => {
+      let progressBar = bullet.querySelector(".progress-bar");
+      if (index < swiper.realIndex) {
+        // Bullet của slide đã xem trước đó
+        bullet.classList.add("viewed");
+        progressBar.style.width = "100%";
+        progressBar.style.transition = "none";
+      } else if (index === swiper.realIndex) {
+        // Bullet của slide hiện tại: chạy progress bar từ 0% đến 100%
+        progressBar.style.width = "0%";
+        progressBar.style.transition = "none";
+        setTimeout(() => {
+          progressBar.style.width = "100%";
+          progressBar.style.transition = `width ${
+            swiper.params.autoplay.delay || defaultDuration
+          }ms linear`;
+        }, 10);
+      } else {
+        // Bullet của slide chưa xem
+        bullet.classList.remove("viewed");
+        progressBar.style.width = "0%";
+        progressBar.style.transition = "none";
+      }
+    });
+  }
 
   const swiper = new Swiper(".swiper-team", {
     slidesPerView: 1,
@@ -225,8 +271,41 @@ function swiperTeam() {
     spaceBetween: 0,
     navigation: {
       nextEl: ".swiper-team .swiper-button-next",
-      prevEl: ".swiper-team .swiper-button-prev"
-    }
+      prevEl: ".swiper-team .swiper-button-prev",
+    },
+    pagination: {
+      el: ".swiper-team .swiper-pagination",
+      clickable: true,
+      renderBullet: function (index, className) {
+        return `
+          <button class="${className}">
+            <span class="progress-bar"></span>
+          </button>`;
+      },
+    },
+    autoplay:
+      window.innerWidth <= 991
+        ? {
+            delay: defaultDuration,
+            disableOnInteraction: false,
+          }
+        : false,
+    on: {
+      slideChangeTransitionStart: function (swiper) {
+        if (swiper.params.autoplay) {
+          swiper.params.autoplay.delay = defaultDuration;
+        }
+      },
+      slideChangeTransitionEnd: function (swiper) {
+        updateProgressBars(swiper);
+      },
+      init: function (swiper) {
+        // Khởi tạo progress bar khi swiper được tạo
+        if (window.innerWidth <= 991) {
+          updateProgressBars(swiper);
+        }
+      },
+    },
   });
 
   itemModal.on("click", function (e) {
@@ -238,6 +317,11 @@ function swiperTeam() {
     $("body").addClass("overflow-hidden");
 
     swiper.slideTo(index);
+
+    // Cập nhật progress bar khi mở modal
+    if (window.innerWidth <= 991) {
+      updateProgressBars(swiper);
+    }
   });
 
   itemModalClose.on("click", function () {
