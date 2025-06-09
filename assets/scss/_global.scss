@@ -420,6 +420,9 @@ main {
     }
   }
   &.about-page {
+    @media (max-width: 991px) {
+      display: none;
+    }
     .cursor {
       width: 100px;
       height: 100px;
