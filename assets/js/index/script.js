@@ -838,7 +838,31 @@ function loading() {
   body.addClass("overflow-hidden");
 
   if (loading.hasClass("out-home")) {
-    gsap.delayedCall(1.5, effectTextBanner);
+    gsap.delayedCall(1.4, effectTextBanner);
+    tlLoading
+      .to(
+        loading.find(".loading-logo"),
+        {
+          opacity: 0,
+          y: -60,
+          ease: "power2.out",
+        },
+        0.5
+      )
+      .to(
+        loading.find(".loading-wrapper"),
+        {
+          scaleY: 0,
+          duration: 1.2,
+          ease: "power3.inOut",
+        },
+        0.6
+      )
+      .to(loading, {
+        autoAlpha: 0,
+      });
+  } else {
+    gsap.delayedCall(3.55, effectTextBanner);
     tlLoading
       .to(
         loading.find(".loading-logo"),
@@ -846,69 +870,60 @@ function loading() {
           opacity: 0,
           y: -60,
           duration: 0.8,
-        },
-        0
-      )
-      .to(
-        loading.find(".loading-wrapper"),
-        {
-          scaleY: 0,
-          duration: 1.5,
-        },
-        0.8
-      )
-      .to(loading, {
-        autoAlpha: 0,
-        duration: 0,
-      });
-  } else {
-    gsap.delayedCall(4.25, effectTextBanner);
-    tlLoading
-      .to(
-        loading.find(".loading-logo"),
-        {
-          opacity: 0,
-          y: -60,
+          ease: "power2.out",
         },
         0.5
       )
-      .to(loading.find(".loading-text"), {
-        opacity: 1,
-        y: 0,
-      })
+      .to(
+        loading.find(".loading-text"),
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        1
+      )
       .to(
         loading.find(".loading-text"),
         {
           opacity: 0,
           y: -60,
+          duration: 0.5,
+          ease: "power2.out",
         },
-        2
+        1.8
       )
-      .to(loading.find(".loading-desc"), {
-        opacity: 1,
-        y: 0,
-      })
+      .to(
+        loading.find(".loading-desc"),
+        {
+          opacity: 1,
+          y: 0,
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        2.3
+      )
       .to(
         loading.find(".loading-desc"),
         {
           opacity: 0,
-          y: -60,
+          y: -40,
+          duration: 0.5,
+          ease: "power2.out",
         },
-        3
+        2.8
       )
-
       .to(
         loading.find(".loading-wrapper"),
         {
           scaleY: 0,
-          duration: 1.5,
+          duration: 1,
+          ease: "power3.inOut",
         },
-        3.25
+        2.9
       )
-      .to(loading, {
-        autoAlpha: 0,
-        duration: 0,
-      });
+      .to(loading, { autoAlpha: 0 });
   }
 }
 $(window).on("DOMContentLoaded", function () {
