@@ -172,9 +172,14 @@
         @media (max-width: 991px) {
           width: 100%;
           flex-wrap: wrap;
+          gap: 0;
+          display: inline-block;
         }
         a {
           font-weight: 700;
+          @media (max-width: 991px) {
+            transform: translateY(5px);
+          }
         }
       }
     }

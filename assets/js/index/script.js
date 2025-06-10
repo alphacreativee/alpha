@@ -631,7 +631,7 @@ function coreValue() {
       trigger: "#core-value-text",
       start: "center center",
       end:
-        window.innerWidth < 991 ? `+=${sectionHeight * 0.5 + 100}px` : "+=200%",
+        window.innerWidth < 991 ? `+=${sectionHeight * 0.5 + 114}px` : "+=200%",
       scrub: true,
       pin: true,
       toggleClass: { targets: ".core-value", className: "active" },

@@ -43,7 +43,7 @@ function animateChessItems() {
       scrub: true,
       pin: true,
       pinSpacing: false,
-      markers: true,
+      // markers: true,
     },
   });
 
