@@ -625,14 +625,13 @@ function coreValue() {
   if ($("#core-value-text").length < 1) return;
 
   const xPercentValue = window.innerWidth < 991 ? "0" : "-300";
+  const sectionHeight = document.querySelector(".core-value").offsetHeight;
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: "#core-value-text",
       start: "center center",
       end:
-        window.innerWidth < 991
-          ? `+=${window.innerHeight * 0.5 + 100}px`
-          : "+=200%",
+        window.innerWidth < 991 ? `+=${sectionHeight * 0.5 + 100}px` : "+=200%",
       scrub: true,
       pin: true,
       toggleClass: { targets: ".core-value", className: "active" },
