@@ -633,6 +633,7 @@ function coreValue() {
         window.innerWidth < 991
           ? `+=${window.innerHeight * 0.5 + 100}px`
           : "+=200%",
+      // end: window.innerWidth < 991 ? `+=500px` : "+=200%",
       scrub: true,
       pin: true,
       toggleClass: { targets: ".core-value", className: "active" },

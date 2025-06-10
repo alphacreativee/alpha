@@ -7,6 +7,7 @@
   @media (max-width: 991px) {
     // overflow-y: unset;
     padding-bottom: 80px;
+    overflow: unset;
   }
   &.theme-light {
     background-color: var(--color-white);

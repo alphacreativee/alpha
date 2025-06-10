@@ -80,6 +80,7 @@
     background-color: black;
     @media (max-width: 991px) {
       height: auto;
+      padding-top: 32px;
     }
     &-item {
       transform-origin: left center;
