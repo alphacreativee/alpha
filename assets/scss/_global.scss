@@ -355,7 +355,7 @@ main {
   z-index: 2;
   background-color: var(--color-black);
   transition: background-color 0.3s;
-
+  height: auto;
   &.theme-light {
     background-color: var(--color-white);
   }

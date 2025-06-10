@@ -14,7 +14,10 @@ function animateChessItems() {
   });
 
   // const totalHeight = chessItemsHeight;
-  const totalHeight = window.innerHeight;
+
+  // const totalHeight = window.innerHeight;
+  const totalHeight =
+    window.innerWidth < 991 ? window.innerHeight : window.innerHeight + 100;
 
   // Tạo spacer
   let spacer = document.querySelector(".banner-expertise-spacer");
