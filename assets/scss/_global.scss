@@ -523,7 +523,11 @@ main {
       display: flex;
       align-items: center;
       gap: 12px;
-
+      @media (max-width: 991px) {
+        width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+      }
       button {
         padding: 0 24px;
         display: flex;
