@@ -402,6 +402,7 @@ main {
   left: 0;
   pointer-events: none;
   z-index: 1061;
+
   &.blur-black {
     .cursor {
       background-color: #11111133;
@@ -469,6 +470,9 @@ main {
     transform-origin: center;
     background-color: rgba(60, 60, 60, 0.5);
     backdrop-filter: blur(10px);
+    @media (max-width: 991px) {
+      display: none;
+    }
     &.show {
       transform: scale(1);
     }

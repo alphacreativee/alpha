@@ -240,6 +240,9 @@
     }
     &:hover {
       cursor: none;
+      @media (max-width: 991px) {
+        cursor: pointer;
+      }
       .img-parallax {
         img {
           transform: scale(1.05);
@@ -253,7 +256,9 @@
       .project-tag {
         transform: translateY(-24px);
         opacity: 1;
-
+        @media (max-width: 991px) {
+          transform: translate(0);
+        }
         .tag {
           opacity: 1;
         }
@@ -279,6 +284,10 @@
     z-index: 2;
     width: calc(100% - 48px);
     transition: transform 0.5s ease;
+    @media (max-width: 991px) {
+      left: 16px;
+      bottom: 16px;
+    }
     ul {
       display: flex;
       align-items: center;
@@ -294,6 +303,9 @@
           transition: none;
           opacity: 0;
           transition: opacity 0.5s ease;
+          @media (max-width: 991px) {
+            opacity: 1;
+          }
         }
       }
     }

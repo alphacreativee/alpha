@@ -60,6 +60,9 @@
         width: 100%;
         .tag {
           margin-bottom: 0;
+          @media (max-width: 991px) {
+            opacity: 1;
+          }
         }
       }
       .sub {
