@@ -9,7 +9,7 @@ footer {
     height: 323px;
     width: 100%;
     opacity: 0;
-    visibility: hidden;
+    // visibility: hidden;
     @media (max-width: 991px) {
       height: 370px;
     }
@@ -22,6 +22,9 @@ footer {
     bottom: 0;
     left: 0;
     z-index: 2;
+    @media (max-width: 991px) {
+      height: 370px;
+    }
     &-bg {
       position: absolute;
       bottom: 0;
