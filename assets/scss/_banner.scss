@@ -39,7 +39,15 @@
 
   &.banner-expertise {
     overflow: hidden;
-
+    @media (max-width: 991px) {
+      height: calc(100vh - 48px);
+      .section-banner-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
     .wrapper-chess {
       width: 80%;
       max-width: 1000px;
@@ -53,10 +61,16 @@
       left: 50%;
       transform: translateX(-50%);
       z-index: 1000;
-
+      @media (max-width: 991px) {
+        width: 160%;
+        // max-width: 100%;
+        gap: 32px;
+      }
       .chess-item {
         width: 100%;
-
+        @media (max-width: 991px) {
+          aspect-ratio: 4 / 6;
+        }
         img {
           width: 100%;
           height: auto;

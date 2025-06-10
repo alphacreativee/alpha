@@ -8,6 +8,9 @@
   .main-section {
     margin-top: 80px;
     cursor: none;
+    @media (max-width: 991px) {
+      margin-top: 64px;
+    }
   }
 
   &.page-expertise {
@@ -22,7 +25,9 @@
 
     .list-wrapper {
       gap: 40px;
-
+      @media (max-width: 991px) {
+        gap: 24px;
+      }
       .item-child {
         padding: 40px;
         display: flex;
@@ -34,7 +39,11 @@
         min-width: 350px;
         aspect-ratio: 302 / 405;
         transition: all 0.4s ease;
-
+        @media (max-width: 991px) {
+          min-width: 255px;
+          aspect-ratio: 255 / 342;
+          padding: 24px;
+        }
         &.has-hover {
           overflow: hidden;
 
@@ -81,6 +90,10 @@
           left: unset;
           width: 100%;
           transition: all 0.3s ease;
+          @media (max-width: 991px) {
+            font-size: 32px;
+            line-height: 40px;
+          }
         }
 
         .item-bottom {
