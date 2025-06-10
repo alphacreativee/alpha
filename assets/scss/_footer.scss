@@ -109,6 +109,11 @@ footer {
         transform: none;
         margin-bottom: 12px;
       }
+      @media (max-width: 375px) {
+        max-width: 220px;
+        width: 100%;
+        text-align: center;
+      }
     }
   }
 }

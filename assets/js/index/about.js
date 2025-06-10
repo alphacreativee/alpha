@@ -60,6 +60,28 @@ function ourStory() {
 }
 
 function gsapexpertise2() {
+  ScrollTrigger.create({
+    trigger: ".wrapper-expertise2",
+    start: "top 65%",
+    // markers: true,
+    onEnter: () => {
+      document
+        .querySelector(".wrapper-expertise2")
+        .classList.add("theme-light");
+      document
+        .querySelector(".header-menu-container")
+        .classList.add("theme-light");
+    },
+    onLeaveBack: () => {
+      document
+        .querySelector(".wrapper-expertise2")
+        .classList.remove("theme-light");
+      document
+        .querySelector(".header-menu-container")
+        .classList.remove("theme-light");
+    },
+    // markers: true
+  });
   if (window.innerWidth < 991) return;
   const wrapperexpertise2 = $(".wrapper-expertise2");
 
@@ -148,28 +170,6 @@ function gsapexpertise2() {
         invalidateOnRefresh: true,
         // markers: true,
       });
-    });
-
-    ScrollTrigger.create({
-      trigger: ".wrapper-expertise2",
-      start: "top 65%",
-      onEnter: () => {
-        document
-          .querySelector(".wrapper-expertise2")
-          .classList.add("theme-light");
-        document
-          .querySelector(".header-menu-container")
-          .classList.add("theme-light");
-      },
-      onLeaveBack: () => {
-        document
-          .querySelector(".wrapper-expertise2")
-          .classList.remove("theme-light");
-        document
-          .querySelector(".header-menu-container")
-          .classList.remove("theme-light");
-      },
-      // markers: true
     });
 
     // Làm mới ScrollTrigger
@@ -352,7 +352,7 @@ function swiperTeam() {
   });
 }
 function coreValueItemMobile() {
-  if (!$(".wrapper-expertise2").length && window.innerWidth < 991) return;
+  if (!$(".wrapper-expertise2").length && window.innerWidth > 991) return;
 
   const coreValueItem = gsap.utils.toArray(
     ".wrapper-expertise2 .expertise2-item"
