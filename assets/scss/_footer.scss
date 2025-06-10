@@ -86,6 +86,10 @@ footer {
       line-height: 88px;
       white-space: wrap;
     }
+    @media (max-width: 390px) {
+      font-size: 64px;
+      line-height: 72px;
+    }
   }
 
   &-bottom {
