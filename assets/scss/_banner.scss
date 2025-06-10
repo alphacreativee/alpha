@@ -40,7 +40,7 @@
   &.banner-expertise {
     overflow: hidden;
     @media (max-width: 991px) {
-      height: calc(100vh - 48px);
+      height: 100vh;
       .section-banner-container {
         position: absolute;
         top: 50%;
