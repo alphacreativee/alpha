@@ -53,7 +53,7 @@ function sliderProject() {
             <button class="${className}">
               <span class="progress-bar"></span>
             </button>`;
-        }
+        },
       },
       on: {
         progress: function (swiper) {
@@ -91,15 +91,15 @@ function sliderProject() {
         },
         slideChangeTransitionEnd: function (swiper) {
           updateProgressBars(swiper);
-        }
-      }
+        },
+      },
     });
 
     // Thêm sự kiện hover để kích hoạt/dừng autoplay
     $this.on("mouseenter", function () {
       swiper.autoplay.start({
         delay: defaultDuration, // 1000ms
-        disableOnInteraction: false
+        disableOnInteraction: false,
       });
       updateProgressBars(swiper);
     });
@@ -118,29 +118,51 @@ function sliderProject() {
 function loadImg(scope) {
   const projectItems = gsap.utils.toArray(".project-item", scope);
 
+  // Set initial positions
   gsap.set(projectItems, {
-    yPercent: 40
+    yPercent: 40,
   });
 
   gsap.set(projectItems[0], {
-    yPercent: 10
+    yPercent: 10,
   });
 
-  const tl = gsap.timeline({
-    scrollTrigger: {
-      trigger: scope,
-      start: "top 90%",
-      end: "bottom 80%",
-      scrub: 1
-      // markers: true,
-    }
+  // Use matchMedia for better responsive handling
+  gsap.matchMedia().add("(max-width: 991px)", () => {
+    // Mobile: Individual triggers for each item
+    projectItems.forEach((item, index) => {
+      gsap.to(item, {
+        yPercent: 0,
+        duration: 0.5,
+        scrollTrigger: {
+          trigger: item,
+          start: "top bottom+=125px",
+          end: "bottom bottom+=125px",
+
+          // markers: true,
+        },
+      });
+    });
   });
 
-  tl.to(projectItems, {
-    yPercent: 0,
-    duration: 1,
-    ease: "power2.out",
-    stagger: 0.2
+  gsap.matchMedia().add("(min-width: 992px)", () => {
+    // Desktop: Original timeline approach
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: scope,
+        start: "top 90%",
+        end: "bottom 80%",
+        scrub: 1,
+        // markers: true,
+      },
+    });
+
+    tl.to(projectItems, {
+      yPercent: 0,
+      duration: 1,
+      ease: "power2.out",
+      stagger: 0.2,
+    });
   });
 }
 document.addEventListener("DOMContentLoaded", function () {
@@ -194,7 +216,7 @@ function changeColor() {
     onLeaveBack: () => {
       mainElement.classList.remove("theme-light");
       blogContainer.classList.remove("theme-light");
-    }
+    },
   });
 }
 
