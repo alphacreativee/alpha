@@ -507,7 +507,11 @@ main {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
+    @media (max-width: 991px) {
+      flex-direction: column;
+      gap: 24px;
+      align-items: flex-start;
+    }
     .text {
       a {
         color: var(--color-white);
