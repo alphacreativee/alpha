@@ -21,7 +21,7 @@ function sectionSpecialize() {
   );
 
   const startValue = $(window).width() > 991 ? "top 50%" : "top 10%";
-  const endValue = $(window).width() > 991 ? "bottom 20%" : "bottom 70%";
+  const endValue = $(window).width() > 991 ? "bottom 20%" : "bottom 55%";
   gsap.to(".specialize-main-slider", {
     xPercent: -160,
     scrollTrigger: {
@@ -237,21 +237,21 @@ function gsapExpertise() {
         );
       } else {
         // Mobile: ScrollTrigger trực tiếp trên item
-        gsap.fromTo(
-          content,
-          { yPercent: 70 },
-          {
-            yPercent: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: item,
-              start: "top 80%", // Bắt đầu khi item vào viewport
-              end: "center 60%", // Kết thúc khi item gần trung tâm
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
-          }
-        );
+        // gsap.fromTo(
+        //   content,
+        //   { yPercent: 70 },
+        //   {
+        //     yPercent: 0,
+        //     ease: "none",
+        //     scrollTrigger: {
+        //       trigger: item,
+        //       start: "top 80%", // Bắt đầu khi item vào viewport
+        //       end: "center 60%", // Kết thúc khi item gần trung tâm
+        //       scrub: true,
+        //       invalidateOnRefresh: true,
+        //     },
+        //   }
+        // );
       }
     });
   });
@@ -263,27 +263,30 @@ function brandingAnimation() {
   const brandingItem = gsap.utils.toArray(".branding-wrapper .item");
   const isMobile = window.innerWidth <= 991;
 
-  gsap.set(brandingItem, {
-    yPercent: 50,
-    opacity: 0,
-  });
-
   if (isMobile) {
+    gsap.set(brandingItem, {
+      y: 50,
+      opacity: 0,
+    });
     brandingItem.forEach((item, index) => {
       gsap.to(item, {
-        yPercent: 0,
+        y: 0,
         opacity: 1,
-        duration: 1,
+        duration: 0.5,
         ease: "none",
         scrollTrigger: {
           trigger: item,
-          start: "top bottom+=130px",
-          end: "bottom bottom+=130px",
+          start: "top 90%",
+          end: "bottom 90%",
           // markers: true,
         },
       });
     });
   } else {
+    gsap.set(brandingItem, {
+      yPercent: 50,
+      opacity: 0,
+    });
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".branding-wrapper",
