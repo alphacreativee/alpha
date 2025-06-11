@@ -329,10 +329,66 @@ function introChess() {
 
   canvas.width = window.innerWidth;
   canvas.height = window.innerHeight;
-  window.addEventListener("resize", function () {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-    render();
+
+  // Debounce function để tối ưu resize
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  // Throttle function để giới hạn số lần gọi
+  function throttle(func, limit) {
+    let inThrottle;
+    return function () {
+      const args = arguments;
+      const context = this;
+      if (!inThrottle) {
+        func.apply(context, args);
+        inThrottle = true;
+        setTimeout(() => (inThrottle = false), limit);
+      }
+    };
+  }
+
+  // Resize handler được tối ưu
+  const handleResize = debounce(() => {
+    // Chỉ resize khi kích thước thực sự thay đổi
+    const newWidth = window.innerWidth;
+    const newHeight = window.innerHeight;
+
+    if (canvas.width !== newWidth || canvas.height !== newHeight) {
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+
+      // Sử dụng requestAnimationFrame để đảm bảo render mượt
+      requestAnimationFrame(() => {
+        render();
+      });
+    }
+  }, 150); // Delay 150ms
+
+  // Alternative: Sử dụng throttle thay vì debounce (uncomment nếu muốn dùng)
+  // const handleResize = throttle(() => {
+  //   canvas.width = window.innerWidth;
+  //   canvas.height = window.innerHeight;
+  //   requestAnimationFrame(render);
+  // }, 100);
+
+  window.addEventListener("resize", handleResize);
+
+  // Thêm orientation change handler cho mobile
+  window.addEventListener("orientationchange", () => {
+    // Delay một chút để đảm bảo dimensions đã được cập nhật
+    setTimeout(() => {
+      handleResize();
+    }, 100);
   });
 
   const frameCount = 130;
@@ -424,8 +480,8 @@ function introChess() {
   tl.fromTo(
     splitContent.lines,
     { opacity: 0, yPercent: 100 },
-    { opacity: 1, yPercent: 0, duration: 0.4, stagger: 0.1, ease: "expo.out" },
-    "-=0.3" // Chồng lấn nhẹ để hiệu ứng mượt hơn
+    { opacity: 1, yPercent: 0, duration: 0.3, stagger: 0.05, ease: "expo.out" },
+    "-=0.1" // Chồng lấn nhẹ để hiệu ứng mượt hơn
   );
 
   function render() {
@@ -757,18 +813,19 @@ function pinSectionBanner() {
         start: "top top",
         end: `+=${window.innerHeight}`,
         scrub: true,
+        // markers: true,
         onUpdate: (self) => {
           if (self.progress === 1 && !isTitleHidden) {
             gsap.to(bannerTitle, {
               opacity: 0,
-              duration: 0.5,
+              duration: 0.3,
               ease: "power2.out",
             });
             isTitleHidden = true;
           } else if (self.progress < 1 && isTitleHidden) {
             gsap.to(bannerTitle, {
               opacity: 1,
-              duration: 0.5,
+              duration: 0.3,
               ease: "power2.out",
             });
             isTitleHidden = false;
