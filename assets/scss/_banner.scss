@@ -39,6 +39,9 @@
 
   &.banner-expertise {
     overflow: hidden;
+    .section-banner-container {
+      z-index: 1001;
+    }
     @media (max-width: 991px) {
       height: 100dvh;
       .section-banner-container {
@@ -51,12 +54,12 @@
     }
     .wrapper-chess {
       width: 80%;
-      max-width: 1000px;
+      max-width: 1100px;
       margin: 0 auto auto;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       align-items: flex-end;
-      gap: 40px;
+      gap: 16px;
       position: absolute;
       bottom: 0;
       left: 50%;
