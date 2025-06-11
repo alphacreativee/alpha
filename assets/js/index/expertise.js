@@ -15,7 +15,7 @@ function animateChessItems() {
   });
 
   const isIPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  const isMobile = window.innerWidth <= 768; // Hoặc breakpoint khác tùy theo design
+  const isMobile = window.innerWidth <= 991; // Hoặc breakpoint khác tùy theo design
 
   const totalHeight = isIPhone ? window.innerHeight : window.innerHeight + 100;
 
@@ -42,7 +42,7 @@ function animateChessItems() {
       scrub: true,
       pin: true,
       pinSpacing: false,
-      // markers: true,
+      markers: true,
     },
   });
 
