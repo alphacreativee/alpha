@@ -17,7 +17,9 @@ function animateChessItems() {
   const isIPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
   const isMobile = window.innerWidth <= 991; // Hoặc breakpoint khác tùy theo design
 
-  const totalHeight = isIPhone ? window.innerHeight : window.innerHeight + 100;
+  const totalHeight = isIPhone
+    ? window.innerHeight + 200
+    : window.innerHeight + 100;
 
   // Tạo spacer
   let spacer = document.querySelector(".banner-expertise-spacer");
