@@ -20,8 +20,8 @@ function sectionSpecialize() {
     }
   );
 
-  const startValue = $(window).width() > 991 ? "top 50%" : "top 5%";
-  const endValue = $(window).width() > 991 ? "bottom 20%" : "bottom top";
+  const startValue = $(window).width() > 991 ? "top 50%" : "top 10%";
+  const endValue = $(window).width() > 991 ? "bottom 20%" : "bottom 70%";
   gsap.to(".specialize-main-slider", {
     xPercent: -160,
     scrollTrigger: {
@@ -277,8 +277,8 @@ function brandingAnimation() {
         ease: "none",
         scrollTrigger: {
           trigger: item,
-          start: "top 90%",
-          end: "bottom 90%",
+          start: "top bottom+=100px",
+          end: "bottom bottom+=100px",
           // markers: true,
         },
       });
