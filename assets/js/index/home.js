@@ -277,8 +277,8 @@ function brandingAnimation() {
         ease: "none",
         scrollTrigger: {
           trigger: item,
-          start: "top bottom+=100px",
-          end: "bottom bottom+=100px",
+          start: "top bottom+=130px",
+          end: "bottom bottom+=130px",
           // markers: true,
         },
       });
