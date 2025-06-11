@@ -1470,8 +1470,17 @@ function hoverIcon() {
     });
   });
 }
+let coreValueTimeline = null;
+
 function showCoreValue() {
   if ($(".expertise-core-value").length < 1) return;
+
+  // Nếu đã có timeline trước đó thì kill nó
+  if (coreValueTimeline) {
+    coreValueTimeline.kill();
+    ScrollTrigger.getById("core-value-trigger")?.kill();
+  }
+
   const contentItems = document.querySelectorAll(".content-item-lg");
   const contentOvl = document.querySelector(
     ".expertise-core-value .content-ovl"
@@ -1482,7 +1491,7 @@ function showCoreValue() {
   });
   if (contentItems.length === 0) return;
 
-  // Khởi tạo: item đầu tiên có class active, các item khác không
+  // Khởi tạo trạng thái ban đầu
   contentItems[0].classList.add("active");
   Array.from(contentItems)
     .slice(1)
@@ -1491,17 +1500,18 @@ function showCoreValue() {
     });
 
   const totalItems = contentItems.length;
-  const stepDuration = 0.2; // Giảm từ 0.5 xuống 0.2 để animation nhanh hơn
-  const totalAnimationTime = (totalItems * 2 - 1) * stepDuration; // Tính tổng thời gian animation
+  const stepDuration = 0.2;
+  const totalAnimationTime = (totalItems * 2 - 1) * stepDuration;
 
-  const tl2 = gsap.timeline({
+  coreValueTimeline = gsap.timeline({
     scrollTrigger: {
+      id: "core-value-trigger", // thêm ID để dễ quản lý
       trigger: ".expertise-core-value",
       start: "top top",
       end: "+=150%",
       scrub: true,
-      // markers: true,
       pin: true,
+      // markers: true,
       onUpdate: (self) => {
         const progress = self.progress;
         const animationProgress = Math.min(
@@ -1509,42 +1519,34 @@ function showCoreValue() {
           1
         );
 
-        // Tính toán item nào đang active dựa trên progress
+        // Tính activeIndex như bạn đã viết
         let activeIndex = 0;
         const progressInAnimation = animationProgress * totalAnimationTime;
 
         if (progressInAnimation <= stepDuration) {
-          // Giai đoạn đầu: item 0 từ active -> không active
           activeIndex = progressInAnimation / stepDuration < 0.5 ? 0 : -1;
         } else {
-          // Tính toán cho các item tiếp theo
           const remainingProgress = progressInAnimation - stepDuration;
           const currentStep = Math.floor(remainingProgress / stepDuration);
           const stepProgress =
             (remainingProgress % stepDuration) / stepDuration;
 
           if (currentStep < totalItems - 1) {
-            // Đang trong quá trình chuyển đổi giữa các item
             if (currentStep % 2 === 0) {
-              // Lần lượt: 0->1, 2->3, 4->5... (item lên active)
               activeIndex = Math.floor(currentStep / 2) + 1;
             } else {
-              // Lần lượt: 1->2, 3->4... (item xuống không active, trừ item cuối)
               const itemIndex = Math.floor(currentStep / 2) + 1;
               if (itemIndex === totalItems - 1) {
-                // Item cuối không bao giờ mất active
                 activeIndex = itemIndex;
               } else {
                 activeIndex = stepProgress < 0.5 ? itemIndex : -1;
               }
             }
           } else {
-            // Đã hoàn thành animation, item cuối active
             activeIndex = totalItems - 1;
           }
         }
 
-        // Cập nhật class active
         contentItems.forEach((item, index) => {
           if (index === activeIndex) {
             item.classList.add("active");
@@ -1556,32 +1558,29 @@ function showCoreValue() {
     },
   });
 
-  // Tạo timeline trống để giữ ScrollTrigger hoạt động
-  tl2.to({}, { duration: totalAnimationTime });
-
-  // Hiển thị contentOvl sau khi tất cả animation hoàn thành
-  tl2.to(contentOvl, {
-    autoAlpha: 1,
-    duration: 0.5,
-    ease: "power2.out",
-    onStart: () => {
-      const contentBgOvl = document.querySelector(".content-bg-ovl");
-      if (contentBgOvl) {
-        contentBgOvl.classList.add("show");
-      }
-      effectTextCoreValue();
-    },
-    onReverseComplete: () => {
-      const contentBgOvl = document.querySelector(".content-bg-ovl");
-      if (contentBgOvl) {
-        contentBgOvl.classList.remove("show");
-      }
-    },
-  });
-
-  // Tăng thời gian để tạo thêm khoảng scroll giữ contentOvl hiển thị
-  tl2.to({}, { duration: 0.5 });
+  coreValueTimeline
+    .to({}, { duration: totalAnimationTime })
+    .to(contentOvl, {
+      autoAlpha: 1,
+      duration: 0.5,
+      ease: "power2.out",
+      onStart: () => {
+        const contentBgOvl = document.querySelector(".content-bg-ovl");
+        if (contentBgOvl) {
+          contentBgOvl.classList.add("show");
+        }
+        effectTextCoreValue();
+      },
+      onReverseComplete: () => {
+        const contentBgOvl = document.querySelector(".content-bg-ovl");
+        if (contentBgOvl) {
+          contentBgOvl.classList.remove("show");
+        }
+      },
+    })
+    .to({}, { duration: 0.5 });
 }
+
 function effectTextCoreValue() {
   const elements = document.querySelectorAll(".effect-heading-mask-line-core");
 
@@ -1650,8 +1649,16 @@ function effectTextCoreValue() {
     );
   });
 }
+$(".accordion").on("shown.bs.collapse hidden.bs.collapse", function () {
+  setTimeout(() => {
+    showCoreValue(); // sẽ tự destroy timeline cũ
+    ScrollTrigger.refresh(); // cập nhật lại layout
+  }, 200);
+});
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+
   header();
   scrollToForm();
   stickyFilter();
