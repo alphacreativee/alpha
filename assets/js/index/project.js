@@ -118,26 +118,25 @@ function sliderProject() {
 function loadImg(scope) {
   const projectItems = gsap.utils.toArray(".project-item", scope);
 
-  // Set initial positions
-  gsap.set(projectItems, {
-    yPercent: 40,
-  });
-
-  gsap.set(projectItems[0], {
-    yPercent: 10,
-  });
-
   // Use matchMedia for better responsive handling
   gsap.matchMedia().add("(max-width: 991px)", () => {
+    // Set initial positions
+    gsap.set(projectItems, {
+      y: 40,
+    });
+
+    gsap.set(projectItems[0], {
+      y: 10,
+    });
     // Mobile: Individual triggers for each item
     projectItems.forEach((item, index) => {
       gsap.to(item, {
-        yPercent: 0,
+        y: 0,
         duration: 0.5,
         scrollTrigger: {
           trigger: item,
-          start: "top bottom+=125px",
-          end: "bottom bottom+=125px",
+          start: "top 90%",
+          end: "bottom 90%",
 
           // markers: true,
         },
@@ -146,6 +145,14 @@ function loadImg(scope) {
   });
 
   gsap.matchMedia().add("(min-width: 992px)", () => {
+    // Set initial positions
+    gsap.set(projectItems, {
+      yPercent: 40,
+    });
+
+    gsap.set(projectItems[0], {
+      yPercent: 10,
+    });
     // Desktop: Original timeline approach
     const tl = gsap.timeline({
       scrollTrigger: {
