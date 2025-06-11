@@ -67,8 +67,9 @@
       transform: translateX(-50%);
       z-index: 1000;
       @media (max-width: 991px) {
+        padding: 0;
         width: 160%;
-        // max-width: 100%;
+        max-width: unset;
         gap: 0;
         bottom: 48px;
         transform: translateX(0);
