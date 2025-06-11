@@ -327,8 +327,19 @@ function introChess() {
   const canvas = document.getElementById("canvas-chess");
   const context = canvas.getContext("2d");
 
-  canvas.width = window.innerWidth;
-  canvas.height = window.innerHeight;
+  // Mobile viewport handling
+  const isMobile = window.innerWidth <= 768;
+  let initialViewportHeight = window.innerHeight;
+  let initialViewportWidth = window.innerWidth;
+
+  // Lưu kích thước ban đầu cho mobile
+  if (isMobile) {
+    // Sử dụng screen.height thay vì innerHeight cho mobile
+    initialViewportHeight = Math.max(window.innerHeight, screen.height * 0.6);
+  }
+
+  canvas.width = initialViewportWidth;
+  canvas.height = initialViewportHeight;
 
   // Debounce function để tối ưu resize
   function debounce(func, wait) {
@@ -343,56 +354,65 @@ function introChess() {
     };
   }
 
-  // Throttle function để giới hạn số lần gọi
-  function throttle(func, limit) {
-    let inThrottle;
-    return function () {
-      const args = arguments;
-      const context = this;
-      if (!inThrottle) {
-        func.apply(context, args);
-        inThrottle = true;
-        setTimeout(() => (inThrottle = false), limit);
-      }
-    };
-  }
-
-  // Resize handler được tối ưu
+  // Mobile-specific resize handler
   const handleResize = debounce(() => {
-    // Chỉ resize khi kích thước thực sự thay đổi
     const newWidth = window.innerWidth;
     const newHeight = window.innerHeight;
 
-    if (canvas.width !== newWidth || canvas.height !== newHeight) {
-      canvas.width = newWidth;
-      canvas.height = newHeight;
+    // Trên mobile, chỉ resize khi width thay đổi hoặc height thay đổi đáng kể
+    if (isMobile) {
+      const widthChanged = Math.abs(newWidth - canvas.width) > 10;
+      const heightChanged = Math.abs(newHeight - initialViewportHeight) > 100; // Chỉ resize khi thay đổi > 100px
 
-      // Sử dụng requestAnimationFrame để đảm bảo render mượt
-      requestAnimationFrame(() => {
-        render();
-      });
+      if (widthChanged) {
+        // Width thay đổi (xoay màn hình)
+        canvas.width = newWidth;
+        initialViewportWidth = newWidth;
+
+        // Cập nhật height nếu cần
+        if (heightChanged) {
+          canvas.height = newHeight;
+          initialViewportHeight = newHeight;
+        }
+
+        requestAnimationFrame(() => {
+          render();
+        });
+      }
+      // Bỏ qua các thay đổi nhỏ của height (ẩn/hiện thanh địa chỉ)
+    } else {
+      // Desktop: resize bình thường
+      if (canvas.width !== newWidth || canvas.height !== newHeight) {
+        canvas.width = newWidth;
+        canvas.height = newHeight;
+
+        requestAnimationFrame(() => {
+          render();
+        });
+      }
     }
-  }, 150); // Delay 150ms
-
-  // Alternative: Sử dụng throttle thay vì debounce (uncomment nếu muốn dùng)
-  // const handleResize = throttle(() => {
-  //   canvas.width = window.innerWidth;
-  //   canvas.height = window.innerHeight;
-  //   requestAnimationFrame(render);
-  // }, 100);
+  }, 150);
 
   window.addEventListener("resize", handleResize);
 
-  // Thêm orientation change handler cho mobile
+  // Orientation change handler cho mobile
   window.addEventListener("orientationchange", () => {
-    // Delay một chút để đảm bảo dimensions đã được cập nhật
     setTimeout(() => {
-      handleResize();
-    }, 100);
+      const newWidth = window.innerWidth;
+      const newHeight = window.innerHeight;
+
+      canvas.width = newWidth;
+      canvas.height = newHeight;
+      initialViewportWidth = newWidth;
+      initialViewportHeight = newHeight;
+
+      requestAnimationFrame(() => {
+        render();
+      });
+    }, 300); // Delay lâu hơn để đảm bảo orientation đã thay đổi xong
   });
 
   const frameCount = 130;
-  // Kiểm tra class của .section-intro
   const sectionIntro = document.querySelector(".section-intro");
   let currentFrame;
 
@@ -407,10 +427,10 @@ function introChess() {
     currentFrame = (index) =>
       `${url}/assets/images/img-about/chess-${(index + 1).toString()}.jpg`;
   } else {
-    // Nếu không có class home hoặc about, có thể gán mặc định hoặc báo lỗi
     currentFrame = (index) =>
       `${url}/assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
   }
+
   const images = [];
   const imageSeq = { frame: 0 };
   let imagesLoaded = 0;
@@ -468,20 +488,18 @@ function introChess() {
       toggleActions: "play none none reverse",
     },
   });
+
   tl.fromTo(sectionIntroContent, { opacity: 0 }, { opacity: 1, duration: 0.4 });
-  // Thêm hiệu ứng cho tag
   tl.fromTo(
     tagElement,
     { opacity: 0, y: 20 },
     { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
   );
-
-  // Thêm hiệu ứng cho các dòng của content
   tl.fromTo(
     splitContent.lines,
     { opacity: 0, yPercent: 100 },
     { opacity: 1, yPercent: 0, duration: 0.3, stagger: 0.05, ease: "expo.out" },
-    "-=0.1" // Chồng lấn nhẹ để hiệu ứng mượt hơn
+    "-=0.1"
   );
 
   function render() {
@@ -519,7 +537,203 @@ function introChess() {
       end: "bottom top",
       pin: true,
       pinSpacing: false,
-      // markers: true,
+    },
+  });
+}
+
+// Phiên bản 2: Sử dụng CSS để fix canvas height
+function introChessV2() {
+  if (document.querySelectorAll(".section-intro").length < 1) return;
+
+  gsap.registerPlugin(ScrollTrigger, SplitText);
+
+  const canvas = document.getElementById("canvas-chess");
+  const context = canvas.getContext("2d");
+
+  // Set canvas size với CSS custom properties
+  const setCanvasSize = () => {
+    const vw = window.innerWidth;
+    const vh = window.innerHeight;
+
+    // Trên mobile, sử dụng fixed height
+    if (window.innerWidth <= 768) {
+      document.documentElement.style.setProperty("--canvas-height", `${vh}px`);
+      canvas.width = vw;
+      canvas.height = vh;
+
+      // Set CSS để canvas không bị scale
+      canvas.style.width = "100vw";
+      canvas.style.height = "var(--canvas-height)";
+      canvas.style.objectFit = "cover";
+    } else {
+      canvas.width = vw;
+      canvas.height = vh;
+      canvas.style.width = "100vw";
+      canvas.style.height = "100vh";
+    }
+  };
+
+  setCanvasSize();
+
+  const handleResize = debounce(() => {
+    // Chỉ update khi orientation thay đổi trên mobile
+    if (window.innerWidth <= 768) {
+      const currentOrientation =
+        window.innerWidth > window.innerHeight ? "landscape" : "portrait";
+      const storedOrientation = canvas.dataset.orientation;
+
+      if (currentOrientation !== storedOrientation) {
+        canvas.dataset.orientation = currentOrientation;
+        setCanvasSize();
+        requestAnimationFrame(render);
+      }
+    } else {
+      setCanvasSize();
+      requestAnimationFrame(render);
+    }
+  }, 150);
+
+  function debounce(func, wait) {
+    let timeout;
+    return function executedFunction(...args) {
+      const later = () => {
+        clearTimeout(timeout);
+        func(...args);
+      };
+      clearTimeout(timeout);
+      timeout = setTimeout(later, wait);
+    };
+  }
+
+  window.addEventListener("resize", handleResize);
+  window.addEventListener("orientationchange", () => {
+    setTimeout(() => {
+      setCanvasSize();
+      requestAnimationFrame(render);
+    }, 300);
+  });
+
+  // Rest of the code remains the same...
+  const frameCount = 130;
+  const sectionIntro = document.querySelector(".section-intro");
+  let currentFrame;
+
+  const url = canvas.getAttribute("data-assets")
+    ? canvas.getAttribute("data-assets")
+    : ".";
+
+  if (sectionIntro.classList.contains("home")) {
+    currentFrame = (index) =>
+      `${url}/assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
+  } else if (sectionIntro.classList.contains("about")) {
+    currentFrame = (index) =>
+      `${url}/assets/images/img-about/chess-${(index + 1).toString()}.jpg`;
+  } else {
+    currentFrame = (index) =>
+      `${url}/assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
+  }
+
+  const images = [];
+  const imageSeq = { frame: 0 };
+  let imagesLoaded = 0;
+
+  for (let i = 0; i < frameCount; i++) {
+    const img = new Image();
+    img.src = currentFrame(i);
+    img.onload = () => {
+      imagesLoaded++;
+      if (imagesLoaded === frameCount) {
+        render();
+      }
+    };
+    img.onerror = () => {
+      console.error(`Không tải được hình ảnh: ${img.src}`);
+    };
+    images[i] = img;
+  }
+
+  gsap.to(imageSeq, {
+    frame: frameCount - 1,
+    snap: "frame",
+    ease: "none",
+    scrollTrigger: {
+      scrub: 1,
+      trigger: "#canvas-chess",
+      start: "top+=100 bottom",
+      end: "bottom top",
+    },
+    onUpdate: render,
+  });
+
+  // Rest of animations...
+  const sectionIntroContent = document.querySelector(".section-intro-content");
+  const tagElement = document.querySelector(".section-intro-content .tag");
+  const contentElement = document.querySelector(
+    ".section-intro-content .h2-heading"
+  );
+
+  const splitContent = new SplitText(contentElement, {
+    type: "words,lines",
+    mask: "lines",
+    linesClass: "line",
+  });
+
+  const tl = gsap.timeline({
+    scrollTrigger: {
+      trigger: "#canvas-chess",
+      start: `top+=${(110 / frameCount) * 100 - 20}% top`,
+      end: `top+=${(110 / frameCount) * 100 + 20}% top`,
+      toggleActions: "play none none reverse",
+    },
+  });
+
+  tl.fromTo(sectionIntroContent, { opacity: 0 }, { opacity: 1, duration: 0.4 });
+  tl.fromTo(
+    tagElement,
+    { opacity: 0, y: 20 },
+    { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
+  );
+  tl.fromTo(
+    splitContent.lines,
+    { opacity: 0, yPercent: 100 },
+    { opacity: 1, yPercent: 0, duration: 0.3, stagger: 0.05, ease: "expo.out" },
+    "-=0.1"
+  );
+
+  function render() {
+    if (images[imageSeq.frame] && images[imageSeq.frame].complete) {
+      scaleImage(images[imageSeq.frame], context);
+    }
+  }
+
+  function scaleImage(img, ctx) {
+    const canvas = ctx.canvas;
+    const hRatio = canvas.width / img.width;
+    const vRatio = canvas.height / img.height;
+    const ratio = Math.max(hRatio, vRatio);
+    const centerShift_x = (canvas.width - img.width * ratio) / 2;
+    const centerShift_y = (canvas.height - img.height * ratio) / 2;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(
+      img,
+      0,
+      0,
+      img.width,
+      img.height,
+      centerShift_x,
+      centerShift_y,
+      img.width * ratio,
+      img.height * ratio
+    );
+  }
+
+  gsap.to(".section-intro", {
+    scrollTrigger: {
+      trigger: ".section-intro",
+      start: "top top",
+      end: "bottom top",
+      pin: true,
+      pinSpacing: false,
     },
   });
 }
