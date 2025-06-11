@@ -23,7 +23,7 @@ function animateChessItems() {
       .querySelector(".banner-expertise")
       .insertAdjacentElement("afterend", spacer);
   }
-  spacer.style.height = `${totalHeight}px`;
+  spacer.style.height = `${totalHeight / 2}px`;
 
   const items = gsap.utils.toArray(".wrapper-chess .chess-item");
 
@@ -33,7 +33,7 @@ function animateChessItems() {
     scrollTrigger: {
       trigger: ".banner-expertise",
       start: "top top",
-      end: `+=100%`,
+      end: `+=50%`,
       scrub: true,
       pin: true,
       pinSpacing: false,
