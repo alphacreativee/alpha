@@ -5,6 +5,7 @@ function animateChessItems() {
 
   const banner = document.querySelector(".section-banner.banner-expertise");
   const chessItems = document.querySelectorAll(".wrapper-chess .chess-item");
+  const wrapperChess = document.querySelector(".wrapper-chess");
 
   const bannerHeight = banner ? banner.getBoundingClientRect().height : 0;
 
@@ -13,10 +14,8 @@ function animateChessItems() {
     chessItemsHeight += item.getBoundingClientRect().height;
   });
 
-  // const totalHeight = chessItemsHeight;
-
-  // const totalHeight = window.innerHeight;
   const isIPhone = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+  const isMobile = window.innerWidth <= 768; // Hoặc breakpoint khác tùy theo design
 
   const totalHeight = isIPhone ? window.innerHeight : window.innerHeight + 100;
 
@@ -47,12 +46,27 @@ function animateChessItems() {
     },
   });
 
-  items.forEach((item) => {
+  // Animation cho từng item
+  items.forEach((item, index) => {
     tl.to(item, {
       y: "0%",
       duration: 0.6,
       ease: "none",
     });
+
+    // Thêm animation slide trái cho wrapper-chess khi đến item thứ 3 trên mobile
+    if (isMobile && index === 2) {
+      // Item thứ 3 (index = 2)
+      tl.to(
+        wrapperChess,
+        {
+          x: "-40%", // Điều chỉnh giá trị này theo ý muốn
+          duration: 0.4,
+          ease: "power2.out",
+        },
+        "<0.2"
+      ); // Bắt đầu 0.2s sau khi item thứ 3 bắt đầu animate
+    }
   });
 }
 
