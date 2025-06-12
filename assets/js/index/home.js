@@ -268,8 +268,8 @@ function gsapExpertise() {
               {
                 yPercent: 0,
                 opacity: 1,
-                duration: 0.4,
-                ease: "back.out(1.7)",
+                duration: 0.5,
+                ease: "none",
               }
             );
           }
@@ -289,8 +289,8 @@ function gsapExpertise() {
             {
               yPercent: 0,
               opacity: 1,
-              duration: 0.4,
-              ease: "back.out(1.7)",
+              duration: 0.5,
+              ease: "none",
             }
           );
         }

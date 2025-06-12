@@ -6,23 +6,14 @@ const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
 const isOldAndroid = /Android [1-6]/.test(navigator.userAgent);
 
 const lenis = new Lenis({
-  duration: 1.2,
+  duration: 1.4,
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
-  // Điều kiện smoothTouch
-  smoothTouch: !(isIOS || isOldAndroid),
-  touchMultiplier: 2,
-  wheelMultiplier: 1,
-  normalizeWheel: true,
-  syncTouch: true,
+  smoothTouch: false,
 });
 
-// Cải thiện callback
-lenis.on("scroll", (e) => {
-  ScrollTrigger.update();
-});
+lenis.on("scroll", ScrollTrigger.update);
 
-// Tối ưu ticker
 gsap.ticker.add((time) => {
   lenis.raf(time * 1000);
 });
@@ -551,7 +542,7 @@ function introChess() {
       end: "bottom top",
       pin: true,
       pinSpacing: false,
-      markers: true,
+      // markers: true,
       // Thêm những tùy chọn này cho mobile
       anticipatePin: 1,
       refreshPriority: -10,
