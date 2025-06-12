@@ -573,8 +573,8 @@ main {
   }
   &-logo {
     img {
-      height: 140px;
-      width: 140px;
+      height: 100px;
+      width: 100px;
       object-fit: contain;
     }
   }
@@ -584,8 +584,8 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     &-image {
-      width: 150px;
-      height: 150px;
+      width: 120px;
+      height: 120px;
       background-size: 100% 100%;
       transform-origin: center;
       background-image: url("../../images/use/logo_circle.svg");
