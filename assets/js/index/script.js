@@ -889,7 +889,8 @@ function coreValue() {
       scale: 2,
       duration: 0.4,
       ease: "power2.out",
-      transformOrigin: "bottom",
+      transformOrigin: () =>
+        document.querySelector(".core-value .image").dataset.transformOrigin,
     }
   );
 
