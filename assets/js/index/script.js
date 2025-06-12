@@ -6,7 +6,7 @@ const lenis = new Lenis({
   duration: 1.2,
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
-  smoothTouch: false,
+  smoothTouch: true,
   touchMultiplier: 2,
   wheelMultiplier: 1,
   normalizeWheel: true,
@@ -543,6 +543,7 @@ function introChess() {
       pin: true,
       pinSpacing: false,
       markers: true,
+      pinType: window.innerWidth < 991 ? "transform" : "fixed",
     },
   });
 }
@@ -1673,7 +1674,7 @@ const init = () => {
   pinSectionBanner();
   customDropdown();
   effectText();
-  introChessV2();
+  introChess();
   whyChooseUs();
   coreValue();
   showCoreValue();
