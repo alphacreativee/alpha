@@ -23,7 +23,7 @@ function sectionSpecialize() {
   const startValue = $(window).width() > 991 ? "top 50%" : "top 10%";
   const endValue = $(window).width() > 991 ? "bottom 20%" : "bottom 70%";
   gsap.to(".specialize-main-slider", {
-    xPercent: -130,
+    xPercent: -107,
     scrollTrigger: {
       trigger: ".section-specialize",
       start: startValue,

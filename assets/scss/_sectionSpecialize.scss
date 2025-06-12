@@ -33,7 +33,9 @@
         font-size: 100px;
         color: var(--color-black);
         padding: 0 40px;
-
+        @media (max-width: 991px) {
+          padding: 0 24px;
+        }
         &:nth-child(1),
         &:nth-child(2) {
           .number {

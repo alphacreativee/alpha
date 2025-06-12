@@ -3,13 +3,13 @@ import { preloadImages } from "../../libs/utils.js";
 $ = jQuery;
 
 const lenis = new Lenis({
-  duration: 1.4,
-  easing: (t) => 1 - Math.pow(1 - t, 4),
-  smooth: true,
-  smoothTouch: false,
-  touchMultiplier: 2,
-  wheelMultiplier: 1,
-  normalizeWheel: true,
+  // duration: 1.4,
+  // easing: (t) => 1 - Math.pow(1 - t, 4),
+  // smooth: true,
+  // smoothTouch: false,
+  // touchMultiplier: 2,
+  // wheelMultiplier: 1,
+  // normalizeWheel: true,
 });
 
 lenis.on("scroll", ScrollTrigger.update);
