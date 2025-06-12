@@ -74,6 +74,17 @@ function animateChessItems() {
         },
         ">"
       );
+
+      tl.to(
+        item,
+        {
+          scale: 0.9,
+
+          duration: 0.5,
+          ease: "power2.out",
+        },
+        ">"
+      );
     }
   });
 }
