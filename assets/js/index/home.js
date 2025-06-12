@@ -150,110 +150,152 @@ function gsapExpertise() {
   if (!wrappers.length) return;
 
   wrappers.forEach((wrapper, index) => {
-    const expertise = wrapper.querySelector(".expertise");
-    if (!expertise) return;
+    if (wrapper.classList.contains("desktop")) {
+      const expertise = wrapper.querySelector(".expertise");
+      if (!expertise) return;
 
-    const getScrollAmount = () => {
-      const racesWidth = expertise.scrollWidth;
-      const addScrollHeight = window.innerWidth < 1600 ? 150 : 250;
-      return racesWidth - window.innerWidth + addScrollHeight;
-    };
+      const getScrollAmount = () => {
+        const racesWidth = expertise.scrollWidth;
+        const addScrollHeight = window.innerWidth < 1600 ? 150 : 250;
+        return racesWidth - window.innerWidth + addScrollHeight;
+      };
 
-    const createTween = (element, scrollAmount) => {
-      return gsap.to(element, {
-        x: -scrollAmount,
-        duration: 3,
-        ease: "none",
+      const createTween = (element, scrollAmount) => {
+        return gsap.to(element, {
+          x: -scrollAmount,
+          duration: 3,
+          ease: "none",
+        });
+      };
+
+      const getTotalHeight = () => {
+        const items = wrapper.querySelectorAll(".expertise-item");
+        return Array.from(items).reduce((acc, el) => acc + el.offsetHeight, 0);
+      };
+
+      const updateSpacer = (scrollAmount) => {
+        let spacer = wrapper.nextElementSibling;
+        if (!spacer || !spacer.classList.contains("expertise-spacer")) {
+          spacer = document.createElement("div");
+          spacer.classList.add("expertise-spacer");
+          wrapper.insertAdjacentElement("afterend", spacer);
+        }
+        const totalHeight = getTotalHeight();
+        spacer.style.height = `${Math.max(totalHeight, scrollAmount)}px`;
+      };
+
+      const createScrollTrigger = (wrapper, tween, scrollAmount) => {
+        const isDesktop = window.innerWidth > 991;
+        ScrollTrigger.create({
+          trigger: wrapper,
+          start: "top 20%",
+          end: `+=${scrollAmount}`,
+          pin: isDesktop,
+          animation: tween,
+          scrub: 1,
+          pinSpacing: false,
+          invalidateOnRefresh: true,
+          id: `expertiseScroll-${index}`,
+          // markers: true,
+        });
+      };
+
+      const scrollAmount = getScrollAmount() + 100;
+      updateSpacer(scrollAmount);
+
+      const tween = createTween(expertise, scrollAmount);
+      createScrollTrigger(wrapper, tween, scrollAmount);
+
+      const containerTrigger = ScrollTrigger.getById(
+        `expertiseScroll-${index}`
+      );
+      if (!containerTrigger) return;
+
+      const items = gsap.utils.toArray(
+        wrapper.querySelectorAll(".expertise-item:not(.item-title-large)")
+      );
+
+      items.forEach((item) => {
+        const content = item.querySelector(".item-content");
+        if (!content) return;
+
+        const isDesktop = window.innerWidth > 991;
+        if (isDesktop) {
+          // Desktop: Sử dụng containerAnimation
+          gsap.fromTo(
+            content,
+            { yPercent: 70 },
+            {
+              yPercent: 0,
+              ease: "none",
+              scrollTrigger: {
+                trigger: item,
+                containerAnimation: containerTrigger.animation,
+                start: "left 80%",
+                end: "center 60%",
+                scrub: true,
+                invalidateOnRefresh: true,
+              },
+            }
+          );
+        }
       });
-    };
+    } else {
+      var swiperExpertise = new Swiper(".swiper-expertise", {
+        spaceBetween: 24,
+        pagination: {
+          el: ".wrapper-expertise.mobile .swiper-pagination",
+          type: "progressbar",
+        },
+      });
 
-    const getTotalHeight = () => {
-      const items = wrapper.querySelectorAll(".expertise-item");
-      return Array.from(items).reduce((acc, el) => acc + el.offsetHeight, 0);
-    };
+      // Set initial state
+      gsap.set(".swiper-expertise .item-content", { yPercent: 40, opacity: 0 });
 
-    const updateSpacer = (scrollAmount) => {
-      let spacer = wrapper.nextElementSibling;
-      if (!spacer || !spacer.classList.contains("expertise-spacer")) {
-        spacer = document.createElement("div");
-        spacer.classList.add("expertise-spacer");
-        wrapper.insertAdjacentElement("afterend", spacer);
-      }
-      const totalHeight = getTotalHeight();
-      spacer.style.height = `${Math.max(totalHeight, scrollAmount)}px`;
-    };
-
-    const createScrollTrigger = (wrapper, tween, scrollAmount) => {
-      const isDesktop = window.innerWidth > 991;
+      // ScrollTrigger khi thấy swiper
       ScrollTrigger.create({
-        trigger: wrapper,
-        start: "top 20%",
-        end: `+=${scrollAmount}`,
-        pin: isDesktop,
-        animation: tween,
-        scrub: 1,
-        pinSpacing: false,
-        invalidateOnRefresh: true,
-        id: `expertiseScroll-${index}`,
+        trigger: ".swiper-expertise",
+        start: "top 50%", // Khi swiper vào 80% viewport
         // markers: true,
-      });
-    };
-
-    const scrollAmount = getScrollAmount() + 100;
-    updateSpacer(scrollAmount);
-
-    const tween = createTween(expertise, scrollAmount);
-    createScrollTrigger(wrapper, tween, scrollAmount);
-
-    const containerTrigger = ScrollTrigger.getById(`expertiseScroll-${index}`);
-    if (!containerTrigger) return;
-
-    const items = gsap.utils.toArray(
-      wrapper.querySelectorAll(".expertise-item:not(.item-title-large)")
-    );
-
-    items.forEach((item) => {
-      const content = item.querySelector(".item-content");
-      if (!content) return;
-
-      const isDesktop = window.innerWidth > 991;
-      if (isDesktop) {
-        // Desktop: Sử dụng containerAnimation
-        gsap.fromTo(
-          content,
-          { yPercent: 70 },
-          {
-            yPercent: 0,
-            ease: "none",
-            scrollTrigger: {
-              trigger: item,
-              containerAnimation: containerTrigger.animation,
-              start: "left 80%",
-              end: "center 60%",
-              scrub: true,
-              invalidateOnRefresh: true,
-            },
+        once: true,
+        onEnter: () => {
+          const firstContent =
+            swiperExpertise.slides[0]?.querySelector(".item-content");
+          if (firstContent) {
+            gsap.fromTo(
+              firstContent,
+              { yPercent: 40, opacity: 0 },
+              {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.4,
+                ease: "back.out(1.7)",
+              }
+            );
           }
-        );
-      } else {
-        // Mobile: ScrollTrigger trực tiếp trên item
-        // gsap.fromTo(
-        //   content,
-        //   { yPercent: 70 },
-        //   {
-        //     yPercent: 0,
-        //     ease: "none",
-        //     scrollTrigger: {
-        //       trigger: item,
-        //       start: "top 80%", // Bắt đầu khi item vào viewport
-        //       end: "center 60%", // Kết thúc khi item gần trung tâm
-        //       scrub: true,
-        //       invalidateOnRefresh: true,
-        //     },
-        //   }
-        // );
-      }
-    });
+        },
+      });
+
+      // slideChange event như cũ
+      swiperExpertise.on("slideChange", function () {
+        const activeSlide = this.slides[this.activeIndex];
+        const content = activeSlide.querySelector(".item-content");
+
+        if (content) {
+          const tl = gsap.timeline();
+          tl.fromTo(
+            content,
+            { yPercent: 40, opacity: 0 },
+            {
+              yPercent: 0,
+              opacity: 1,
+              duration: 0.4,
+              ease: "back.out(1.7)",
+            }
+          );
+        }
+      });
+    }
   });
 }
 

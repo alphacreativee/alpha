@@ -7,6 +7,9 @@ const lenis = new Lenis({
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
   smoothTouch: false,
+  touchMultiplier: 2,
+  wheelMultiplier: 1,
+  normalizeWheel: true,
 });
 
 lenis.on("scroll", ScrollTrigger.update);
@@ -328,7 +331,7 @@ function introChess() {
   const context = canvas.getContext("2d");
 
   // Mobile viewport handling
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = window.innerWidth <= 991;
   let initialViewportHeight = window.innerHeight;
   let initialViewportWidth = window.innerWidth;
 
@@ -461,6 +464,7 @@ function introChess() {
       trigger: "#canvas-chess",
       start: "top+=100 bottom",
       end: "bottom top",
+      // markers: true,
     },
     onUpdate: render,
   });
@@ -537,6 +541,7 @@ function introChess() {
       end: "bottom top",
       pin: true,
       pinSpacing: false,
+      markers: true,
     },
   });
 }

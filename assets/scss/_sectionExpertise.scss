@@ -2,9 +2,35 @@
   overflow: hidden;
   height: 80vh;
 
-  @media (max-width: 991px) {
-    height: auto;
-    padding-top: 80px;
+  &.mobile {
+    position: relative;
+    @media (max-width: 991px) {
+      height: auto;
+      padding-top: 80px;
+      padding-bottom: 40px;
+    }
+    h2 {
+      font-size: 48px;
+      line-height: 56px;
+      font-weight: 300;
+      text-align: center;
+    }
+    .swiper-expertise {
+      margin-top: 64px;
+    }
+    .swiper-pagination {
+      top: unset;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.2);
+      height: 1px;
+      width: calc(100% - 48px);
+      left: 50%;
+      transform: translateX(-50%);
+      &-progressbar-fill {
+        background-color: var(--color-white);
+        height: 1px;
+      }
+    }
   }
 }
 .expertise {
@@ -12,17 +38,6 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 160px;
-
-  @media (max-width: 991px) {
-    gap: 24px;
-    transform: translate(0) !important;
-    padding: 64px 24px 64px 0;
-    width: 100%;
-    overflow-x: scroll;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-  }
 }
 
 .expertise-item {
@@ -37,12 +52,10 @@
   @media (max-width: 991px) {
     flex-direction: column;
     align-items: flex-start;
-    gap: 24px;
     width: 100%;
-    min-width: 280px;
-    &:first-child {
-      min-width: 0;
-    }
+    min-width: 100%;
+    padding: 0 24px;
+    gap: 40px;
   }
 
   &.item-title-large {
@@ -77,8 +90,8 @@
       display: flex;
       align-items: flex-end;
       @media (max-width: 991px) {
-        width: 80px;
-        height: 127px;
+        width: 100px;
+        height: 150px;
       }
 
       img {
@@ -118,6 +131,7 @@
       @media (max-width: 991px) {
         width: 100%;
         gap: 8px 16px;
+        max-width: 100%;
       }
 
       li {
