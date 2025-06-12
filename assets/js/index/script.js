@@ -534,13 +534,12 @@ function introChess() {
   }
 
   // Ghim section-intro
-  let pinStartValue = window.innerWidth > 991 ? "top top" : "top top-=50px";
-  let pinEndValue = window.innerWidth > 991 ? "bottom top" : "bottom top-=50px";
+
   gsap.to(".section-intro", {
     scrollTrigger: {
       trigger: ".section-intro",
-      start: pinStartValue,
-      end: pinEndValue,
+      start: "top top",
+      end: "bottom top",
       pin: true,
       pinSpacing: false,
       markers: true,
@@ -1674,7 +1673,7 @@ const init = () => {
   pinSectionBanner();
   customDropdown();
   effectText();
-  introChess();
+  introChessV2();
   whyChooseUs();
   coreValue();
   showCoreValue();
