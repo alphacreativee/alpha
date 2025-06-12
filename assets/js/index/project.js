@@ -131,7 +131,7 @@ function loadImg(scope) {
   gsap.matchMedia().add("(max-width: 991px)", () => {
     // Set initial positions
     gsap.set(projectItems, {
-      y: 40,
+      y: 100,
     });
 
     gsap.set(projectItems[0], {
