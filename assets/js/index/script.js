@@ -2,23 +2,35 @@ import { preloadImages } from "../../libs/utils.js";
 ("use strict");
 $ = jQuery;
 
-const lenis = new Lenis({
-  duration: 1.2,
-  easing: (t) => 1 - Math.pow(1 - t, 4),
-  smooth: true,
-  smoothTouch: true,
-  touchMultiplier: 2,
-  wheelMultiplier: 1,
-  normalizeWheel: true,
-});
+// const lenis = new Lenis({
+//   duration: 1.2,
+//   easing: (t) => 1 - Math.pow(1 - t, 4),
+//   smooth: true,
+//   smoothTouch: true,
+//   touchMultiplier: 2,
+//   wheelMultiplier: 1,
+//   normalizeWheel: true,
+// });
 
-lenis.on("scroll", ScrollTrigger.update);
+// lenis.on("scroll", ScrollTrigger.update);
 
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000);
-});
+// gsap.ticker.add((time) => {
+//   lenis.raf(time * 1000);
+// });
 
-gsap.ticker.lagSmoothing(0);
+// gsap.ticker.lagSmoothing(0);
+let lenis = new Lenis();
+
+// Update ScrollTrigger each time the user scrolls
+lenis.on("scroll", () => ScrollTrigger.update());
+
+// Define a function to run at each animation frame
+const scrollFn = (time) => {
+  lenis.raf(time * 1000); // Run Lenis' requestAnimationFrame method
+  requestAnimationFrame(scrollFn); // Recursively call scrollFn on each frame
+};
+// Start the animation frame loop
+requestAnimationFrame(scrollFn);
 
 function handlePageVisibilityAndFavicon() {
   const originalTitle = document.title;
@@ -543,7 +555,6 @@ function introChess() {
       pin: true,
       pinSpacing: false,
       markers: true,
-      pinType: window.innerWidth < 991 ? "transform" : "fixed",
     },
   });
 }
