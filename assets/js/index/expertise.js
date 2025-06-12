@@ -57,7 +57,7 @@ function animateChessItems() {
     if (isMobile) {
       // Tính toán để item cuối vẫn hiển thị
       // Chia đều khoảng đẩy cho tất cả items
-      const maxPushPercent = 40; // Tối đa đẩy 50%
+      const maxPushPercent = 50; // Tối đa đẩy 50%
       const pushPerItem = maxPushPercent / totalItems;
       const pushAmount = (index + 1) * -pushPerItem;
 

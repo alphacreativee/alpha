@@ -740,6 +740,32 @@ function introChessV2() {
 
 function whyChooseUs() {
   if ($(".why-choose-us").length < 1) return;
+  if ($(".why-choose-us.page-expertise").length > 0) {
+    ScrollTrigger.create({
+      trigger: ".why-choose-us.page-expertise",
+      start: "top 70%",
+      end: "bottom top",
+      // markers: true,
+      onEnter: () => {
+        document
+          .querySelector(".why-choose-us.page-expertise")
+          .classList.add("theme-light");
+        document
+          .querySelector(".header-menu-container")
+          .classList.add("theme-light");
+        document.querySelector("main").classList.add("theme-light");
+      },
+      onLeaveBack: () => {
+        document
+          .querySelector(".why-choose-us.page-expertise")
+          .classList.remove("theme-light");
+        document
+          .querySelector(".header-menu-container")
+          .classList.remove("theme-light");
+        document.querySelector("main").classList.remove("theme-light");
+      },
+    });
+  }
   if ($(window).width() < 991) return;
   const sections = document.querySelectorAll(".why-choose-us .main-section");
 
@@ -802,33 +828,6 @@ function whyChooseUs() {
         video.currentTime = 0;
       });
     });
-
-  if ($(".why-choose-us.page-expertise").length > 0) {
-    ScrollTrigger.create({
-      trigger: ".why-choose-us.page-expertise",
-      start: "top 70%",
-      end: "bottom top",
-      // markers: true,
-      onEnter: () => {
-        document
-          .querySelector(".why-choose-us.page-expertise")
-          .classList.add("theme-light");
-        document
-          .querySelector(".header-menu-container")
-          .classList.add("theme-light");
-        document.querySelector("main").classList.add("theme-light");
-      },
-      onLeaveBack: () => {
-        document
-          .querySelector(".why-choose-us.page-expertise")
-          .classList.remove("theme-light");
-        document
-          .querySelector(".header-menu-container")
-          .classList.remove("theme-light");
-        document.querySelector("main").classList.remove("theme-light");
-      },
-    });
-  }
 }
 
 function coreValue() {
