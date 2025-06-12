@@ -1,36 +1,33 @@
 import { preloadImages } from "../../libs/utils.js";
 ("use strict");
 $ = jQuery;
+// Detect problematic devices
+const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+const isOldAndroid = /Android [1-6]/.test(navigator.userAgent);
 
-// const lenis = new Lenis({
-//   duration: 1.2,
-//   easing: (t) => 1 - Math.pow(1 - t, 4),
-//   smooth: true,
-//   smoothTouch: true,
-//   touchMultiplier: 2,
-//   wheelMultiplier: 1,
-//   normalizeWheel: true,
-// });
+const lenis = new Lenis({
+  duration: 1.2,
+  easing: (t) => 1 - Math.pow(1 - t, 4),
+  smooth: true,
+  // Điều kiện smoothTouch
+  smoothTouch: !(isIOS || isOldAndroid),
+  touchMultiplier: 2,
+  wheelMultiplier: 1,
+  normalizeWheel: true,
+  syncTouch: true,
+});
 
-// lenis.on("scroll", ScrollTrigger.update);
+// Cải thiện callback
+lenis.on("scroll", (e) => {
+  ScrollTrigger.update();
+});
 
-// gsap.ticker.add((time) => {
-//   lenis.raf(time * 1000);
-// });
+// Tối ưu ticker
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000);
+});
 
-// gsap.ticker.lagSmoothing(0);
-let lenis = new Lenis();
-
-// Update ScrollTrigger each time the user scrolls
-lenis.on("scroll", () => ScrollTrigger.update());
-
-// Define a function to run at each animation frame
-const scrollFn = (time) => {
-  lenis.raf(time * 1000); // Run Lenis' requestAnimationFrame method
-  requestAnimationFrame(scrollFn); // Recursively call scrollFn on each frame
-};
-// Start the animation frame loop
-requestAnimationFrame(scrollFn);
+gsap.ticker.lagSmoothing(0);
 
 function handlePageVisibilityAndFavicon() {
   const originalTitle = document.title;
@@ -555,6 +552,10 @@ function introChess() {
       pin: true,
       pinSpacing: false,
       markers: true,
+      // Thêm những tùy chọn này cho mobile
+      anticipatePin: 1,
+      refreshPriority: -10,
+      invalidateOnRefresh: true,
     },
   });
 }
