@@ -3,13 +3,13 @@ import { preloadImages } from "../../libs/utils.js";
 $ = jQuery;
 
 const lenis = new Lenis({
-  // duration: 1.4,
-  // easing: (t) => 1 - Math.pow(1 - t, 4),
-  // smooth: true,
-  // smoothTouch: false,
-  // touchMultiplier: 2,
-  // wheelMultiplier: 1,
-  // normalizeWheel: true,
+  duration: 1.2,
+  easing: (t) => 1 - Math.pow(1 - t, 4),
+  smooth: true,
+  smoothTouch: false,
+  touchMultiplier: 2,
+  wheelMultiplier: 1,
+  normalizeWheel: true,
 });
 
 lenis.on("scroll", ScrollTrigger.update);
@@ -534,11 +534,13 @@ function introChess() {
   }
 
   // Ghim section-intro
+  let pinStartValue = window.innerWidth > 991 ? "top top" : "top top-=50px";
+  let pinEndValue = window.innerWidth > 991 ? "bottom top" : "bottom top-=50px";
   gsap.to(".section-intro", {
     scrollTrigger: {
       trigger: ".section-intro",
-      start: "top top",
-      end: "bottom top",
+      start: pinStartValue,
+      end: pinEndValue,
       pin: true,
       pinSpacing: false,
       markers: true,

@@ -23,7 +23,7 @@ function animateChessItems() {
       .querySelector(".banner-expertise")
       .insertAdjacentElement("afterend", spacer);
   }
-  spacer.style.height = `${totalHeight / 2}px`;
+  spacer.style.height = `${totalHeight / 2 + 1}px`;
 
   const items = gsap.utils.toArray(".wrapper-chess .chess-item");
 
