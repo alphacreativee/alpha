@@ -23,17 +23,21 @@ function animateChessItems() {
       .querySelector(".banner-expertise")
       .insertAdjacentElement("afterend", spacer);
   }
-  spacer.style.height = `${totalHeight / 2 + 1}px`;
+  if (window.innerWidth <= 991) {
+    spacer.style.height = `${totalHeight}px`;
+  } else {
+    spacer.style.height = `${totalHeight / 2 + 1}px`;
+  }
 
   const items = gsap.utils.toArray(".wrapper-chess .chess-item");
 
   gsap.set(items, { y: "120%" });
-
+  const endValueMobileEx = window.innerWidth <= 991 ? "+=100%" : "+=50%";
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".banner-expertise",
       start: "top top",
-      end: `+=50%`,
+      end: endValueMobileEx,
       scrub: true,
       pin: true,
       pinSpacing: false,
@@ -43,13 +47,13 @@ function animateChessItems() {
 
   // Tính toán để phần tử cuối vẫn hiển thị
   const totalItems = items.length;
-
+  const durationValue = window.innerWidth < 991 ? 1 : 0.6;
   // Animation cho từng item
   items.forEach((item, index) => {
     // Animation item slide up
     tl.to(item, {
       y: "0%",
-      duration: 0.6,
+      duration: durationValue,
       ease: "none",
     });
 
@@ -65,7 +69,7 @@ function animateChessItems() {
         wrapperChess,
         {
           x: `${pushAmount}%`,
-          duration: 0.3,
+          duration: 1,
           ease: "power2.out",
         },
         ">"
