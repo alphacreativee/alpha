@@ -74,6 +74,11 @@
       border: 1px solid transparent;
     }
   }
+  &-bottom {
+    @media (max-width: 991px) {
+      margin-bottom: 80px;
+    }
+  }
   &-top {
     max-width: 1062px;
     width: 100%;
