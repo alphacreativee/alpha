@@ -181,10 +181,10 @@ function buildABrand() {
 
     animateTabContent(dataThisTab);
   });
-
+  const topValue = window.innerWidth < 991 ? "top 60%" : "top 40%";
   ScrollTrigger.create({
     trigger: ".build-a-brand",
-    start: "top 40%",
+    start: topValue,
     end: "bottom top",
     // markers: true,
     onEnter: () => {
@@ -297,7 +297,8 @@ function introBrading() {
       img.height * ratio
     );
   }
-
+  const pinValueBrand =
+    window.innerHeight < 991 ? "top+=7% top" : "top+=5% top";
   ScrollTrigger.create({
     trigger: ".build-a-brand",
     start: "top+=5% top",

@@ -36,6 +36,9 @@
     @media (min-width: 1600px) {
       top: -150px;
     }
+    @media (max-width: 991px) {
+      top: 72px;
+    }
   }
 
   .branding-wrapper {
@@ -52,6 +55,7 @@
     @media (max-width: 991px) {
       overflow-x: hidden;
       width: 100%;
+      top: 0;
     }
     .tab-wrapper {
       display: flex;
