@@ -96,13 +96,22 @@ function sliderProject() {
     });
 
     // Thêm sự kiện hover để kích hoạt/dừng autoplay
-    $this.on("mouseenter", function () {
+
+    // Hàm khởi tạo autoplay chung
+    const startAutoplay = () => {
       swiper.autoplay.start({
-        delay: defaultDuration, // 1000ms
+        delay: defaultDuration,
         disableOnInteraction: false,
       });
       updateProgressBars(swiper);
-    });
+    };
+
+    // Sự kiện hover và responsive
+    $this.on("mouseenter", startAutoplay);
+
+    if (window.innerWidth < 991) {
+      startAutoplay();
+    }
 
     $this.on("mouseleave", function () {
       swiper.autoplay.pause();
