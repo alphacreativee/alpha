@@ -876,18 +876,20 @@ function coreValue() {
   gsap.fromTo(
     ".core-value .image img",
     {
-      scale: 1.2,
+      scale: 1,
     },
     {
       scrollTrigger: {
         trigger: ".core-value .core-value__top",
-        start: "top 70%",
-        end: "bottom 70%",
+        start: "top 40%",
+        end: "bottom top",
         scrub: 1,
+        // markers: true,
       },
-      scale: 1.1,
+      scale: 2,
       duration: 0.4,
       ease: "power2.out",
+      transformOrigin: "bottom",
     }
   );
 
