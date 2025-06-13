@@ -100,6 +100,24 @@
     position: relative;
     z-index: 3;
     mix-blend-mode: difference;
+    @media (max-width: 991px) {
+      height: 70dvh;
+    }
+    .core-value__top {
+      @media (max-width: 991px) {
+        height: 70dvh;
+      }
+      .image {
+        @media (max-width: 991px) {
+          height: 70dvh;
+        }
+      }
+      .content {
+        @media (max-width: 991px) {
+          height: 70dvh;
+        }
+      }
+    }
     .core-value__top .content-top {
       @media (max-width: 991px) {
         top: calc(50% - 60px);

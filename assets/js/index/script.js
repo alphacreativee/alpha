@@ -723,7 +723,7 @@ function coreValue() {
       scrub: true,
       pin: true,
       toggleClass: { targets: ".core-value", className: "active" },
-      // markers: true,
+      markers: true,
     },
   });
 
