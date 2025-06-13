@@ -188,8 +188,9 @@ function buildABrand() {
     end: "bottom top",
     // markers: true,
     onEnter: () => {
+      const brandingValue = window.innerWidth < 991 ? "1" : "2";
       const defaultTab = $(
-        ".build-a-brand .tab-wrapper .item[data-branding='2']"
+        `.build-a-brand .tab-wrapper .item[data-branding='${brandingValue}']`
       );
       if (!defaultTab.hasClass("active")) {
         // Cập nhật trạng thái tab mặc định
@@ -301,8 +302,8 @@ function introBrading() {
     window.innerHeight < 991 ? "top+=7% top" : "top+=5% top";
   ScrollTrigger.create({
     trigger: ".build-a-brand",
-    start: "top+=5% top",
-    // markers: true,
+    start: "top+=3% top",
+    markers: true,
     onEnter: () => {
       document.querySelector(".build-a-brand").classList.add("active");
     },
