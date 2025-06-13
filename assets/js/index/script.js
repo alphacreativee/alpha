@@ -701,7 +701,7 @@ function coreValue() {
         scrub: 1,
         // markers: true,
       },
-      scale: 2,
+      scale: 1.5,
       duration: 0.4,
       ease: "power2.out",
       transformOrigin: () =>
