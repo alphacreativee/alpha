@@ -190,12 +190,11 @@ function gsapexpertise2() {
 function ourTeam() {
   const teamItems = gsap.utils.toArray(".our-team-item");
 
-  gsap.set(teamItems, {
-    opacity: 0,
-    y: 100,
-  });
-
   if (window.innerWidth > 991) {
+    gsap.set(teamItems, {
+      opacity: 0,
+      y: 100,
+    });
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".our-team-list",
@@ -213,11 +212,15 @@ function ourTeam() {
       stagger: 0.15,
     });
   } else {
+    gsap.set(teamItems, {
+      opacity: 0,
+      y: 50,
+    });
     teamItems.forEach((item, index) => {
       gsap.to(item, {
         opacity: 1,
         y: 0,
-        duration: 0.8,
+        duration: 0.5,
         ease: "power2.out",
         scrollTrigger: {
           trigger: item,
@@ -359,19 +362,19 @@ function coreValueItemMobile() {
   );
 
   gsap.set(coreValueItem, {
-    yPercent: 50,
+    y: 70,
     opacity: 0,
   });
 
   coreValueItem.forEach((item, index) => {
     gsap.to(item, {
-      yPercent: 0,
+      y: 0,
       opacity: 1,
       duration: 0.5,
-      ease: "none",
+      ease: "power2.out",
       scrollTrigger: {
         trigger: item,
-        start: "top bottom+=24px",
+        start: "top bottom",
         end: "bottom bottom",
         // markers: true,
       },

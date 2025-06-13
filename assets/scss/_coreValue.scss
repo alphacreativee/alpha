@@ -1,6 +1,8 @@
 .core-value {
   // padding-bottom: 200px;
-
+  @media (max-width: 991px) {
+    height: 100dvh;
+  }
   &.expertise-core-value {
     .core-value__top .image {
       // height: auto;
@@ -100,7 +102,7 @@
     mix-blend-mode: difference;
     .core-value__top .content-top {
       @media (max-width: 991px) {
-        top: calc(50% - 80px);
+        top: calc(50% - 60px);
       }
     }
   }
