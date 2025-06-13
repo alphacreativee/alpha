@@ -227,7 +227,9 @@
     width: 100%;
     // transform: none !important;
     margin: 0 !important;
-    height: 100%;
+    @media (max-width: 991px) {
+      height: 100%;
+    }
   }
 
   .modal-content {
