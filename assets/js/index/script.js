@@ -344,7 +344,6 @@ function introChess() {
     linesClass: "line",
   });
 
-  // Tạo timeline cho hiệu ứng vào và ngược lại
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".section-intro-video",
