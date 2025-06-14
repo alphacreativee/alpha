@@ -201,7 +201,7 @@ function effectText() {
       let splitTitle;
 
       SplitText.create(element, {
-        type: "words,lines",
+        type: "lines",
         linesClass: "line",
         // autoSplit: true,
         mask: "lines",
@@ -343,7 +343,7 @@ function introChess() {
     mask: "lines",
     linesClass: "line",
   });
-
+  const valueStarMobile = window.innerWidth < 991 ? "top-=100px" : "top top";
   const tl = gsap.timeline({
     scrollTrigger: {
       trigger: ".section-intro-video",
@@ -663,6 +663,10 @@ function pinSectionBanner() {
   const banner = document.querySelector(".group-intro-banner");
   const bannerTitle = document.querySelector(".section-banner-title");
   let isTitleHidden = false;
+  const pinEndValue =
+    window.innerWidth < 991
+      ? `+=${window.innerHeight * 0.6}`
+      : `+=${window.innerHeight}`;
   if (banner && bannerTitle) {
     gsap.to(banner, {
       scrollTrigger: {
@@ -670,7 +674,7 @@ function pinSectionBanner() {
         pin: true,
         pinSpacing: false,
         start: "top top",
-        end: `+=${window.innerHeight}`,
+        end: pinEndValue,
         scrub: true,
         // markers: true,
         onUpdate: (self) => {
@@ -849,7 +853,7 @@ function effectTextBanner() {
     let splitTitle;
 
     SplitText.create(element, {
-      type: "words,lines",
+      type: "lines",
       linesClass: "line",
       mask: "lines",
       onSplit: (self) => {
