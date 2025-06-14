@@ -323,154 +323,12 @@ function effectText() {
     });
   });
 }
+
 function introChess() {
   if (document.querySelectorAll(".section-intro").length < 1) return;
 
   // Đăng ký plugin ScrollTrigger và SplitText
   gsap.registerPlugin(ScrollTrigger, SplitText);
-
-  // Thiết lập canvas
-  const canvas = document.getElementById("canvas-chess");
-  const context = canvas.getContext("2d");
-
-  // Mobile viewport handling
-  const isMobile = window.innerWidth <= 991;
-  let initialViewportHeight = window.innerHeight;
-  let initialViewportWidth = window.innerWidth;
-
-  // Lưu kích thước ban đầu cho mobile
-  if (isMobile) {
-    // Sử dụng screen.height thay vì innerHeight cho mobile
-    initialViewportHeight = Math.max(window.innerHeight, screen.height * 0.6);
-  }
-
-  canvas.width = initialViewportWidth;
-  canvas.height = initialViewportHeight;
-
-  // Debounce function để tối ưu resize
-  function debounce(func, wait) {
-    let timeout;
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout);
-        func(...args);
-      };
-      clearTimeout(timeout);
-      timeout = setTimeout(later, wait);
-    };
-  }
-
-  // Mobile-specific resize handler
-  const handleResize = debounce(() => {
-    const newWidth = window.innerWidth;
-    const newHeight = window.innerHeight;
-
-    // Trên mobile, chỉ resize khi width thay đổi hoặc height thay đổi đáng kể
-    if (isMobile) {
-      const widthChanged = Math.abs(newWidth - canvas.width) > 10;
-      const heightChanged = Math.abs(newHeight - initialViewportHeight) > 100; // Chỉ resize khi thay đổi > 100px
-
-      if (widthChanged) {
-        // Width thay đổi (xoay màn hình)
-        canvas.width = newWidth;
-        initialViewportWidth = newWidth;
-
-        // Cập nhật height nếu cần
-        if (heightChanged) {
-          canvas.height = newHeight;
-          initialViewportHeight = newHeight;
-        }
-
-        requestAnimationFrame(() => {
-          render();
-        });
-      }
-      // Bỏ qua các thay đổi nhỏ của height (ẩn/hiện thanh địa chỉ)
-    } else {
-      // Desktop: resize bình thường
-      if (canvas.width !== newWidth || canvas.height !== newHeight) {
-        canvas.width = newWidth;
-        canvas.height = newHeight;
-
-        requestAnimationFrame(() => {
-          render();
-        });
-      }
-    }
-  }, 150);
-
-  window.addEventListener("resize", handleResize);
-
-  // Orientation change handler cho mobile
-  window.addEventListener("orientationchange", () => {
-    setTimeout(() => {
-      const newWidth = window.innerWidth;
-      const newHeight = window.innerHeight;
-
-      canvas.width = newWidth;
-      canvas.height = newHeight;
-      initialViewportWidth = newWidth;
-      initialViewportHeight = newHeight;
-
-      requestAnimationFrame(() => {
-        render();
-      });
-    }, 300); // Delay lâu hơn để đảm bảo orientation đã thay đổi xong
-  });
-
-  const frameCount = 130;
-  const sectionIntro = document.querySelector(".section-intro");
-  let currentFrame;
-
-  const url = canvas.getAttribute("data-assets")
-    ? canvas.getAttribute("data-assets")
-    : ".";
-
-  if (sectionIntro.classList.contains("home")) {
-    currentFrame = (index) =>
-      `${url}/assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
-  } else if (sectionIntro.classList.contains("about")) {
-    currentFrame = (index) =>
-      `${url}/assets/images/img-about/chess-${(index + 1).toString()}.jpg`;
-  } else {
-    currentFrame = (index) =>
-      `${url}/assets/images/intro-chess/chess-${(index + 1).toString()}.jpg`;
-  }
-
-  const images = [];
-  const imageSeq = { frame: 0 };
-  let imagesLoaded = 0;
-
-  // Tải hình ảnh và theo dõi khi tất cả được tải
-  for (let i = 0; i < frameCount; i++) {
-    const img = new Image();
-    img.src = currentFrame(i);
-    img.onload = () => {
-      imagesLoaded++;
-      if (imagesLoaded === frameCount) {
-        render();
-      }
-    };
-    img.onerror = () => {
-      console.error(`Không tải được hình ảnh: ${img.src}`);
-    };
-    images[i] = img;
-  }
-
-  // Hiệu ứng GSAP cho chuỗi khung hình
-  gsap.to(imageSeq, {
-    frame: frameCount - 1,
-    snap: "frame",
-    ease: "none",
-    scrollTrigger: {
-      scrub: 1,
-      trigger: "#canvas-chess",
-      start: "top+=100 bottom",
-      end: "bottom top",
-      // markers: true,
-    },
-    onUpdate: render,
-  });
 
   // Hiệu ứng cho section-intro-content
   const sectionIntroContent = document.querySelector(".section-intro-content");
@@ -489,10 +347,11 @@ function introChess() {
   // Tạo timeline cho hiệu ứng vào và ngược lại
   const tl = gsap.timeline({
     scrollTrigger: {
-      trigger: "#canvas-chess",
-      start: `top+=${(110 / frameCount) * 100 - 20}% top`,
-      end: `top+=${(110 / frameCount) * 100 + 20}% top`,
+      trigger: ".section-intro-video",
+      start: "top top",
+      end: "bottom center",
       toggleActions: "play none none reverse",
+      // markers: true,
     },
   });
 
@@ -500,7 +359,7 @@ function introChess() {
   tl.fromTo(
     tagElement,
     { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.4, ease: "expo.out" }
+    { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }
   );
   tl.fromTo(
     splitContent.lines,
@@ -508,33 +367,6 @@ function introChess() {
     { opacity: 1, yPercent: 0, duration: 0.3, stagger: 0.05, ease: "expo.out" },
     "-=0.1"
   );
-
-  function render() {
-    if (images[imageSeq.frame] && images[imageSeq.frame].complete) {
-      scaleImage(images[imageSeq.frame], context);
-    }
-  }
-
-  function scaleImage(img, ctx) {
-    const canvas = ctx.canvas;
-    const hRatio = canvas.width / img.width;
-    const vRatio = canvas.height / img.height;
-    const ratio = Math.max(hRatio, vRatio);
-    const centerShift_x = (canvas.width - img.width * ratio) / 2;
-    const centerShift_y = (canvas.height - img.height * ratio) / 2;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(
-      img,
-      0,
-      0,
-      img.width,
-      img.height,
-      centerShift_x,
-      centerShift_y,
-      img.width * ratio,
-      img.height * ratio
-    );
-  }
 
   // Ghim section-intro
 
@@ -546,34 +378,6 @@ function introChess() {
       pin: true,
       pinSpacing: false,
       // markers: true,
-      // Thêm những tùy chọn này cho mobile
-      // Tối ưu cho mobile
-      fastScrollEnd: true,
-      preventOverlaps: true,
-      anticipatePin: 1, // Quan trọng cho mobile
-
-      // Tối ưu refresh rate
-      refreshPriority: isMobile ? -1 : 0,
-      onRefresh: () => {
-        if (isMobile && window.lenis) {
-          ScrollTrigger.refresh();
-        }
-      },
-
-      onToggle: (self) => {
-        if (isMobile && window.lenis) {
-          if (self.isActive) {
-            // Sử dụng requestAnimationFrame để tránh conflict
-            requestAnimationFrame(() => {
-              window.lenis.stop();
-            });
-          } else {
-            requestAnimationFrame(() => {
-              window.lenis.start();
-            });
-          }
-        }
-      },
     },
   });
 }
@@ -875,14 +679,15 @@ function pinSectionBanner() {
             gsap.to(bannerTitle, {
               opacity: 0,
               duration: 0.3,
-              ease: "power2.out",
+              ease: "expo.out",
             });
             isTitleHidden = true;
           } else if (self.progress < 1 && isTitleHidden) {
             gsap.to(bannerTitle, {
               opacity: 1,
               duration: 0.3,
-              ease: "power2.out",
+              delay: 0.65,
+              ease: "expo.out",
             });
             isTitleHidden = false;
           }
@@ -967,8 +772,8 @@ function loading() {
       .to(
         loading.find(".loading-wrapper"),
         {
-          scaleY: 0,
-          duration: 1.2,
+          clipPath: "inset(0 0 100% 0)",
+          duration: 1.5,
           ease: "power3.inOut",
         },
         0.6
@@ -977,7 +782,7 @@ function loading() {
         autoAlpha: 0,
       });
   } else {
-    gsap.delayedCall(3.55, effectTextBanner);
+    gsap.delayedCall(3.65, effectTextBanner);
     tlLoading
       .to(
         loading.find(".loading-logo"),
@@ -1019,21 +824,12 @@ function loading() {
         },
         2.3
       )
-      .to(
-        loading.find(".loading-desc"),
-        {
-          opacity: 0,
-          y: -40,
-          duration: 0.5,
-          ease: "power2.out",
-        },
-        2.8
-      )
+
       .to(
         loading.find(".loading-wrapper"),
         {
-          scaleY: 0,
-          duration: 1,
+          clipPath: "inset(0 0 100% 0)",
+          duration: 1.5,
           ease: "power3.inOut",
         },
         2.9
