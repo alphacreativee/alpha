@@ -550,6 +550,15 @@ function introChess() {
       // Tối ưu cho mobile
       fastScrollEnd: true,
       preventOverlaps: true,
+      onToggle: (self) => {
+        if (isMobile && window.lenis) {
+          if (self.isActive) {
+            window.lenis.stop(); // Dừng Lenis khi pin
+          } else {
+            window.lenis.start(); // Khởi động lại Lenis
+          }
+        }
+      },
     },
   });
 }
