@@ -550,12 +550,27 @@ function introChess() {
       // Tối ưu cho mobile
       fastScrollEnd: true,
       preventOverlaps: true,
+      anticipatePin: 1, // Quan trọng cho mobile
+
+      // Tối ưu refresh rate
+      refreshPriority: isMobile ? -1 : 0,
+      onRefresh: () => {
+        if (isMobile && window.lenis) {
+          ScrollTrigger.refresh();
+        }
+      },
+
       onToggle: (self) => {
         if (isMobile && window.lenis) {
           if (self.isActive) {
-            window.lenis.stop(); // Dừng Lenis khi pin
+            // Sử dụng requestAnimationFrame để tránh conflict
+            requestAnimationFrame(() => {
+              window.lenis.stop();
+            });
           } else {
-            window.lenis.start(); // Khởi động lại Lenis
+            requestAnimationFrame(() => {
+              window.lenis.start();
+            });
           }
         }
       },
