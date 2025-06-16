@@ -40,9 +40,9 @@ function animateChessItems() {
       end: endValueMobileEx,
       scrub: true,
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 
   // Tính toán để phần tử cuối vẫn hiển thị
@@ -54,7 +54,7 @@ function animateChessItems() {
     tl.to(item, {
       y: "0%",
       duration: durationValue,
-      ease: "none",
+      ease: "none"
     });
 
     // Trên mobile: đẩy wrapper sang trái
@@ -70,7 +70,7 @@ function animateChessItems() {
         {
           x: `${pushAmount}%`,
           duration: 1,
-          ease: "power2.out",
+          ease: "power2.out"
         },
         ">"
       );
@@ -81,7 +81,7 @@ function animateChessItems() {
           scale: 0.9,
 
           duration: 0.5,
-          ease: "power2.out",
+          ease: "power2.out"
         },
         ">"
       );
@@ -116,7 +116,7 @@ function buildABrand() {
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
       linesClass: "line",
-      mask: "lines",
+      mask: "lines"
     });
 
     // Tạo timeline mới
@@ -129,7 +129,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.6,
         stagger: 0.13,
-        ease: "expo.out",
+        ease: "expo.out"
       }
     );
     // Hiệu ứng cho tag
@@ -211,7 +211,7 @@ function buildABrand() {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    },
+    }
   });
 }
 function introBrading() {
@@ -234,8 +234,12 @@ function introBrading() {
 
   const frameCount2 = 131;
 
+  const url = canvas2.getAttribute("data-assets")
+    ? canvas2.getAttribute("data-assets")
+    : ".";
+
   let currentFrame = (index) =>
-    `./assets/images/expertise-img/img-${(index + 1).toString()}.jpg`;
+    `${url}/assets/images/expertise-img/img-${(index + 1).toString()}.jpg`;
 
   const images2 = [];
   const imageSeq2 = { frame: 0 };
@@ -266,10 +270,10 @@ function introBrading() {
       scrub: 2,
       trigger: "#intro-branding",
       start: "top bottom",
-      end: "bottom top",
+      end: "bottom top"
       // markers: true
     },
-    onUpdate: render2,
+    onUpdate: render2
   });
 
   function render2() {
@@ -309,7 +313,7 @@ function introBrading() {
     },
     onLeaveBack: () => {
       document.querySelector(".build-a-brand").classList.remove("active");
-    },
+    }
   });
 
   // Ghim section-intro
@@ -321,9 +325,9 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
 
