@@ -10,9 +10,6 @@ const lenis = new Lenis({
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
   smoothTouch: false,
-  touchMultiplier: 2,
-  wheelMultiplier: 1,
-  normalizeWheel: true,
 });
 
 lenis.on("scroll", ScrollTrigger.update);
