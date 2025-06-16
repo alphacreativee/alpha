@@ -40,9 +40,9 @@ function animateChessItems() {
       end: endValueMobileEx,
       scrub: true,
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 
   // Tính toán để phần tử cuối vẫn hiển thị
@@ -54,7 +54,7 @@ function animateChessItems() {
     tl.to(item, {
       y: "0%",
       duration: durationValue,
-      ease: "none"
+      ease: "none",
     });
 
     // Trên mobile: đẩy wrapper sang trái
@@ -70,7 +70,7 @@ function animateChessItems() {
         {
           x: `${pushAmount}%`,
           duration: 1,
-          ease: "power2.out"
+          ease: "power2.out",
         },
         ">"
       );
@@ -81,7 +81,7 @@ function animateChessItems() {
           scale: 0.9,
 
           duration: 0.5,
-          ease: "power2.out"
+          ease: "power2.out",
         },
         ">"
       );
@@ -116,7 +116,7 @@ function buildABrand() {
     const splitContent = new SplitText(contentElement, {
       type: "words,lines",
       linesClass: "line",
-      mask: "lines"
+      mask: "lines",
     });
 
     // Tạo timeline mới
@@ -129,7 +129,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.6,
         stagger: 0.13,
-        ease: "expo.out"
+        ease: "expo.out",
       }
     );
     // Hiệu ứng cho tag
@@ -211,7 +211,7 @@ function buildABrand() {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    }
+    },
   });
 }
 function introBrading() {
@@ -219,89 +219,6 @@ function introBrading() {
 
   gsap.registerPlugin(ScrollTrigger, SplitText);
 
-  // Thiết lập canvas
-  const canvas2 = document.getElementById("intro-branding");
-  const context = canvas2.getContext("2d");
-
-  canvas2.width = window.innerWidth;
-  canvas2.height = window.innerHeight;
-
-  window.addEventListener("resize", function () {
-    canvas2.width = window.innerWidth;
-    canvas2.height = window.innerHeight;
-    render2();
-  });
-
-  const frameCount2 = 131;
-
-  const url = canvas2.getAttribute("data-assets")
-    ? canvas2.getAttribute("data-assets")
-    : ".";
-
-  let currentFrame = (index) =>
-    `${url}/assets/images/expertise-img/img-${(index + 1).toString()}.jpg`;
-
-  const images2 = [];
-  const imageSeq2 = { frame: 0 };
-  let imagesLoaded2 = 0;
-
-  // Tải hình ảnh và theo dõi khi tất cả được tải
-  for (let i = 0; i < frameCount2; i++) {
-    const img2 = new Image();
-    img2.src = currentFrame(i);
-    img2.onload = () => {
-      imagesLoaded2++;
-      if (imagesLoaded2 === frameCount2) {
-        render2();
-      }
-    };
-    img2.onerror = () => {
-      console.error(`Không tải được hình ảnh: ${img2.src}`);
-    };
-    images2[i] = img2;
-  }
-
-  // Hiệu ứng GSAP cho chuỗi khung hình
-  gsap.to(imageSeq2, {
-    frame: frameCount2 - 1,
-    snap: "frame",
-    ease: "none",
-    scrollTrigger: {
-      scrub: 2,
-      trigger: "#intro-branding",
-      start: "top bottom",
-      end: "bottom top"
-      // markers: true
-    },
-    onUpdate: render2
-  });
-
-  function render2() {
-    if (images2[imageSeq2.frame] && images2[imageSeq2.frame].complete) {
-      scaleImage(images2[imageSeq2.frame], context);
-    }
-  }
-
-  function scaleImage(img, ctx) {
-    const canvas = ctx.canvas;
-    const hRatio = canvas.width / img.width;
-    const vRatio = canvas.height / img.height;
-    const ratio = Math.max(hRatio, vRatio);
-    const centerShift_x = (canvas.width - img.width * ratio) / 2;
-    const centerShift_y = (canvas.height - img.height * ratio) / 2;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    ctx.drawImage(
-      img,
-      0,
-      0,
-      img.width,
-      img.height,
-      centerShift_x,
-      centerShift_y,
-      img.width * ratio,
-      img.height * ratio
-    );
-  }
   const pinValueBrand =
     window.innerHeight < 991 ? "top+=7% top" : "top+=5% top";
   ScrollTrigger.create({
@@ -313,7 +230,7 @@ function introBrading() {
     },
     onLeaveBack: () => {
       document.querySelector(".build-a-brand").classList.remove("active");
-    }
+    },
   });
 
   // Ghim section-intro
@@ -325,9 +242,9 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false
+      pinSpacing: false,
       // markers: true,
-    }
+    },
   });
 }
 
