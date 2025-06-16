@@ -151,6 +151,7 @@ function gsapExpertise() {
 
   wrappers.forEach((wrapper, index) => {
     if (wrapper.classList.contains("desktop") && $(window).width() > 991) {
+      console.log(wrapper);
       const expertise = wrapper.querySelector(".expertise");
       if (!expertise) return;
 
@@ -194,7 +195,7 @@ function gsapExpertise() {
           animation: tween,
           scrub: 1,
           pinSpacing: false,
-          invalidateOnRefresh: true,
+          // invalidateOnRefresh: true,
           id: `expertiseScroll-${index}`,
           // markers: true,
         });

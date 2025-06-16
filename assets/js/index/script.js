@@ -1,12 +1,9 @@
 import { preloadImages } from "../../libs/utils.js";
 ("use strict");
 $ = jQuery;
-// Detect problematic devices
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-const isOldAndroid = /Android [1-6]/.test(navigator.userAgent);
 
 const lenis = new Lenis({
-  duration: 1.4,
+  duration: 1,
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
   smoothTouch: false,
