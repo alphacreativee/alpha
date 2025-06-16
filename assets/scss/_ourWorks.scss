@@ -311,6 +311,10 @@
         color: var(--color-black);
         // transition: all 0.3s ease;
 
+        &.error {
+          border-color: #ff0000;
+        }
+
         &::placeholder {
           color: #b0b0b0;
         }
@@ -336,13 +340,7 @@
 
           &.error {
             + label {
-              span {
-                color: #ff0000;
-              }
-
-              path {
-                stroke: #ff0000;
-              }
+              border-color: #ff0000;
             }
           }
         }
@@ -405,6 +403,15 @@
 
     .btn-wrapper {
       margin-top: 24px;
+
+      p {
+        width: calc(100% - 150px);
+
+        @media (max-width: 991px) {
+          width: 100%;
+        }
+      }
+
       @media (max-width: 991px) {
         margin-top: 8px;
         flex-wrap: wrap;

@@ -13,7 +13,7 @@ function formReruitment() {
     const $labelSpan = $input.next("label").find("span");
     const allowedTypes = [
       "application/pdf",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
     ];
     const maxSize = 5 * 1024 * 1024;
 
@@ -52,41 +52,89 @@ function formReruitment() {
 
   $("form.form-recruitment").on("submit", function (e) {
     e.preventDefault();
-    const $form = $(this);
-    let isValid = true;
 
-    const $inputFile = $form.find("input[type='file']");
+    const $form = $(this);
     const $inputName = $form.find("input[name='name']");
     const $inputEmail = $form.find("input[name='email']");
+    const $inputFile = $form.find("input[type='file']");
+    const $inputCV = $form.find("input[name='cv']");
     const $note = $form.find(".note");
+    const $success = $form.find(".success-message");
+    const $buttonSubmit = $form.find("button[type='submit']");
+    const jobId = $buttonSubmit.attr("job-id");
 
-    const originalNote = $note.text();
+    let isValid = true;
 
     $form.find("input").removeClass("error");
 
-    if ($inputFile.hasClass("error")) {
-      isValid = false;
-    }
-
     if ($inputName.val().trim() === "") {
-      isValid = false;
       $inputName.addClass("error");
+      isValid = false;
     }
 
     if ($inputEmail.val().trim() === "") {
-      isValid = false;
       $inputEmail.addClass("error");
+      isValid = false;
     }
 
-    if (isValid) {
-      $form[0].reset();
-      $note.text("Your application has been submitted successfully.");
-
-      setTimeout(function () {
-        $note.text(originalNote);
-      }, 5000);
+    if ($inputFile.get(0).files.length === 0) {
+      $inputFile.addClass("error");
+      isValid = false;
     }
+
+    if (!isValid) return;
+
+    const formData = new FormData();
+    formData.append("action", "submit_recruitment_form");
+    formData.append("name", $inputName.val().trim());
+    formData.append("email", $inputEmail.val().trim());
+    formData.append("cv", $inputCV.val().trim());
+    formData.append("file", $inputFile.get(0).files[0]);
+    formData.append("job_id", jobId);
+
+    console.log($inputFile.get(0).files[0]);
+
+    $.ajax({
+      url: ajaxUrl,
+      type: "POST",
+      data: formData,
+      processData: false,
+      contentType: false,
+      beforeSend: function () {
+        $buttonSubmit.addClass("aloading");
+      },
+      success: function (res) {
+        $form[0].reset();
+
+        const $labelSpan = $form
+          .find("input[type='file']")
+          .next("label")
+          .find("span");
+        $labelSpan.text("Upload file under 5MB").removeClass("has-file");
+
+        if ($note.length > 0 && $success.length > 0) {
+          $note.hide();
+          $success.show();
+
+          setTimeout(function () {
+            $note.show();
+            $success.hide();
+          }, 5000);
+        }
+
+        $inputFile.removeClass("error");
+        $buttonSubmit.removeClass("aloading");
+      },
+      error: function (xhr, status, error) {
+        console.error("Lỗi khi gửi form:", error);
+        $form.append(
+          '<span class="contact-message body-sm-regular" style="color: #FF0000;">Có lỗi xảy ra, vui lòng thử lại sau.</span>'
+        );
+        $buttonSubmit.removeClass("aloading");
+      }
+    });
   });
+
   const topValue = window.innerWidth > 991 ? "top 65%" : "top 40%";
   ScrollTrigger.create({
     trigger: ".our-works",
@@ -107,7 +155,7 @@ function formReruitment() {
         .classList.remove("theme-light");
       document.querySelector("main").classList.remove("theme-light");
       document.querySelector(".section-banner").classList.remove("theme-light");
-    },
+    }
     // markers: true
   });
 }
