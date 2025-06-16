@@ -307,7 +307,7 @@ function introBrading() {
   ScrollTrigger.create({
     trigger: ".build-a-brand",
     start: "top+=3% top",
-    markers: true,
+    // markers: true,
     onEnter: () => {
       document.querySelector(".build-a-brand").classList.add("active");
     },
