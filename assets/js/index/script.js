@@ -595,7 +595,7 @@ function magicCursor() {
   );
 
   const itemsContent = document.querySelectorAll(
-    ".project-item, .our-team-item"
+    ".project-item, .our-team-item, .project-banner.animate"
   );
   itemsContent.forEach((item) => {
     item.addEventListener("mouseenter", () => {
@@ -1372,6 +1372,65 @@ function contactForm() {
   });
 }
 
+function projectDetail() {
+  if ($(".project-detail").length < 1) return;
+
+  const image = document.querySelector(".project-banner.animate .banner-img");
+  const img = document.querySelector(".project-banner.animate .banner-img img");
+
+  if (!image || !img) return;
+
+  const viewportWidth = window.innerWidth;
+  const imageHeight = image.offsetHeight;
+
+  const clipLeftRight = 80;
+  const clipTopBottom = 95;
+
+  const widthClipPercent = (clipLeftRight / viewportWidth) * 100;
+  const heightClipPercent = (clipTopBottom / imageHeight) * 100;
+
+  const initialClip = `inset(0% 0% 0% 0%)`;
+  const finalClip = `inset(${heightClipPercent}% ${widthClipPercent}% ${heightClipPercent}% ${widthClipPercent}%)`;
+
+  gsap.fromTo(
+    ".project-banner.animate .banner-img",
+    {
+      clipPath: initialClip
+    },
+    {
+      scrollTrigger: {
+        trigger: ".project-banner.animate",
+        start: "top bottom",
+        end: "top top",
+        scrub: 1
+        // markers: true
+      },
+      clipPath: finalClip,
+      ease: "power2.out"
+    }
+  );
+
+  // Scale animation
+  gsap.fromTo(
+    ".project-banner.animate .banner-img img",
+    {
+      scale: 1
+    },
+    {
+      scrollTrigger: {
+        trigger: ".project-banner.animate",
+        start: "top bottom",
+        end: "top top",
+        scrub: 1
+        // markers: true
+      },
+      scale: 1.3,
+      ease: "power2.out",
+      transformOrigin: img.dataset.transformOrigin || "center center"
+    }
+  );
+}
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -1392,6 +1451,7 @@ const init = () => {
   hoverIcon();
   contactForm();
   handlePageVisibilityAndFavicon();
+  projectDetail();
   setTimeout(() => {
     cookieModal();
   }, 5000);
