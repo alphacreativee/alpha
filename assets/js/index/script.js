@@ -1,12 +1,9 @@
 import { preloadImages } from "../../libs/utils.js";
 ("use strict");
 $ = jQuery;
-// Detect problematic devices
-const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-const isOldAndroid = /Android [1-6]/.test(navigator.userAgent);
 
 const lenis = new Lenis({
-  duration: 1.4,
+  duration: 1,
   easing: (t) => 1 - Math.pow(1 - t, 4),
   smooth: true,
   smoothTouch: false
@@ -50,9 +47,11 @@ function handlePageVisibilityAndFavicon() {
     if (isBlinking) return; // Tránh chạy nhiều interval
 
     isBlinking = true;
+    const hostname = window.location.origin;
+
     const favicons = [
-      "./assets/images/use/favicon-gold.svg",
-      "./assets/images/use/favicon-black.svg"
+      `${hostname}/wp-content/themes/alpha/assets/images/use/favicon-gold.svg`,
+      `${hostname}/wp-content/themes/alpha/assets/images/use/favicon-black.svg`
     ];
     let faviconIndex = 0;
 
@@ -62,15 +61,15 @@ function handlePageVisibilityAndFavicon() {
     }, 500);
   }
 
-  function stopFaviconBlinking() {
+  function stopFaviconBlinking(assestUrl) {
     clearInterval(faviconInterval);
     isBlinking = false;
-    changeFavicon("./assets/images/use/favicon-black.svg");
+    const hostname = window.location.origin;
+    changeFavicon(
+      `${hostname}/wp-content/themes/alpha/assets/images/use/favicon-black.svg`
+    );
   }
 }
-window.addEventListener("load", (event) => {
-  handlePageVisibilityAndFavicon();
-});
 
 function customDropdown() {
   const $dropdowns = $(".dropdown-custom");
@@ -1392,6 +1391,7 @@ const init = () => {
   hoverNumberCount();
   hoverIcon();
   contactForm();
+  handlePageVisibilityAndFavicon();
   setTimeout(() => {
     cookieModal();
   }, 5000);
