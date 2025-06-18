@@ -405,7 +405,7 @@ function whyChooseUs() {
       }
     });
   }
-  if ($(window).width() < 991) return;
+  if ($(window).width() < 1100) return;
   const sections = document.querySelectorAll(".why-choose-us .main-section");
 
   sections.forEach((container) => {

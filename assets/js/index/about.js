@@ -44,9 +44,11 @@ function ourStory() {
       if (activeIndex >= texts.length) activeIndex = texts.length - 1;
 
       texts.forEach((text, index) => {
-        text.classList.toggle("active", index === activeIndex);
+        const isActive = index === activeIndex;
+        text.classList.toggle("active", isActive);
+        text.classList.toggle("text-effect-gradient-not-effect", isActive);
       });
-    },
+    }
   });
 
   contents.forEach((content, i) => {
@@ -54,7 +56,7 @@ function ourStory() {
       yPercent: 0,
       duration: 0.5,
       // boxShadow: "0px 0px 40px rgba(0, 0, 0, 0.4)",
-      ease: "power2.out",
+      ease: "power2.out"
     });
   });
 }
@@ -79,7 +81,7 @@ function gsapexpertise2() {
       document
         .querySelector(".header-menu-container")
         .classList.remove("theme-light");
-    },
+    }
     // markers: true
   });
   if (window.innerWidth < 991) return;
@@ -100,7 +102,7 @@ function gsapexpertise2() {
         return gsap.to(expertise2, {
           x: -scrollAmount,
           duration: 3,
-          ease: "none",
+          ease: "none"
         });
       };
 
@@ -138,7 +140,7 @@ function gsapexpertise2() {
           scrub: 1,
           pinSpacing: false, // Quản lý chiều cao bằng spacer
           invalidateOnRefresh: true,
-          id: `expertise2Scroll-${index}`,
+          id: `expertise2Scroll-${index}`
           // markers: true,
         });
       };
@@ -167,7 +169,7 @@ function gsapexpertise2() {
         start: "left 80%",
         onEnter: () => item.classList.add("active"),
         onLeaveBack: () => item.classList.remove("active"),
-        invalidateOnRefresh: true,
+        invalidateOnRefresh: true
         // markers: true,
       });
     });
@@ -193,15 +195,15 @@ function ourTeam() {
   if (window.innerWidth > 991) {
     gsap.set(teamItems, {
       opacity: 0,
-      y: 100,
+      y: 100
     });
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: ".our-team-list",
         start: "top 90%",
         end: "bottom 70%",
-        scrub: 1,
-      },
+        scrub: 1
+      }
     });
 
     tl.to(teamItems, {
@@ -209,12 +211,12 @@ function ourTeam() {
       y: 0,
       duration: 0.8,
       ease: "power2.out",
-      stagger: 0.15,
+      stagger: 0.15
     });
   } else {
     gsap.set(teamItems, {
       opacity: 0,
-      y: 50,
+      y: 50
     });
     teamItems.forEach((item, index) => {
       gsap.to(item, {
@@ -225,9 +227,9 @@ function ourTeam() {
         scrollTrigger: {
           trigger: item,
           start: "top 90%",
-          toggleActions: "play none none reverse",
+          toggleActions: "play none none reverse"
           // markers: true,
-        },
+        }
       });
     });
   }
@@ -275,7 +277,7 @@ function swiperTeam() {
     spaceBetween: 0,
     navigation: {
       nextEl: ".swiper-team .swiper-button-next",
-      prevEl: ".swiper-team .swiper-button-prev",
+      prevEl: ".swiper-team .swiper-button-prev"
     },
     pagination: {
       el: ".swiper-team .swiper-pagination",
@@ -285,13 +287,13 @@ function swiperTeam() {
           <button class="${className}">
             <span class="progress-bar"></span>
           </button>`;
-      },
+      }
     },
     autoplay:
       window.innerWidth <= 991
         ? {
             delay: defaultDuration,
-            disableOnInteraction: false,
+            disableOnInteraction: false
           }
         : false,
     on: {
@@ -308,8 +310,8 @@ function swiperTeam() {
         if (window.innerWidth <= 991) {
           updateProgressBars(swiper);
         }
-      },
-    },
+      }
+    }
   });
 
   itemModal.on("click", function (e) {
@@ -363,7 +365,7 @@ function coreValueItemMobile() {
 
   gsap.set(coreValueItem, {
     y: 70,
-    opacity: 0,
+    opacity: 0
   });
 
   coreValueItem.forEach((item, index) => {
@@ -375,9 +377,9 @@ function coreValueItemMobile() {
       scrollTrigger: {
         trigger: item,
         start: "top bottom",
-        end: "bottom bottom",
+        end: "bottom bottom"
         // markers: true,
-      },
+      }
     });
   });
 }

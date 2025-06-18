@@ -99,7 +99,7 @@ function sectionSpecialize() {
 }
 
 function clientInsight() {
-  if ($(".client-insight").length < 1 || $(window).width() < 992) return;
+  if ($(".client-insight").length < 1 || $(window).width() < 1100) return;
 
   const wrapper = document.querySelector(".client-wrapper");
   const container = document.querySelector(".main-section");

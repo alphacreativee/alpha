@@ -51,6 +51,7 @@
         padding-right: 60px;
         @media (max-width: 991px) {
           padding: 12px 24px;
+          padding-right: 60px;
         }
         &::after {
           display: none;
@@ -438,8 +439,8 @@
       border-radius: 0;
       transition: all 0.4s ease;
       @media (max-width: 991px) {
-        top: 0;
-        right: 10px;
+        top: 6px;
+        right: 12px;
       }
       &:hover {
         opacity: 1;

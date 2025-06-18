@@ -70,6 +70,11 @@
       }
       .project-parallax {
         height: 290px;
+
+        @media (max-width: 991px) {
+          height: auto;
+          aspect-ratio: 327 / 245;
+        }
       }
     }
     .tag {
@@ -100,11 +105,11 @@
       }
       &-top {
         padding-top: 160px;
-        padding-bottom: 80px;
-        border-bottom: 3px solid var(--color-black);
+        // padding-bottom: 80px;
+        // border-bottom: 3px solid var(--color-black);
         @media (max-width: 991px) {
           padding-top: 100px;
-          padding-bottom: 40px;
+          // padding-bottom: 40px;
         }
         .title {
           margin-bottom: 24px;

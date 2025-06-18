@@ -52,7 +52,10 @@
     @media (min-width: 1600px) {
       top: -150px;
     }
-    @media (max-width: 991px) {
+    @media (max-width: 1024px) {
+      top: 24px;
+    }
+    @media (max-width: 767px) {
       top: 72px;
     }
   }

@@ -172,7 +172,7 @@
         }
       }
       p {
-        display: flex;
+        display: inline;
         align-items: center;
         gap: 5px;
         width: calc(100% - 100px);
@@ -184,9 +184,7 @@
         }
         a {
           font-weight: 700;
-          @media (max-width: 991px) {
-            transform: translateY(5px);
-          }
+          display: inline-flex;
         }
       }
     }
