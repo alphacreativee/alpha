@@ -335,7 +335,7 @@ function introChess() {
 
   // Khởi tạo SplitText cho content
   const splitContent = new SplitText(contentElement, {
-    type: "words,lines",
+    type: "lines",
     mask: "lines",
     linesClass: "line"
   });
@@ -1129,11 +1129,11 @@ function showCoreValue() {
   if (contentItems.length === 0) return;
 
   // Khởi tạo trạng thái ban đầu
-  contentItems[0].classList.add("active");
+  contentItems[0].classList.add("active", "text-effect-gradient-not-effect");
   Array.from(contentItems)
     .slice(1)
     .forEach((item) => {
-      item.classList.remove("active");
+      item.classList.remove("active", "text-effect-gradient-not-effect");
     });
 
   const totalItems = contentItems.length;
@@ -1186,9 +1186,9 @@ function showCoreValue() {
 
         contentItems.forEach((item, index) => {
           if (index === activeIndex) {
-            item.classList.add("active");
+            item.classList.add("active", "text-effect-gradient-not-effect");
           } else {
-            item.classList.remove("active");
+            item.classList.remove("active", "text-effect-gradient-not-effect");
           }
         });
       }
@@ -1226,7 +1226,7 @@ function effectTextCoreValue() {
     let splitTitle;
 
     SplitText.create(element, {
-      type: "words,lines",
+      type: "lines",
       linesClass: "line",
       mask: "lines",
       onSplit: (self) => {
@@ -1383,8 +1383,8 @@ function projectDetail() {
   const viewportWidth = window.innerWidth;
   const imageHeight = image.offsetHeight;
 
-  const clipLeftRight = 80;
-  const clipTopBottom = 95;
+  const clipLeftRight = viewportWidth > 991 ? 80 : 40;
+  const clipTopBottom = viewportWidth > 991 ? 80 : 40;
 
   const widthClipPercent = (clipLeftRight / viewportWidth) * 100;
   const heightClipPercent = (clipTopBottom / imageHeight) * 100;
@@ -1400,7 +1400,7 @@ function projectDetail() {
     {
       scrollTrigger: {
         trigger: ".project-banner.animate",
-        start: "top bottom",
+        start: "top 80%",
         end: "top top",
         scrub: 1
         // markers: true
@@ -1419,7 +1419,7 @@ function projectDetail() {
     {
       scrollTrigger: {
         trigger: ".project-banner.animate",
-        start: "top bottom",
+        start: "top 80%",
         end: "top top",
         scrub: 1
         // markers: true

@@ -677,6 +677,41 @@ main {
   }
 }
 .text-effect-gradient {
+  &-not-effect {
+    background: linear-gradient(
+      to right,
+      #fff 20%,
+      #d1b57e 40%,
+      #d1b57e 60%,
+      #fff 80%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent;
+    animation: shine 5s linear infinite;
+
+    &.color-black {
+      background: linear-gradient(
+        to right,
+        #000 20%,
+        #d1b57e 40%,
+        #d1b57e 60%,
+        #000 80%
+      );
+      background-size: 200% auto;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+
+      background-clip: text;
+      color: transparent;
+      -webkit-text-fill-color: transparent;
+      animation: shine 5s linear infinite;
+    }
+  }
   .line {
     background: linear-gradient(
       to right,
