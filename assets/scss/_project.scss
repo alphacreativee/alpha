@@ -159,6 +159,11 @@
     display: flex;
     flex-wrap: wrap;
     gap: 90px 80px;
+
+    @media (max-width: 991px) {
+      row-gap: 64px;
+    }
+
     &.blog-list {
       gap: 80px 60px;
       @media (max-width: 991px) {
@@ -288,6 +293,11 @@
 
     @media (min-width: 1441px) {
       aspect-ratio: 600 / 450;
+    }
+
+    @media (max-width: 991px) {
+      height: auto;
+      aspect-ratio: 327 / 245;
     }
   }
   &-tag {

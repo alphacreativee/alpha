@@ -1375,62 +1375,171 @@ function contactForm() {
 function projectDetail() {
   if ($(".project-detail").length < 1) return;
 
-  const image = document.querySelector(".project-banner.animate .banner-img");
-  const img = document.querySelector(".project-banner.animate .banner-img img");
+  $(".project-banner.animate").each(function () {
+    const banner = $(this).find(".banner-img")[0];
+    if (!banner) return;
 
-  if (!image || !img) return;
+    const img = banner.querySelector("img");
+    const video = banner.querySelector("video");
+    const media = img || video;
+    if (!media) return;
 
-  const viewportWidth = window.innerWidth;
-  const imageHeight = image.offsetHeight;
+    const viewportWidth = window.innerWidth;
+    const imageHeight = banner.offsetHeight || 1; // tránh chia 0
 
-  const clipLeftRight = viewportWidth > 991 ? 80 : 40;
-  const clipTopBottom = viewportWidth > 991 ? 80 : 40;
+    const clipLeftRight = viewportWidth > 991 ? 80 : 24;
+    const clipTopBottom = viewportWidth > 991 ? 80 : 24;
 
-  const widthClipPercent = (clipLeftRight / viewportWidth) * 100;
-  const heightClipPercent = (clipTopBottom / imageHeight) * 100;
+    const widthClipPercent = (clipLeftRight / viewportWidth) * 100;
+    const heightClipPercent = (clipTopBottom / imageHeight) * 100;
 
-  const initialClip = `inset(0% 0% 0% 0%)`;
-  const finalClip = `inset(${heightClipPercent}% ${widthClipPercent}% ${heightClipPercent}% ${widthClipPercent}%)`;
+    const initialClip = `inset(0% 0% 0% 0%)`;
+    const finalClip = `inset(${heightClipPercent}% ${widthClipPercent}% ${heightClipPercent}% ${widthClipPercent}%)`;
 
-  gsap.fromTo(
-    ".project-banner.animate .banner-img",
-    {
-      clipPath: initialClip
-    },
-    {
-      scrollTrigger: {
-        trigger: ".project-banner.animate",
-        start: "top 80%",
-        end: "top top",
-        scrub: 1
-        // markers: true
+    // ClipPath animation
+    gsap.fromTo(
+      banner,
+      {
+        clipPath: initialClip
       },
-      clipPath: finalClip,
-      ease: "power2.out"
-    }
-  );
+      {
+        scrollTrigger: {
+          trigger: $(this), // trigger là từng project-banner
+          start: "top 80%",
+          end: "top top",
+          scrub: 1
+        },
+        clipPath: finalClip,
+        ease: "power2.out"
+      }
+    );
 
-  // Scale animation
-  gsap.fromTo(
-    ".project-banner.animate .banner-img img",
-    {
-      scale: 1
-    },
-    {
-      scrollTrigger: {
-        trigger: ".project-banner.animate",
-        start: "top 80%",
-        end: "top top",
-        scrub: 1
-        // markers: true
+    // Scale animation
+    gsap.fromTo(
+      media,
+      {
+        scale: 1
       },
-      scale: 1.3,
-      ease: "power2.out",
-      transformOrigin: img.dataset.transformOrigin || "center center"
-    }
-  );
+      {
+        scrollTrigger: {
+          trigger: $(this),
+          start: "top 80%",
+          end: "top top",
+          scrub: 1
+        },
+        scale: 1.3,
+        ease: "power2.out",
+        transformOrigin: media.dataset.transformOrigin || "center center"
+      }
+    );
+  });
 }
 
+function scrollInfiniteProject() {
+  if ($(".project-detail").length < 1) {
+    // console.log("No .project-detail found, exiting.");
+    return;
+  }
+
+  const observerOptions = {
+    root: null,
+    rootMargin: "0px", // No offset, check within viewport
+    threshold: 0.6 // Trigger when 80% of element is visible
+  };
+
+  // Store previous URLs for each element to revert when scrolling up
+  const urlHistory = new Map();
+
+  const observer = new IntersectionObserver((entries, observer) => {
+    entries.forEach((entry) => {
+      const $element = $(entry.target);
+      const currentPostId = $element.data("post-id");
+      const nextPostUrl = $element.data("next-post");
+
+      if (!currentPostId) {
+        // console.warn("No post-id found on element:", $element);
+        observer.unobserve(entry.target);
+        return;
+      }
+
+      if (entry.isIntersecting) {
+        // console.log("80% of element visible, triggering AJAX and URL update for post-id:", currentPostId);
+
+        // Store the current URL before updating
+        urlHistory.set(entry.target, window.location.href);
+
+        // Update URL if data-next-post exists
+        if (nextPostUrl) {
+          // console.log("Updating URL to:", nextPostUrl);
+          window.history.pushState({ postId: currentPostId }, "", nextPostUrl);
+        } else {
+          // console.warn("No data-next-post found on element:", $element);
+        }
+
+        $.ajax({
+          type: "POST",
+          url: ajaxUrl,
+          dataType: "json",
+          data: {
+            action: "load_next_project",
+            current_post_id: currentPostId
+          },
+          success: function (res) {
+            // console.log("AJAX response:", res);
+            if (res.success && res.data && res.data.content) {
+              const $newContent = $(res.data.content);
+              // console.log("Appended new content:", $newContent, "Raw HTML:", res.data.content);
+
+              // Append the new content to .project-detail
+              $(".project-detail").append($newContent);
+
+              // Find .project-banner.animate in both nested and top-level elements
+              const $newBanners = $newContent
+                .find(".project-banner.animate")
+                .add($newContent.filter(".project-banner.animate"));
+              // console.log("Found new .project-banner.animate elements:", $newBanners.length, $newBanners);
+
+              $newBanners.each(function () {
+                // console.log("Observing new element:", this);
+                observer.observe(this);
+              });
+
+              // Reinitialize functions
+              projectDetail();
+              magicCursor();
+              ScrollTrigger.refresh();
+            } else {
+              // console.warn("Invalid response or no content:", res);
+            }
+          },
+          error: function (xhr, status, error) {
+            // console.error("AJAX error:", status, error, xhr.responseText);
+          }
+        });
+
+        // Stop observing this element to prevent multiple triggers
+        observer.unobserve(entry.target);
+      } else if (!entry.isIntersecting && urlHistory.has(entry.target)) {
+        // Revert to previous URL when element is no longer 80% visible
+        const previousUrl = urlHistory.get(entry.target);
+        // console.log("Element no longer 80% visible, reverting URL to:", previousUrl);
+        window.history.pushState({ postId: currentPostId }, "", previousUrl);
+      }
+    });
+  }, observerOptions);
+
+  // Observe initial .project-banner.animate elements
+  const $initialBanners = $(".project-banner.animate");
+  // console.log("Initial .project-banner.animate elements found:", $initialBanners.length);
+  $initialBanners.each(function () {
+    observer.observe(this);
+  });
+
+  // Handle popstate to ensure URL changes are tracked when using browser back/forward
+  window.addEventListener("popstate", function (event) {
+    // console.log("Popstate event, current URL:", window.location.href);
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
 
@@ -1452,6 +1561,7 @@ const init = () => {
   contactForm();
   handlePageVisibilityAndFavicon();
   projectDetail();
+  scrollInfiniteProject();
   setTimeout(() => {
     cookieModal();
   }, 5000);

@@ -1,9 +1,22 @@
+.project-detail {
+  width: 100%;
+  overflow: hidden;
+}
+
 .project-banner {
   width: 100%;
   position: relative;
 
+  @media (max-width: 991px) {
+    margin-top: 60px;
+  }
+
   &.animate {
     cursor: none;
+
+    @media (max-width: 991px) {
+      margin-top: 0;
+    }
 
     .next-project {
       position: absolute;
@@ -15,7 +28,8 @@
     .banner-img {
       clip-path: inset(0);
 
-      img {
+      img,
+      video {
         transform: scale(1);
       }
     }
@@ -33,10 +47,13 @@
     clip-path: inset(85px 80px 85px 80px);
 
     @media (max-width: 991px) {
-      clip-path: inset(40px);
+      clip-path: inset(24px);
+      height: auto;
+      aspect-ratio: 327 / 245;
     }
 
-    img {
+    img,
+    video {
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -53,7 +70,7 @@
     width: calc(100% - 160px);
 
     @media (max-width: 991px) {
-      width: calc(100% - 80px);
+      width: calc(100% - 48px);
     }
 
     .list-tag {
