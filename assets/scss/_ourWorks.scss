@@ -413,6 +413,14 @@
         }
       }
 
+      .note {
+        display: inline;
+
+        a {
+          display: inline-flex;
+        }
+      }
+
       @media (max-width: 991px) {
         margin-top: 8px;
         flex-wrap: wrap;

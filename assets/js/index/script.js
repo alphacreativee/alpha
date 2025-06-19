@@ -243,6 +243,7 @@ function effectText() {
 
     // effect fade in
     gsap.utils.toArray(".effect-fade-content").forEach((element) => {
+      const delay = parseFloat(element.dataset.delay) || 0;
       gsap.fromTo(
         element,
         {
@@ -260,7 +261,8 @@ function effectText() {
           opacity: 1,
           y: 0,
           duration: 0.3,
-          ease: "sine.out"
+          ease: "sine.out",
+          delay: delay
         }
       );
     });
@@ -1435,16 +1437,126 @@ function projectDetail() {
   });
 }
 
-function scrollInfiniteProject() {
+// function scrollInfiniteProject() {
+//   if ($(".project-detail").length < 1) {
+//     // console.log("No .project-detail found, exiting.");
+//     return;
+//   }
+
+//   const observerOptions = {
+//     root: null,
+//     rootMargin: "0px", // No offset, check within viewport
+//     threshold: 0.6 // Trigger when 80% of element is visible
+//   };
+
+//   // Store previous URLs for each element to revert when scrolling up
+//   const urlHistory = new Map();
+
+//   const observer = new IntersectionObserver((entries, observer) => {
+//     entries.forEach((entry) => {
+//       const $element = $(entry.target);
+//       const currentPostId = $element.data("post-id");
+//       const nextPostUrl = $element.data("next-post");
+
+//       if (!currentPostId) {
+//         // console.warn("No post-id found on element:", $element);
+//         observer.unobserve(entry.target);
+//         return;
+//       }
+
+//       if (entry.isIntersecting) {
+//         // console.log("80% of element visible, triggering AJAX and URL update for post-id:", currentPostId);
+
+//         // Store the current URL before updating
+//         urlHistory.set(entry.target, window.location.href);
+
+//         // Update URL if data-next-post exists
+//         if (nextPostUrl) {
+//           // console.log("Updating URL to:", nextPostUrl);
+//           window.history.pushState({ postId: currentPostId }, "", nextPostUrl);
+//         } else {
+//           // console.warn("No data-next-post found on element:", $element);
+//         }
+
+//         $.ajax({
+//           type: "POST",
+//           url: ajaxUrl,
+//           dataType: "json",
+//           data: {
+//             action: "load_next_project",
+//             current_post_id: currentPostId
+//           },
+//           success: function (res) {
+//             // console.log("AJAX response:", res);
+//             if (res.success && res.data && res.data.content) {
+//               const $newContent = $(res.data.content);
+//               // console.log("Appended new content:", $newContent, "Raw HTML:", res.data.content);
+
+//               // Append the new content to .project-detail
+//               $(".project-detail").append($newContent);
+
+//               // Find .project-banner.animate in both nested and top-level elements
+//               const $newBanners = $newContent
+//                 .find(".project-banner.animate")
+//                 .add($newContent.filter(".project-banner.animate"));
+//               // console.log("Found new .project-banner.animate elements:", $newBanners.length, $newBanners);
+
+//               $newBanners.each(function () {
+//                 // console.log("Observing new element:", this);
+//                 observer.observe(this);
+//               });
+
+//               // Reinitialize functions
+//               projectDetail();
+//               magicCursor();
+//               ScrollTrigger.refresh();
+//             } else {
+//               // console.warn("Invalid response or no content:", res);
+//             }
+//           },
+//           error: function (xhr, status, error) {
+//             // console.error("AJAX error:", status, error, xhr.responseText);
+//           }
+//         });
+
+//         // Stop observing this element to prevent multiple triggers
+//         observer.unobserve(entry.target);
+//       } else if (!entry.isIntersecting && urlHistory.has(entry.target)) {
+//         // Revert to previous URL when element is no longer 80% visible
+//         const previousUrl = urlHistory.get(entry.target);
+//         // console.log("Element no longer 80% visible, reverting URL to:", previousUrl);
+//         window.history.pushState({ postId: currentPostId }, "", previousUrl);
+//       }
+//     });
+//   }, observerOptions);
+
+//   // Observe initial .project-banner.animate elements
+//   const $initialBanners = $(".project-banner.animate");
+//   // console.log("Initial .project-banner.animate elements found:", $initialBanners.length);
+//   $initialBanners.each(function () {
+//     observer.observe(this);
+//   });
+
+//   // Handle popstate to ensure URL changes are tracked when using browser back/forward
+//   window.addEventListener("popstate", function (event) {
+//     // console.log("Popstate event, current URL:", window.location.href);
+//   });
+// }
+
+function scrollInfiniteProject(scrollCount = 0) {
   if ($(".project-detail").length < 1) {
-    // console.log("No .project-detail found, exiting.");
     return;
+  }
+
+  // Ensure .loading is visible on initial page load
+  if ($(".loading").length) {
+    $(".loading").removeClass("d-none");
   }
 
   const observerOptions = {
     root: null,
-    rootMargin: "0px", // No offset, check within viewport
-    threshold: 0.6 // Trigger when 80% of element is visible
+    rootMargin: "0px",
+    threshold: 0.9 // Trigger when 90% of element is visible
   };
 
   // Store previous URLs for each element to revert when scrolling up
@@ -1456,73 +1568,40 @@ function scrollInfiniteProject() {
       const currentPostId = $element.data("post-id");
       const nextPostUrl = $element.data("next-post");
 
-      if (!currentPostId) {
-        // console.warn("No post-id found on element:", $element);
+      if (!currentPostId || !nextPostUrl) {
         observer.unobserve(entry.target);
         return;
       }
 
       if (entry.isIntersecting) {
-        // console.log("80% of element visible, triggering AJAX and URL update for post-id:", currentPostId);
+        // Increment scrollCount for the parameter
+        scrollCount++;
 
         // Store the current URL before updating
         urlHistory.set(entry.target, window.location.href);
 
-        // Update URL if data-next-post exists
-        if (nextPostUrl) {
-          // console.log("Updating URL to:", nextPostUrl);
-          window.history.pushState({ postId: currentPostId }, "", nextPostUrl);
-        } else {
-          // console.warn("No data-next-post found on element:", $element);
+        // Append scrollCount as a query parameter to the nextPostUrl
+        const url = new URL(nextPostUrl, window.location.origin);
+        url.searchParams.set("scrollCount", scrollCount);
+
+        // Hide .loading before navigating
+        if ($(".loading").length) {
+          $(".loading").addClass("d-none");
         }
 
-        $.ajax({
-          type: "POST",
-          url: ajaxUrl,
-          dataType: "json",
-          data: {
-            action: "load_next_project",
-            current_post_id: currentPostId
-          },
-          success: function (res) {
-            // console.log("AJAX response:", res);
-            if (res.success && res.data && res.data.content) {
-              const $newContent = $(res.data.content);
-              // console.log("Appended new content:", $newContent, "Raw HTML:", res.data.content);
+        // Update URL and navigate to the next page
+        window.history.pushState(
+          { postId: currentPostId, scrollCount: scrollCount },
+          "",
+          url.toString()
+        );
+        window.location.href = url.toString();
 
-              // Append the new content to .project-detail
-              $(".project-detail").append($newContent);
-
-              // Find .project-banner.animate in both nested and top-level elements
-              const $newBanners = $newContent
-                .find(".project-banner.animate")
-                .add($newContent.filter(".project-banner.animate"));
-              // console.log("Found new .project-banner.animate elements:", $newBanners.length, $newBanners);
-
-              $newBanners.each(function () {
-                // console.log("Observing new element:", this);
-                observer.observe(this);
-              });
-
-              // Reinitialize functions
-              projectDetail();
-              magicCursor();
-              ScrollTrigger.refresh();
-            } else {
-              // console.warn("Invalid response or no content:", res);
-            }
-          },
-          error: function (xhr, status, error) {
-            // console.error("AJAX error:", status, error, xhr.responseText);
-          }
-        });
-
-        // Stop observing this element to prevent multiple triggers
+        // Stop observing this element
         observer.unobserve(entry.target);
       } else if (!entry.isIntersecting && urlHistory.has(entry.target)) {
-        // Revert to previous URL when element is no longer 80% visible
+        // Revert to previous URL when element is no longer 90% visible
         const previousUrl = urlHistory.get(entry.target);
-        // console.log("Element no longer 80% visible, reverting URL to:", previousUrl);
         window.history.pushState({ postId: currentPostId }, "", previousUrl);
       }
     });
@@ -1530,16 +1609,23 @@ function scrollInfiniteProject() {
 
   // Observe initial .project-banner.animate elements
   const $initialBanners = $(".project-banner.animate");
-  // console.log("Initial .project-banner.animate elements found:", $initialBanners.length);
   $initialBanners.each(function () {
     observer.observe(this);
   });
 
-  // Handle popstate to ensure URL changes are tracked when using browser back/forward
+  // Handle popstate to track URL changes with browser back/forward
   window.addEventListener("popstate", function (event) {
-    // console.log("Popstate event, current URL:", window.location.href);
+    if (event.state && event.state.scrollCount) {
+      scrollCount = event.state.scrollCount;
+    }
+    // Hide .loading before navigating
+    if ($(".loading").length) {
+      $(".loading").addClass("d-none");
+    }
+    window.location.href = window.location.href;
   });
 }
+
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
 

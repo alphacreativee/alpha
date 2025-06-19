@@ -604,6 +604,10 @@ main {
   inset: 0;
   z-index: 199;
   overflow: hidden;
+
+  &.none {
+    display: none !important;
+  }
   &-wrapper {
     position: absolute;
     inset: 0;
