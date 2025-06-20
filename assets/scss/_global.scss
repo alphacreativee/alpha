@@ -542,10 +542,6 @@ main {
   visibility: hidden;
   transition: all 0.4s ease;
 
-  transform: translateY(0);
-  opacity: 1;
-  visibility: visible;
-
   &.open {
     transform: translate(0);
     opacity: 1;
