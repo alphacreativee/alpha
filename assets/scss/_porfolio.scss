@@ -31,6 +31,11 @@
   &-tag {
     display: flex;
     align-items: center;
+    ul {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
     @media (max-width: 991px) {
       font-size: 18px;
     }
