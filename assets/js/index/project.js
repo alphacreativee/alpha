@@ -235,11 +235,64 @@ function changeColor() {
     },
   });
 }
+function draggable() {
+  if (!$("#tt-draggable").length) return;
+  $("#tt-draggable").draggable();
+}
+function magicCursorImg() {
+  if (!document.querySelector(".magic-cursor-image")) return;
+
+  var circle = document.querySelector(".magic-cursor-image");
+  gsap.set(circle, {
+    xPercent: -50,
+    yPercent: -50,
+  });
+
+  let mouseX = 0,
+    mouseY = 0;
+
+  window.addEventListener("mousemove", (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    // Di chuyển circle theo vị trí chuột, không delay
+    gsap.to(circle, {
+      x: mouseX,
+      y: mouseY,
+      duration: 0.1,
+    });
+  });
+
+  var cursorDot = document.querySelector(".magic-cursor-image .cursor");
+  var imgContent = document.querySelector(".magic-cursor-image .img-content ");
+
+  const itemsPor = document.querySelectorAll(".porfolio-item .porfolio-link");
+
+  itemsPor.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      const imgSrc = item.getAttribute("data-cursor-image");
+      if (!imgSrc) return; // Nếu ko có data-cursor-image thì thôi
+
+      cursorDot.classList.add("show");
+      item.classList.add("hovered");
+      // Hiển thị ảnh vào img-content
+      imgContent.innerHTML = `<img src="${imgSrc}" alt="cursor image" />`;
+    });
+
+    item.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show");
+      item.classList.remove("hovered");
+      // Xoá ảnh khỏi img-content
+      imgContent.innerHTML = "";
+    });
+  });
+}
 
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   sliderProject();
   changeColor();
+  draggable();
+  magicCursorImg();
 };
 preloadImages("img").then(() => {
   // Once images are preloaded, remove the 'loading' indicator/class from the body

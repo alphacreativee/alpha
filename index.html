@@ -237,9 +237,16 @@
     <!-- end toolbar -->
     <div class="magic-cursor move-ltf">
       <div class="cursor">
-        <div class="text text-uppercase button-typo color-white">
+        <div
+          class="text-content-wrapper text text-uppercase button-typo color-white"
+        >
           <img src="./assets/images/use/icon-arrow-hover.svg" alt="" />
         </div>
+      </div>
+    </div>
+    <div class="magic-cursor-chess">
+      <div class="cursor">
+        <div class="text text-uppercase button-typo color-white">View</div>
       </div>
     </div>
     <main id="main">
@@ -292,7 +299,7 @@
             </h2>
           </div>
           <div class="expertise-item">
-            <div class="item-image">
+            <div class="item-image" data-cursor="View">
               <img src="./assets/images/use/xe.png" alt="" />
             </div>
             <div class="item-content">
@@ -317,7 +324,7 @@
             </div>
           </div>
           <div class="expertise-item">
-            <div class="item-image">
+            <div class="item-image" data-cursor="View">
               <img src="./assets/images/use/ngua.png" alt="" />
             </div>
             <div class="item-content">
@@ -568,7 +575,7 @@
             Client insights
           </h2>
           <div class="main-section">
-            <div class="client-wrapper">
+            <div class="client-wrapper" data-cursor="">
               <div class="client-item">
                 <div class="box">
                   <div class="tag-typo tag">FUSION HOTEL GROUP</div>
