@@ -263,13 +263,14 @@ function magicCursorImg() {
   });
 
   var cursorDot = document.querySelector(".magic-cursor-image .cursor");
-  var imgContent = document.querySelector(".magic-cursor-image .img-content ");
+  var imgContent = document.querySelector(".magic-cursor-image .img-content");
 
   const itemsPor = document.querySelectorAll(".porfolio-item .porfolio-link");
 
   itemsPor.forEach((item) => {
     item.addEventListener("mouseenter", () => {
       const imgSrc = item.getAttribute("data-cursor-image");
+
       if (!imgSrc) return; // Nếu ko có data-cursor-image thì thôi
 
       cursorDot.classList.add("show");

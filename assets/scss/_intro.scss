@@ -11,7 +11,7 @@
     width: 100%;
     height: 100%;
     video {
-      filter: grayscale(100%);
+      // filter: grayscale(100%);
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -20,7 +20,7 @@
   }
 
   &::before {
-    content: "";
+    content: unset;
     position: absolute;
     width: 100%;
     height: 200px;
@@ -52,6 +52,9 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    .line {
+      line-height: 1.4;
+    }
     &-wrapper {
       max-width: 1062px;
       width: 100%;
