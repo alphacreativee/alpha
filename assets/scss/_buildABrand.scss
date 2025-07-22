@@ -23,8 +23,8 @@
     }
   }
   &::after {
-    content: unset;
-    height: 100dvh;
+    content: "";
+    height: 200px;
     width: 100%;
     background: linear-gradient(
       to bottom,

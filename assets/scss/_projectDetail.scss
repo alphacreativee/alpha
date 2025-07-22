@@ -119,8 +119,8 @@
     background: radial-gradient(
       circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%),
       transparent 0%,
-      transparent 50%,
-      rgba(0, 0, 0, 0.95) 70%
+      transparent 70%,
+      rgba(0, 0, 0, 1) 70%
     );
     z-index: 2;
     transition: all 0.1s ease;
@@ -150,7 +150,7 @@
     }
   }
 }
-.cursor {
+.cursor-next-project {
   position: fixed;
   width: 20px;
   height: 20px;

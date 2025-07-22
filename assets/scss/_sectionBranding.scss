@@ -140,7 +140,7 @@
 
           &:nth-child(even) {
             ul {
-              animation: loopLogoAnimation 16s linear infinite reverse;
+              animation: loopLogoAnimation 40s linear infinite reverse;
             }
 
             &:hover {
@@ -155,7 +155,7 @@
             align-items: center;
             gap: 12px;
             animation-name: loopLogoAnimation;
-            animation-duration: 16s;
+            animation-duration: 40s;
             animation-timing-function: linear;
             animation-iteration-count: infinite;
 
