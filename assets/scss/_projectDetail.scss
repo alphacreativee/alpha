@@ -44,7 +44,7 @@
   .banner-img {
     width: 100%;
     height: 100dvh;
-    clip-path: inset(85px 80px 85px 80px);
+    // clip-path: inset(85px 80px 85px 80px);
 
     @media (max-width: 991px) {
       clip-path: inset(24px);

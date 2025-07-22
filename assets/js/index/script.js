@@ -1664,10 +1664,68 @@ function scrollInfiniteProject(scrollCount = 0) {
     window.location.href = window.location.href;
   });
 }
+function animateBannerProjectDetail() {
+  if ($(".project-banner").length < 1) return;
 
+  gsap.fromTo(
+    ".project-banner .banner-img",
+    {
+      clipPath: () => {
+        const viewportWidth = window.innerWidth;
+        let targetWidth = viewportWidth - 32;
+        if (viewportWidth > 991) {
+          targetWidth = viewportWidth - 160;
+        } else if (viewportWidth > 767) {
+          targetWidth = viewportWidth - 80;
+        } else {
+          targetWidth = viewportWidth - 32;
+        }
+        const widthClipPercentage =
+          ((viewportWidth - targetWidth) / 2 / viewportWidth) * 100;
+        const image = document.querySelector(".project-banner");
+        const currentHeight = image.offsetHeight;
+        const targetHeight =
+          viewportWidth > 991 ? currentHeight - 100 : currentHeight;
+        const heightClipPixels = (currentHeight - targetHeight) / 2;
+        const heightClipPercentage = (heightClipPixels / currentHeight) * 100;
+        return `inset(${heightClipPercentage}% ${widthClipPercentage}% ${heightClipPercentage}% ${widthClipPercentage}%)`;
+      },
+    },
+    {
+      scrollTrigger: {
+        trigger: ".project-banner",
+        start: "top top",
+        end: "bottom 70%",
+        scrub: 1,
+        markers: true,
+      },
+      clipPath: "inset(0% 0% 0% 0%)",
+      duration: 0.4,
+      ease: "power2.out",
+    }
+  );
+
+  gsap.fromTo(
+    ".project-banner .banner-img img",
+    {
+      scale: 1.1,
+    },
+    {
+      scrollTrigger: {
+        trigger: ".project-banner",
+        start: "top 70%",
+        end: "bottom 70%",
+        scrub: 1,
+      },
+      scale: 1,
+      duration: 0.4,
+      ease: "power2.out",
+    }
+  );
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
-
+  animateBannerProjectDetail();
   header();
   scrollToForm();
   stickyFilter();
