@@ -1685,7 +1685,7 @@ function animateBannerProjectDetail() {
         const image = document.querySelector(".project-banner");
         const currentHeight = image.offsetHeight;
         const targetHeight =
-          viewportWidth > 991 ? currentHeight - 100 : currentHeight;
+          viewportWidth > 991 ? currentHeight - 160 : currentHeight;
         const heightClipPixels = (currentHeight - targetHeight) / 2;
         const heightClipPercentage = (heightClipPixels / currentHeight) * 100;
         return `inset(${heightClipPercentage}% ${widthClipPercentage}% ${heightClipPercentage}% ${widthClipPercentage}%)`;
@@ -1697,7 +1697,7 @@ function animateBannerProjectDetail() {
         start: "top top",
         end: "bottom 70%",
         scrub: 1,
-        markers: true,
+        // markers: true,
       },
       clipPath: "inset(0% 0% 0% 0%)",
       duration: 0.4,
@@ -1708,12 +1708,12 @@ function animateBannerProjectDetail() {
   gsap.fromTo(
     ".project-banner .banner-img img",
     {
-      scale: 1.1,
+      scale: 1.4,
     },
     {
       scrollTrigger: {
         trigger: ".project-banner",
-        start: "top 70%",
+        start: "top top",
         end: "bottom 70%",
         scrub: 1,
       },
