@@ -901,3 +901,12 @@ section.theme-light {
     }
   }
 }
+.elementor-element.video_full {
+  height: 100%;
+}
+.elementor-element.video_full .elementor-widget-container {
+  height: 100%;
+}
+.elementor-element.video_full .e-hosted-video {
+  height: 100%;
+}

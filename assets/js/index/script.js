@@ -1695,8 +1695,9 @@ function animateBannerProjectDetail() {
       scrollTrigger: {
         trigger: ".project-banner",
         start: "top top",
-        end: "bottom 70%",
+        end: "bottom 50%",
         scrub: 1,
+        pin: true,
         // markers: true,
       },
       clipPath: "inset(0% 0% 0% 0%)",
@@ -1777,8 +1778,13 @@ function spotlightNextProject() {
     });
   });
 }
+function draggable() {
+  if (!$("#tt-draggable").length) return;
+  $("#tt-draggable").draggable();
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+  draggable();
   spotlightNextProject();
   animateBannerProjectDetail();
   header();

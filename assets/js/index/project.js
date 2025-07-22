@@ -235,10 +235,7 @@ function changeColor() {
     },
   });
 }
-function draggable() {
-  if (!$("#tt-draggable").length) return;
-  $("#tt-draggable").draggable();
-}
+
 function magicCursorImg() {
   if (!document.querySelector(".magic-cursor-image")) return;
 
@@ -292,7 +289,7 @@ const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   sliderProject();
   changeColor();
-  draggable();
+
   magicCursorImg();
 };
 preloadImages("img").then(() => {
