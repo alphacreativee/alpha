@@ -901,12 +901,30 @@ section.theme-light {
     }
   }
 }
-.elementor-element.video_full {
+// .elementor-element.video_full {
+//   height: 100%;
+// }
+// .elementor-element.video_full .elementor-widget-container {
+//   height: 100%;
+// }
+// .elementor-element.video_full .e-hosted-video {
+//   height: 100%;
+// }
+.elementor-element .video_full {
   height: 100%;
 }
-.elementor-element.video_full .elementor-widget-container {
+.elementor-element .video_full .elementor-widget-container {
   height: 100%;
 }
-.elementor-element.video_full .e-hosted-video {
+.elementor-element .elementor-wrapper {
   height: 100%;
+  width: 100%;
+  position: relative;
+  aspect-ratio: unset !important;
+}
+.elementor-element .video_full .elementor-widget-container video {
+  width: 101%;
+  height: 101%;
+  transform: translateY(-1px);
+  object-position: center;
 }
