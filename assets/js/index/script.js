@@ -1723,8 +1723,63 @@ function animateBannerProjectDetail() {
     }
   );
 }
+function spotlightNextProject() {
+  if (window.innerWidth < 991) return;
+  if ($(".project-spotlight").length < 1) return;
+  const cursor = document.getElementById("cursor-next-project");
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX - 10 + "px";
+    cursor.style.top = e.clientY - 10 + "px";
+  });
+  const spotlight = document.querySelector(".project-spotlight");
+  spotlight.addEventListener("mousemove", (e) => {
+    updateMousePosition(spotlight, e);
+  });
+  [spotlight].forEach((element) => {
+    element.addEventListener("touchmove", (e) => {
+      // e.preventDefault();
+      const touch = e.touches[0];
+      const rect = element.getBoundingClientRect();
+      const x = ((touch.clientX - rect.left) / rect.width) * 100;
+      const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+      element.style.setProperty("--mouse-x", `${x}%`);
+      element.style.setProperty("--mouse-y", `${y}%`);
+    });
+
+    element.addEventListener("touchstart", (e) => {
+      const touch = e.touches[0];
+      updateMousePosition(element, {
+        clientX: touch.clientX,
+        clientY: touch.clientY,
+      });
+    });
+  });
+  spotlight.addEventListener("mouseleave", () => {
+    spotlight.style.setProperty("--mouse-x", "50%");
+    spotlight.style.setProperty("--mouse-y", "50%");
+  });
+  function updateMousePosition(element, event) {
+    const rect = element.getBoundingClientRect();
+    const x = ((event.clientX - rect.left) / rect.width) * 100;
+    const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+    element.style.setProperty("--mouse-x", `${x}%`);
+    element.style.setProperty("--mouse-y", `${y}%`);
+  }
+  [spotlight].forEach((element) => {
+    element.addEventListener("mouseenter", () => {
+      cursor.style.display = "none";
+    });
+
+    element.addEventListener("mouseleave", () => {
+      cursor.style.display = "block";
+    });
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
+  spotlightNextProject();
   animateBannerProjectDetail();
   header();
   scrollToForm();

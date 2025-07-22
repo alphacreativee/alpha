@@ -104,3 +104,60 @@
     }
   }
 }
+.project-spotlight {
+  position: relative;
+  width: 100%;
+  height: 100svh;
+  overflow: hidden;
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+      circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+      transparent 0%,
+      transparent 50%,
+      rgba(0, 0, 0, 0.95) 70%
+    );
+    z-index: 2;
+    transition: all 0.1s ease;
+    pointer-events: none;
+  }
+  .image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+  .content {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    text-align: center;
+    h2 {
+      margin-bottom: 24px;
+    }
+  }
+}
+.cursor {
+  position: fixed;
+  width: 20px;
+  height: 20px;
+
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  mix-blend-mode: difference;
+  transition: transform 0.4s ease;
+}

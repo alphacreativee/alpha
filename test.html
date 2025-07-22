@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Spotlight Effect - Text Hidden</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Arial", sans-serif;
+        overflow: hidden;
+        cursor: none;
+      }
+
+      /* Cách 1: Overlay che cả text */
+      .project-spotlight {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+      }
+
+      .project-spotlight .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .project-spotlight .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .project-spotlight .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1; /* Text nằm dưới overlay */
+        text-align: center;
+      }
+
+      .project-spotlight .content h2 {
+        font-size: 5rem;
+        color: white;
+        font-weight: bold;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+        letter-spacing: 2px;
+        margin: 0;
+      }
+
+      /* Overlay che cả image và text */
+      .project-spotlight::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: radial-gradient(
+          circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          transparent 0%,
+          transparent 30%,
+          rgba(0, 0, 0, 0.95) 70%
+        );
+        z-index: 2; /* Overlay nằm trên cả image và text */
+        transition: all 0.1s ease;
+        pointer-events: none;
+      }
+
+      /* Cách 2: Sử dụng mask cho hiệu ứng mượt hơn */
+      .project-spotlight-mask {
+        position: relative;
+        width: 100%;
+        height: 100vh;
+        overflow: hidden;
+        margin-top: 100vh;
+      }
+
+      .project-spotlight-mask .image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+      }
+
+      .project-spotlight-mask .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+
+      .project-spotlight-mask .content {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 1;
+        text-align: center;
+      }
+
+      .project-spotlight-mask .content h2 {
+        font-size: 5rem;
+        color: white;
+        font-weight: bold;
+        text-shadow: 3px 3px 6px rgba(0, 0, 0, 0.8);
+        letter-spacing: 2px;
+      }
+
+      .project-spotlight-mask .dark-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.9);
+        z-index: 2;
+        mask: radial-gradient(
+          circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          transparent 30%,
+          black 70%
+        );
+        -webkit-mask: radial-gradient(
+          circle 300px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          transparent 30%,
+          black 70%
+        );
+        transition: all 0.15s ease;
+        pointer-events: none;
+      }
+
+      /* Custom cursor */
+      .cursor {
+        position: fixed;
+        width: 20px;
+        height: 20px;
+        border: 2px solid white;
+        border-radius: 50%;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transition: transform 0.1s ease;
+      }
+
+      /* Demo labels */
+      .demo-label {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        color: white;
+        background: rgba(0, 0, 0, 0.7);
+        padding: 10px 20px;
+        border-radius: 5px;
+        z-index: 10;
+        font-size: 14px;
+      }
+
+      /* Instructions */
+      .instructions {
+        position: absolute;
+        bottom: 30px;
+        left: 50%;
+        transform: translateX(-50%);
+        color: rgba(255, 255, 255, 0.7);
+        text-align: center;
+        z-index: 10;
+        font-size: 16px;
+      }
+
+      /* Responsive */
+      @media (max-width: 768px) {
+        .project-spotlight .content h2,
+        .project-spotlight-mask .content h2 {
+          font-size: 3rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Custom cursor -->
+    <div class="cursor" id="cursor"></div>
+
+    <!-- Cách 1: Radial gradient overlay che cả text -->
+    <section class="project-spotlight" id="spotlight1">
+      <div class="demo-label">Cách 1: Overlay che cả text và image</div>
+      <div class="image">
+        <img
+          src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1200&h=800&fit=crop"
+          alt="Mountain landscape"
+        />
+      </div>
+      <div class="content">
+        <h2>Fleur de Lys</h2>
+        <a href="">aaaa</a>
+      </div>
+      <div class="instructions">Di chuyển chuột để khám phá nội dung ẩn</div>
+    </section>
+
+    <!-- Cách 2: CSS mask cho hiệu ứng mượt hơn -->
+    <section class="project-spotlight-mask" id="spotlight2">
+      <div class="demo-label">Cách 2: CSS Mask - Mượt hơn</div>
+      <div class="image">
+        <img
+          src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&h=800&fit=crop"
+          alt="Forest landscape"
+        />
+      </div>
+      <div class="content">
+        <h2>Fleur de Lys</h2>
+        <a href="">aaaa</a>
+      </div>
+      <div class="dark-overlay"></div>
+      <div class="instructions">
+        Text cũng bị ẩn và chỉ hiện khi spotlight chiếu
+      </div>
+    </section>
+    <div class="spacing" style="height: 100vh"></div>
+    <script>
+      // Custom cursor
+      const cursor = document.getElementById("cursor");
+      document.addEventListener("mousemove", (e) => {
+        cursor.style.left = e.clientX - 10 + "px";
+        cursor.style.top = e.clientY - 10 + "px";
+      });
+
+      // Function to update mouse position for spotlight
+      function updateMousePosition(element, event) {
+        const rect = element.getBoundingClientRect();
+        const x = ((event.clientX - rect.left) / rect.width) * 100;
+        const y = ((event.clientY - rect.top) / rect.height) * 100;
+
+        element.style.setProperty("--mouse-x", `${x}%`);
+        element.style.setProperty("--mouse-y", `${y}%`);
+      }
+
+      // Cách 1: Radial gradient spotlight
+      const spotlight1 = document.getElementById("spotlight1");
+      spotlight1.addEventListener("mousemove", (e) => {
+        updateMousePosition(spotlight1, e);
+      });
+
+      spotlight1.addEventListener("mouseleave", () => {
+        spotlight1.style.setProperty("--mouse-x", "50%");
+        spotlight1.style.setProperty("--mouse-y", "50%");
+      });
+
+      // Cách 2: CSS mask spotlight
+      const spotlight2 = document.getElementById("spotlight2");
+      spotlight2.addEventListener("mousemove", (e) => {
+        updateMousePosition(spotlight2, e);
+      });
+
+      spotlight2.addEventListener("mouseleave", () => {
+        spotlight2.style.setProperty("--mouse-x", "50%");
+        spotlight2.style.setProperty("--mouse-y", "50%");
+      });
+
+      // Touch support cho mobile
+      [spotlight1, spotlight2].forEach((element) => {
+        element.addEventListener("touchmove", (e) => {
+          e.preventDefault();
+          const touch = e.touches[0];
+          const rect = element.getBoundingClientRect();
+          const x = ((touch.clientX - rect.left) / rect.width) * 100;
+          const y = ((touch.clientY - rect.top) / rect.height) * 100;
+
+          element.style.setProperty("--mouse-x", `${x}%`);
+          element.style.setProperty("--mouse-y", `${y}%`);
+        });
+
+        element.addEventListener("touchstart", (e) => {
+          const touch = e.touches[0];
+          updateMousePosition(element, {
+            clientX: touch.clientX,
+            clientY: touch.clientY,
+          });
+        });
+      });
+
+      // Hide cursor when over spotlight areas
+      [spotlight1, spotlight2].forEach((element) => {
+        element.addEventListener("mouseenter", () => {
+          cursor.style.display = "none";
+        });
+
+        element.addEventListener("mouseleave", () => {
+          cursor.style.display = "block";
+        });
+      });
+    </script>
+  </body>
+</html>
