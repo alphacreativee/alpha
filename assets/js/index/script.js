@@ -24,7 +24,7 @@ function handlePageVisibilityAndFavicon() {
 
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
-      document.title = "Alpha Creative - Thiết kế cảm xúc cho thương hiệu";
+      document.title = "Alpha Creative • Thiết kế cảm xúc cho thương hiệu";
       startFaviconBlinking();
     } else {
       document.title = originalTitle;
