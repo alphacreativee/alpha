@@ -1778,13 +1778,25 @@ function spotlightNextProject() {
     });
   });
 }
-function draggable() {
-  if (!$("#tt-draggable").length) return;
-  $("#tt-draggable").draggable();
+function scrollCTA() {
+  if ($(".tt-draggable").length < 1) return;
+  ScrollTrigger.refresh();
+
+  ScrollTrigger.create({
+    start: "top top",
+    end: 99999,
+    paused: true,
+    onUpdate: (self) => {
+      self.direction === 1
+        ? $(".tt-draggable").addClass("hide")
+        : $(".tt-draggable").removeClass("hide");
+    },
+  });
 }
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
-  draggable();
+  scrollCTA();
+
   spotlightNextProject();
   animateBannerProjectDetail();
   header();
