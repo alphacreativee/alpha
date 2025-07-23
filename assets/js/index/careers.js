@@ -13,7 +13,7 @@ function formReruitment() {
     const $labelSpan = $input.next("label").find("span");
     const allowedTypes = [
       "application/pdf",
-      "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+      "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
     ];
     const maxSize = 5 * 1024 * 1024;
 
@@ -131,7 +131,7 @@ function formReruitment() {
           '<span class="contact-message body-sm-regular" style="color: #FF0000;">Có lỗi xảy ra, vui lòng thử lại sau.</span>'
         );
         $buttonSubmit.removeClass("aloading");
-      }
+      },
     });
   });
 
@@ -155,7 +155,7 @@ function formReruitment() {
         .classList.remove("theme-light");
       document.querySelector("main").classList.remove("theme-light");
       document.querySelector(".section-banner").classList.remove("theme-light");
-    }
+    },
     // markers: true
   });
 }
@@ -167,7 +167,4 @@ const init = () => {
 };
 preloadImages("img").then(() => {
   init();
-});
-$(window).on("beforeunload", function () {
-  $(window).scrollTop(0);
 });

@@ -928,3 +928,7 @@ section.theme-light {
   transform: translateY(-1px);
   object-position: center;
 }
+.elementor-heading-title {
+  font-family: var(--font-primary) !important;
+  color: #fff !important;
+}
