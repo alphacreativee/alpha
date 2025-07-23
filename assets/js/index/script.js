@@ -21,10 +21,11 @@ function handlePageVisibilityAndFavicon() {
   const originalTitle = document.title;
   let faviconInterval;
   let isBlinking = false;
-
+  const dynamicTitleElement =
+    document.getElementById("dynamic-title").textContent;
   document.addEventListener("visibilitychange", function () {
     if (document.hidden) {
-      document.title = "Alpha Creative • Thiết kế cảm xúc cho thương hiệu";
+      document.title = dynamicTitleElement;
       startFaviconBlinking();
     } else {
       document.title = originalTitle;
