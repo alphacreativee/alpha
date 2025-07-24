@@ -150,7 +150,7 @@ function gsapExpertise() {
   if (!wrappers.length) return;
 
   wrappers.forEach((wrapper, index) => {
-    if (wrapper.classList.contains("desktop")) {
+    if (wrapper.classList.contains("desktop") && window.innerWidth > 991) {
       const expertise = wrapper.querySelector(".expertise");
       if (!expertise) return;
 
