@@ -150,7 +150,7 @@ function gsapExpertise() {
   if (!wrappers.length) return;
 
   wrappers.forEach((wrapper, index) => {
-    if (wrapper.classList.contains("desktop") && $(window).width() > 991) {
+    if (wrapper.classList.contains("desktop")) {
       const expertise = wrapper.querySelector(".expertise");
       if (!expertise) return;
 
@@ -194,9 +194,10 @@ function gsapExpertise() {
           animation: tween,
           scrub: 1,
           pinSpacing: false,
+
           // invalidateOnRefresh: true,
           id: `expertiseScroll-${index}`,
-          // markers: true,
+          markers: true,
         });
       };
 
@@ -218,27 +219,42 @@ function gsapExpertise() {
       items.forEach((item) => {
         const content = item.querySelector(".item-content");
         if (!content) return;
-
+        gsap.fromTo(
+          content,
+          { yPercent: 70 },
+          {
+            yPercent: 0,
+            ease: "none",
+            scrollTrigger: {
+              trigger: item,
+              containerAnimation: containerTrigger.animation,
+              start: "left 80%",
+              end: "center 60%",
+              scrub: true,
+              invalidateOnRefresh: true,
+            },
+          }
+        );
         const isDesktop = window.innerWidth > 991;
-        if (isDesktop) {
-          // Desktop: Sử dụng containerAnimation
-          gsap.fromTo(
-            content,
-            { yPercent: 70 },
-            {
-              yPercent: 0,
-              ease: "none",
-              scrollTrigger: {
-                trigger: item,
-                containerAnimation: containerTrigger.animation,
-                start: "left 80%",
-                end: "center 60%",
-                scrub: true,
-                invalidateOnRefresh: true,
-              },
-            }
-          );
-        }
+        // if (isDesktop) {
+        //   // Desktop: Sử dụng containerAnimation
+        //   gsap.fromTo(
+        //     content,
+        //     { yPercent: 70 },
+        //     {
+        //       yPercent: 0,
+        //       ease: "none",
+        //       scrollTrigger: {
+        //         trigger: item,
+        //         containerAnimation: containerTrigger.animation,
+        //         start: "left 80%",
+        //         end: "center 60%",
+        //         scrub: true,
+        //         invalidateOnRefresh: true,
+        //       },
+        //     }
+        //   );
+        // }
       });
     } else {
       var swiperExpertise = new Swiper(".swiper-expertise", {
