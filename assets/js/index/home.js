@@ -197,7 +197,7 @@ function gsapExpertise() {
 
           // invalidateOnRefresh: true,
           id: `expertiseScroll-${index}`,
-          markers: true,
+          // markers: true,
         });
       };
 
