@@ -901,6 +901,12 @@ section.theme-light {
       opacity 0.4s ease;
     position: relative;
 
+    svg {
+      width: 22px;
+      height: 22px;
+      object-fit: contain;
+    }
+
     &:hover {
       .text {
         opacity: 1;
