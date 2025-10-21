@@ -40,9 +40,9 @@ function animateChessItems() {
       end: endValueMobileEx,
       scrub: true,
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 
   // Tính toán để phần tử cuối vẫn hiển thị
@@ -54,7 +54,7 @@ function animateChessItems() {
     tl.to(item, {
       y: "0%",
       duration: durationValue,
-      ease: "none",
+      ease: "none"
     });
 
     // Trên mobile: đẩy wrapper sang trái
@@ -70,7 +70,7 @@ function animateChessItems() {
         {
           x: `${pushAmount}%`,
           duration: 1,
-          ease: "power2.out",
+          ease: "power2.out"
         },
         ">"
       );
@@ -81,7 +81,7 @@ function animateChessItems() {
           scale: 0.9,
 
           duration: 0.5,
-          ease: "power2.out",
+          ease: "power2.out"
         },
         ">"
       );
@@ -116,7 +116,7 @@ function buildABrand() {
     const splitContent = new SplitText(contentElement, {
       type: "lines",
       linesClass: "line",
-      mask: "lines",
+      mask: "lines"
     });
 
     // Tạo timeline mới
@@ -129,7 +129,7 @@ function buildABrand() {
         yPercent: 0,
         duration: 0.6,
         stagger: 0.13,
-        ease: "expo.out",
+        ease: "expo.out"
       }
     );
     // Hiệu ứng cho tag
@@ -182,13 +182,18 @@ function buildABrand() {
     animateTabContent(dataThisTab);
   });
   const topValue = window.innerWidth < 991 ? "top 60%" : "top 40%";
+  const brandingParam = $(".build-a-brand").attr("tab-active")
+    ? $(".build-a-brand").attr("tab-active")
+    : "2";
+
   ScrollTrigger.create({
     trigger: ".build-a-brand",
     start: topValue,
     end: "bottom top",
     // markers: true,
     onEnter: () => {
-      const brandingValue = window.innerWidth < 991 ? "1" : "2";
+      const brandingValue = brandingParam;
+
       const defaultTab = $(
         `.build-a-brand .tab-wrapper .item[data-branding='${brandingValue}']`
       );
@@ -200,18 +205,20 @@ function buildABrand() {
         // Cập nhật nội dung hiển thị
         const content = $(".build-a-brand .wrapper-content");
         content.find(".item").addClass("d-none");
-        const defaultContent = content.find(`.item[data-branding='2']`);
+        const defaultContent = content.find(
+          `.item[data-branding='${brandingParam}']`
+        );
         defaultContent.removeClass("d-none");
 
         // Chạy animation cho tab mặc định
-        animateTabContent("2");
+        animateTabContent(brandingParam);
       }
     },
     onLeaveBack: () => {
       // Reset trạng thái khi scroll ngược ra khỏi section
       tab.removeClass("active");
       $(".build-a-brand .wrapper-content .item").addClass("d-none");
-    },
+    }
   });
 }
 function introBrading() {
@@ -230,7 +237,7 @@ function introBrading() {
     },
     onLeaveBack: () => {
       document.querySelector(".build-a-brand").classList.remove("active");
-    },
+    }
   });
 
   // Ghim section-intro
@@ -242,9 +249,9 @@ function introBrading() {
       start: "top top",
       end: "bottom top",
       pin: true,
-      pinSpacing: false,
+      pinSpacing: false
       // markers: true,
-    },
+    }
   });
 }
 
