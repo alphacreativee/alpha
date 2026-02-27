@@ -183,7 +183,7 @@ function loadImg(scope) {
 }
 document.addEventListener("DOMContentLoaded", function () {
   const firstProjectList = document.querySelector(
-    ".tab-pane.show.active .project-list"
+    ".tab-pane.show.active .project-list",
   );
   if (firstProjectList) {
     loadImg(firstProjectList);
@@ -195,7 +195,7 @@ document.querySelectorAll('button[data-bs-toggle="pill"]').forEach((tab) => {
   tab.addEventListener("shown.bs.tab", function (e) {
     const targetSelector = e.target.getAttribute("data-bs-target");
     const projectList = document.querySelector(
-      `${targetSelector} .project-list`
+      `${targetSelector} .project-list`,
     );
 
     if (projectList) {
@@ -214,7 +214,7 @@ function changeColor() {
   // Kiểm tra sự tồn tại của main và blogElement
   const mainElement = document.querySelector("main");
   const blogElement = document.querySelector(
-    ".blog-page-container .project-list"
+    ".blog-page-container .project-list",
   );
   const blogContainer = document.querySelector(".blog-page-container");
 
@@ -284,12 +284,42 @@ function magicCursorImg() {
     });
   });
 }
+function galleryZoom() {
+  gsap.registerPlugin(ScrollTrigger, Flip);
 
+  let galleryItem = document.querySelectorAll(".gallery .gallery-item");
+
+  galleryItem.forEach((el) => el.classList.add("flip"));
+
+  let state = Flip.getState(
+    [".gallery .gallery-item", ".gallery .gallery-item .img"],
+    {
+      props: "borderRadius",
+    },
+  );
+
+  galleryItem.forEach((el) => el.classList.remove("flip"));
+
+  Flip.to(state, {
+    scale: true,
+    simple: true,
+    scrollTrigger: {
+      trigger: ".gallery",
+      start: "center center",
+      end: "+=300%",
+      scrub: true,
+      pin: true,
+      // markers: true,
+      lazy: false,
+      anticipate: true,
+    },
+  });
+}
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   sliderProject();
   changeColor();
-
+  galleryZoom();
   magicCursorImg();
 };
 preloadImages("img").then(() => {
