@@ -67,7 +67,7 @@ function handlePageVisibilityAndFavicon() {
     isBlinking = false;
     const hostname = window.location.origin;
     changeFavicon(
-      `${hostname}/wp-content/themes/alpha/assets/images/use/favicon-black.svg`
+      `${hostname}/wp-content/themes/alpha/assets/images/use/favicon-black.svg`,
     );
   }
 }
@@ -110,7 +110,7 @@ function customDropdown() {
         }
 
         $item.html(
-          `${tmpImgSrc ? `<img src="${tmpImgSrc}" />` : ""} ${tmpText}`
+          `${tmpImgSrc ? `<img src="${tmpImgSrc}" />` : ""} ${tmpText}`,
         ); // Swap img and text back to the item
       } else if ($item.hasClass("language__item")) {
         $item.text(tmpText);
@@ -175,7 +175,7 @@ function header() {
       },
       function () {
         btnMenuOpen.removeClass("animation");
-      }
+      },
     );
     btnMenuOpen.hover(
       function () {
@@ -183,7 +183,7 @@ function header() {
       },
       function () {
         btnMenuOpen.removeClass("hovered");
-      }
+      },
     );
   }
 }
@@ -264,7 +264,7 @@ function effectText() {
           duration: 0.3,
           ease: "sine.out",
           delay: delay,
-        }
+        },
       );
     });
     gsap.utils
@@ -283,7 +283,7 @@ function effectText() {
             duration: 0.3,
             ease: "sine.out",
             delay: 0.5, // Độ trễ để tạo hiệu ứng lần lượt
-          }
+          },
         );
       });
 
@@ -317,7 +317,7 @@ function effectText() {
             start: "top 90%",
             // markers: true,
           },
-        }
+        },
       );
     });
   });
@@ -333,7 +333,7 @@ function introChess() {
   const sectionIntroContent = document.querySelector(".section-intro-content");
   const tagElement = document.querySelector(".section-intro-content .tag");
   const contentElement = document.querySelector(
-    ".section-intro-content .h2-heading"
+    ".section-intro-content .h2-heading",
   );
 
   // Khởi tạo SplitText cho content
@@ -357,13 +357,13 @@ function introChess() {
   tl.fromTo(
     tagElement,
     { opacity: 0, y: 20 },
-    { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" }
+    { opacity: 1, y: 0, duration: 0.3, ease: "expo.out" },
   );
   tl.fromTo(
     splitContent.lines,
     { opacity: 0, yPercent: 100 },
     { opacity: 1, yPercent: 0, duration: 0.3, stagger: 0.05, ease: "expo.out" },
-    "-=0.1"
+    "-=0.1",
   );
 
   // Ghim section-intro
@@ -511,7 +511,7 @@ function coreValue() {
       clipPath: "inset(0% 0% 0% 0%)", // hiện dần ra
       duration: 0.4,
       ease: "power2.out",
-    }
+    },
   );
 
   gsap.fromTo(
@@ -532,7 +532,7 @@ function coreValue() {
       ease: "power2.out",
       transformOrigin: () =>
         document.querySelector(".core-value .image").dataset.transformOrigin,
-    }
+    },
   );
 
   // pin core value
@@ -594,11 +594,11 @@ function magicCursor() {
   var cursorDot = document.querySelector(".magic-cursor .cursor");
   var cursorDotIcon = document.querySelector(".magic-cursor .cursor .icon");
   var cursorText = document.querySelector(
-    ".magic-cursor .cursor .text-content"
+    ".magic-cursor .cursor .text-content",
   );
 
   const itemsContent = document.querySelectorAll(
-    ".project-item, .our-team-item, .project-banner.animate"
+    ".project-item, .our-team-item, .project-banner.animate",
   );
   itemsContent.forEach((item) => {
     item.addEventListener("mouseenter", () => {
@@ -767,7 +767,7 @@ function cookieModal() {
     const expires = Date.now() + 30 * 24 * 60 * 60 * 1000;
     localStorage.setItem(
       "cookieConsent",
-      JSON.stringify({ accepted: true, expires })
+      JSON.stringify({ accepted: true, expires }),
     );
     modalCookies.classList.remove("open");
   });
@@ -808,7 +808,7 @@ function loading() {
           y: -60,
           ease: "power2.out",
         },
-        0.5
+        0.5,
       )
       .to(
         loading.find(".loading-wrapper"),
@@ -817,7 +817,7 @@ function loading() {
           duration: 1.5,
           ease: "power3.inOut",
         },
-        0.6
+        0.6,
       )
       .to(loading, {
         autoAlpha: 0,
@@ -833,7 +833,7 @@ function loading() {
           duration: 0.8,
           ease: "power2.out",
         },
-        0.5
+        0.5,
       )
       .to(
         loading.find(".loading-text"),
@@ -843,7 +843,7 @@ function loading() {
           duration: 0.5,
           ease: "power2.out",
         },
-        1
+        1,
       )
       .to(
         loading.find(".loading-text"),
@@ -853,7 +853,7 @@ function loading() {
           duration: 0.5,
           ease: "power2.out",
         },
-        1.8
+        1.8,
       )
       .to(
         loading.find(".loading-desc"),
@@ -863,7 +863,7 @@ function loading() {
           duration: 0.5,
           ease: "power2.out",
         },
-        2.3
+        2.3,
       )
 
       .to(
@@ -873,17 +873,48 @@ function loading() {
           duration: 1.5,
           ease: "power3.inOut",
         },
-        2.9
+        2.9,
       )
       .to(loading, { autoAlpha: 0 });
   }
+}
+function galleryZoom() {
+  gsap.registerPlugin(ScrollTrigger, Flip);
+  if (document.querySelector(".gallery") == null) return;
+  let galleryItem = document.querySelectorAll(".gallery .gallery-item");
+
+  galleryItem.forEach((el) => el.classList.add("flip"));
+
+  let state = Flip.getState(
+    [".gallery .gallery-item", ".gallery .gallery-item .img"],
+    {
+      props: "borderRadius",
+    },
+  );
+
+  galleryItem.forEach((el) => el.classList.remove("flip"));
+
+  Flip.to(state, {
+    scale: true,
+    simple: true,
+    scrollTrigger: {
+      trigger: ".gallery",
+      start: "center center",
+      end: "+=300%",
+      scrub: true,
+      pin: true,
+      // markers: true,
+      lazy: false,
+      anticipate: true,
+    },
+  });
 }
 $(window).on("DOMContentLoaded", function () {
   loading();
 });
 function effectTextBanner() {
   const elements = document.querySelectorAll(
-    ".effect-heading-mask-line-banner"
+    ".effect-heading-mask-line-banner",
   );
 
   elements.forEach((element) => {
@@ -908,7 +939,7 @@ function effectTextBanner() {
             duration: 0.4,
             stagger: 0.1,
             ease: "expo.out",
-          }
+          },
         );
 
         // Play animation immediately after fonts are loaded
@@ -947,7 +978,7 @@ function effectTextBanner() {
         duration: 0.3,
         ease: "sine.out",
         delay: 0.5 + additionalDelay,
-      }
+      },
     );
   });
 }
@@ -1104,7 +1135,7 @@ function hoverIcon() {
     return;
 
   const items = document.querySelectorAll(
-    ".build-a-brand .tab-wrapper .item, .project-container .nav-link"
+    ".build-a-brand .tab-wrapper .item, .project-container .nav-link",
   );
   const buttons = document.querySelectorAll(".btn-large");
 
@@ -1162,7 +1193,7 @@ function showCoreValue() {
 
   const contentItems = document.querySelectorAll(".content-item-lg");
   const contentOvl = document.querySelector(
-    ".expertise-core-value .content-ovl"
+    ".expertise-core-value .content-ovl",
   );
 
   gsap.set(contentOvl, {
@@ -1195,7 +1226,7 @@ function showCoreValue() {
         const progress = self.progress;
         const animationProgress = Math.min(
           (progress * (totalAnimationTime + 1)) / totalAnimationTime,
-          1
+          1,
         );
 
         // Tính activeIndex như bạn đã viết
@@ -1285,7 +1316,7 @@ function effectTextCoreValue() {
             duration: 0.4,
             stagger: 0.1,
             ease: "expo.out",
-          }
+          },
         );
 
         // Play animation immediately after fonts are loaded
@@ -1324,7 +1355,7 @@ function effectTextCoreValue() {
         duration: 0.3,
         ease: "sine.out",
         delay: 0.5 + additionalDelay,
-      }
+      },
     );
   });
 }
@@ -1344,7 +1375,7 @@ function contactForm() {
   const phoneField = contactForm.find("input[name='phone']");
   const companyField = contactForm.find("input[name='company']");
   const serviceField = contactForm.find(
-    ".dropdown-custom .dropdown-custom__text"
+    ".dropdown-custom .dropdown-custom__text",
   );
   const messageField = contactForm.find("textarea[name='message']");
   const buttonSubmit = contactForm.find("button[type='submit']");
@@ -1407,7 +1438,7 @@ function contactForm() {
         console.error("Lỗi khi gửi form:", error);
 
         contactForm.append(
-          '<span class="contact-message body-sm-regular" style="color: #FF0000;">Có lỗi xảy ra, vui lòng thử lại sau.</span>'
+          '<span class="contact-message body-sm-regular" style="color: #FF0000;">Có lỗi xảy ra, vui lòng thử lại sau.</span>',
         );
       },
     });
@@ -1453,7 +1484,7 @@ function projectDetail() {
         },
         clipPath: finalClip,
         ease: "power2.out",
-      }
+      },
     );
 
     // Scale animation
@@ -1472,7 +1503,7 @@ function projectDetail() {
         scale: 1.3,
         ease: "power2.out",
         transformOrigin: media.dataset.transformOrigin || "center center",
-      }
+      },
     );
   });
 }
@@ -1633,7 +1664,7 @@ function scrollInfiniteProject(scrollCount = 0) {
         window.history.pushState(
           { postId: currentPostId, scrollCount: scrollCount },
           "",
-          url.toString()
+          url.toString(),
         );
         window.location.href = url.toString();
 
@@ -1704,7 +1735,7 @@ function animateBannerProjectDetail() {
       clipPath: "inset(0% 0% 0% 0%)",
       duration: 0.4,
       ease: "power2.out",
-    }
+    },
   );
 
   gsap.fromTo(
@@ -1722,7 +1753,7 @@ function animateBannerProjectDetail() {
       scale: 1,
       duration: 0.4,
       ease: "power2.out",
-    }
+    },
   );
 }
 function spotlightNextProject() {
@@ -1820,6 +1851,7 @@ const init = () => {
   projectDetail();
   scrollInfiniteProject();
   magicCursorV2();
+  galleryZoom();
   setTimeout(() => {
     cookieModal();
   }, 5000);
