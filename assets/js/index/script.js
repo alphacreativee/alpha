@@ -909,6 +909,25 @@ function galleryZoom() {
     },
   });
 }
+function circleProgressBar() {
+  if (document.querySelector("#progress-bar") == null) return;
+  const circle = document.querySelector(".progress-bar-fill");
+
+  const circumference = 2 * Math.PI * 45;
+
+  circle.style.strokeDasharray = `0 ${circumference}`;
+
+  window.onscroll = () => {
+    const { innerHeight, scrollY } = window;
+    const { clientHeight } = document.body;
+    const height = clientHeight - innerHeight;
+    const percentage = (scrollY / height) * 100;
+
+    const dashArray = `${circumference * (percentage / 100)} ${circumference}`;
+
+    circle.style.strokeDasharray = dashArray;
+  };
+}
 $(window).on("DOMContentLoaded", function () {
   loading();
 });
@@ -1852,6 +1871,7 @@ const init = () => {
   scrollInfiniteProject();
   magicCursorV2();
   galleryZoom();
+  circleProgressBar();
   setTimeout(() => {
     cookieModal();
   }, 5000);
