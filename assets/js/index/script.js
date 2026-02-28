@@ -1844,6 +1844,89 @@ function scrollCTA() {
     },
   });
 }
+function clickVideo() {
+  document
+    .querySelectorAll(".content-project-item.option-video")
+    .forEach((item) => {
+      const video = item.querySelector(".video-wrap");
+      const btnControl = item.querySelector(".btn-control");
+      if (!video || !btnControl) return;
+      btnControl.addEventListener("click", function () {
+        console.log("aaa");
+
+        if (video.paused) {
+          document.querySelectorAll(".video-wrap").forEach((v) => {
+            if (v !== video) v.pause();
+          });
+
+          video.play();
+          btnControl.style.opacity = "0";
+        } else {
+          video.pause();
+          btnControl.style.opacity = "1";
+        }
+      });
+
+      video.addEventListener("click", function () {
+        if (!video.paused) {
+          video.pause();
+          btnControl.style.opacity = "1";
+        }
+      });
+    });
+
+  // Cursor follow mouse
+  if (!document.querySelector(".magic-cursor-play")) return;
+
+  var circle = document.querySelector(".magic-cursor-play");
+  var cursorDot = circle.querySelector(".cursor");
+  var cursorText = circle.querySelector(".text");
+
+  gsap.set(circle, { xPercent: -50, yPercent: -50 });
+
+  window.addEventListener("mousemove", (e) => {
+    gsap.to(circle, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.1,
+    });
+  });
+
+  // Gắn sự kiện cho từng video item
+  const videoItems = document.querySelectorAll(
+    ".content-project-item.option-video",
+  );
+
+  videoItems.forEach((item) => {
+    const video = item.querySelector(".video-wrap");
+    const image = item.querySelector(
+      ".content-project-item.option-video .video",
+    ); // vùng hover
+
+    const textPlay = item.dataset.play || "Play";
+    const textPause = item.dataset.pause || "Pause";
+
+    image.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("show");
+      cursorText.textContent = video.paused ? textPlay : textPause;
+    });
+
+    image.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show");
+    });
+
+    video.addEventListener("play", () => {
+      cursorText.textContent = textPause;
+    });
+
+    video.addEventListener("pause", () => {
+      cursorText.textContent = textPlay;
+    });
+  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+  clickVideo();
+});
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   scrollCTA();
@@ -1872,6 +1955,7 @@ const init = () => {
   magicCursorV2();
   galleryZoom();
   circleProgressBar();
+
   setTimeout(() => {
     cookieModal();
   }, 5000);
