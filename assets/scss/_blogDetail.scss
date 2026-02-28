@@ -1,5 +1,6 @@
 .blog-detail {
   background-color: var(--color-white);
+
   &__top {
     .title {
       text-align: center;
@@ -98,6 +99,9 @@
     .the-content {
       margin-bottom: 120px;
       padding-right: 80px;
+      * {
+        font-family: var(--font-primary) !important;
+      }
       @media (max-width: 991px) {
         padding-right: 24px;
         padding-left: 24px;
