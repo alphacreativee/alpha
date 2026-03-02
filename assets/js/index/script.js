@@ -900,7 +900,7 @@ function galleryZoom() {
     scrollTrigger: {
       trigger: ".gallery",
       start: "center center",
-      end: "+=300%",
+      end: "+=200%",
       scrub: true,
       pin: true,
       // markers: true,
@@ -1851,16 +1851,26 @@ function clickVideo() {
       const video = item.querySelector(".video-wrap");
       const btnControl = item.querySelector(".btn-control");
       if (!video || !btnControl) return;
-      btnControl.addEventListener("click", function () {
-        console.log("aaa");
 
+      // Load metadata để iOS hiện frame đầu
+      video.load();
+
+      btnControl.addEventListener("click", function () {
         if (video.paused) {
           document.querySelectorAll(".video-wrap").forEach((v) => {
             if (v !== video) v.pause();
           });
 
-          video.play();
-          btnControl.style.opacity = "0";
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                btnControl.style.opacity = "0";
+              })
+              .catch((error) => {
+                console.log("Play error:", error);
+              });
+          }
         } else {
           video.pause();
           btnControl.style.opacity = "1";
@@ -1892,7 +1902,6 @@ function clickVideo() {
     });
   });
 
-  // Gắn sự kiện cho từng video item
   const videoItems = document.querySelectorAll(
     ".content-project-item.option-video",
   );
@@ -1901,7 +1910,7 @@ function clickVideo() {
     const video = item.querySelector(".video-wrap");
     const image = item.querySelector(
       ".content-project-item.option-video .video",
-    ); // vùng hover
+    );
 
     const textPlay = item.dataset.play || "Play";
     const textPause = item.dataset.pause || "Pause";
