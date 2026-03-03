@@ -881,18 +881,27 @@ function loading() {
 function galleryZoom() {
   gsap.registerPlugin(ScrollTrigger, Flip);
   if (document.querySelector(".gallery") == null) return;
-  let galleryItem = document.querySelectorAll(".gallery .gallery-item");
 
+  const galleryItem = document.querySelectorAll(".gallery .gallery-item");
+  const galleryContainer = document.querySelector(".gallery-container"); // 👈
+
+  // Add flip to both items AND container
   galleryItem.forEach((el) => el.classList.add("flip"));
+  galleryContainer.classList.add("flip"); // 👈
 
   let state = Flip.getState(
-    [".gallery .gallery-item", ".gallery .gallery-item .img"],
-    {
-      props: "borderRadius",
-    },
+    [
+      ".gallery",
+      ".gallery-container",
+      ".gallery .gallery-item",
+      ".gallery .gallery-item .img",
+    ],
+    { props: "gap" },
   );
 
+  // Remove from both
   galleryItem.forEach((el) => el.classList.remove("flip"));
+  galleryContainer.classList.remove("flip"); // 👈
 
   Flip.to(state, {
     scale: true,
@@ -900,10 +909,9 @@ function galleryZoom() {
     scrollTrigger: {
       trigger: ".gallery",
       start: "center center",
-      end: "+=200%",
+      end: "+=150%",
       scrub: true,
       pin: true,
-      // markers: true,
       lazy: false,
       anticipate: true,
     },
