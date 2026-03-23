@@ -881,18 +881,27 @@ function loading() {
 function galleryZoom() {
   gsap.registerPlugin(ScrollTrigger, Flip);
   if (document.querySelector(".gallery") == null) return;
-  let galleryItem = document.querySelectorAll(".gallery .gallery-item");
 
+  const galleryItem = document.querySelectorAll(".gallery .gallery-item");
+  const galleryContainer = document.querySelector(".gallery-container"); // 👈
+
+  // Add flip to both items AND container
   galleryItem.forEach((el) => el.classList.add("flip"));
+  galleryContainer.classList.add("flip"); // 👈
 
   let state = Flip.getState(
-    [".gallery .gallery-item", ".gallery .gallery-item .img"],
-    {
-      props: "borderRadius",
-    },
+    [
+      ".gallery",
+      ".gallery-container",
+      ".gallery .gallery-item",
+      ".gallery .gallery-item .img",
+    ],
+    { props: "gap" },
   );
 
+  // Remove from both
   galleryItem.forEach((el) => el.classList.remove("flip"));
+  galleryContainer.classList.remove("flip"); // 👈
 
   Flip.to(state, {
     scale: true,
@@ -900,14 +909,32 @@ function galleryZoom() {
     scrollTrigger: {
       trigger: ".gallery",
       start: "center center",
-      end: "+=300%",
+      end: "+=150%",
       scrub: true,
       pin: true,
-      // markers: true,
       lazy: false,
       anticipate: true,
     },
   });
+}
+function circleProgressBar() {
+  if (document.querySelector("#progress-bar") == null) return;
+  const circle = document.querySelector(".progress-bar-fill");
+
+  const circumference = 2 * Math.PI * 45;
+
+  circle.style.strokeDasharray = `0 ${circumference}`;
+
+  window.onscroll = () => {
+    const { innerHeight, scrollY } = window;
+    const { clientHeight } = document.body;
+    const height = clientHeight - innerHeight;
+    const percentage = (scrollY / height) * 100;
+
+    const dashArray = `${circumference * (percentage / 100)} ${circumference}`;
+
+    circle.style.strokeDasharray = dashArray;
+  };
 }
 $(window).on("DOMContentLoaded", function () {
   loading();
@@ -1825,6 +1852,98 @@ function scrollCTA() {
     },
   });
 }
+function clickVideo() {
+  document
+    .querySelectorAll(".content-project-item.option-video")
+    .forEach((item) => {
+      const video = item.querySelector(".video-wrap");
+      const btnControl = item.querySelector(".btn-control");
+      if (!video || !btnControl) return;
+
+      // Load metadata để iOS hiện frame đầu
+      video.load();
+
+      btnControl.addEventListener("click", function () {
+        if (video.paused) {
+          document.querySelectorAll(".video-wrap").forEach((v) => {
+            if (v !== video) v.pause();
+          });
+
+          const playPromise = video.play();
+          if (playPromise !== undefined) {
+            playPromise
+              .then(() => {
+                btnControl.style.opacity = "0";
+              })
+              .catch((error) => {
+                console.log("Play error:", error);
+              });
+          }
+        } else {
+          video.pause();
+          btnControl.style.opacity = "1";
+        }
+      });
+
+      video.addEventListener("click", function () {
+        if (!video.paused) {
+          video.pause();
+          btnControl.style.opacity = "1";
+        }
+      });
+    });
+
+  // Cursor follow mouse
+  if (!document.querySelector(".magic-cursor-play")) return;
+
+  var circle = document.querySelector(".magic-cursor-play");
+  var cursorDot = circle.querySelector(".cursor");
+  var cursorText = circle.querySelector(".text");
+
+  gsap.set(circle, { xPercent: -50, yPercent: -50 });
+
+  window.addEventListener("mousemove", (e) => {
+    gsap.to(circle, {
+      x: e.clientX,
+      y: e.clientY,
+      duration: 0.1,
+    });
+  });
+
+  const videoItems = document.querySelectorAll(
+    ".content-project-item.option-video",
+  );
+
+  videoItems.forEach((item) => {
+    const video = item.querySelector(".video-wrap");
+    const image = item.querySelector(
+      ".content-project-item.option-video .video",
+    );
+
+    const textPlay = item.dataset.play || "Play";
+    const textPause = item.dataset.pause || "Pause";
+
+    image.addEventListener("mouseenter", () => {
+      cursorDot.classList.add("show");
+      cursorText.textContent = video.paused ? textPlay : textPause;
+    });
+
+    image.addEventListener("mouseleave", () => {
+      cursorDot.classList.remove("show");
+    });
+
+    video.addEventListener("play", () => {
+      cursorText.textContent = textPause;
+    });
+
+    video.addEventListener("pause", () => {
+      cursorText.textContent = textPlay;
+    });
+  });
+}
+document.addEventListener("DOMContentLoaded", () => {
+  clickVideo();
+});
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
   scrollCTA();
@@ -1852,6 +1971,8 @@ const init = () => {
   scrollInfiniteProject();
   magicCursorV2();
   galleryZoom();
+  circleProgressBar();
+
   setTimeout(() => {
     cookieModal();
   }, 5000);
