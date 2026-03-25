@@ -266,3 +266,12 @@
   height: 100% !important;
   border: none;
 }
+.content-project-item.double-image {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  // @media (max-width: 991px) {
+  //   grid-template-columns: 1fr;
+  //   gap: 24px;
+  // }
+}

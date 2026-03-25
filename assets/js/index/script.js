@@ -883,11 +883,14 @@ function galleryZoom() {
   if (document.querySelector(".gallery") == null) return;
 
   const galleryItem = document.querySelectorAll(".gallery .gallery-item");
-  const galleryContainer = document.querySelector(".gallery-container"); // 👈
+  const galleryContainer = document.querySelector(".gallery-container");
+  const surroundingItems = document.querySelectorAll(
+    ".gallery-item:not(.special)",
+  );
+  const SLOW_FACTOR = 0.3; // tune tại đây
 
-  // Add flip to both items AND container
   galleryItem.forEach((el) => el.classList.add("flip"));
-  galleryContainer.classList.add("flip"); // 👈
+  galleryContainer.classList.add("flip");
 
   let state = Flip.getState(
     [
@@ -899,9 +902,8 @@ function galleryZoom() {
     { props: "gap" },
   );
 
-  // Remove from both
   galleryItem.forEach((el) => el.classList.remove("flip"));
-  galleryContainer.classList.remove("flip"); // 👈
+  galleryContainer.classList.remove("flip");
 
   Flip.to(state, {
     scale: true,
@@ -914,6 +916,20 @@ function galleryZoom() {
       pin: true,
       lazy: false,
       anticipate: true,
+      onUpdate: (self) => {
+        const containerScale =
+          gsap.getProperty(galleryContainer, "scaleX") || 1;
+
+        // Visual scale mong muốn = chậm hơn center theo SLOW_FACTOR
+        const wantedScale = 1 + (containerScale - 1) * SLOW_FACTOR;
+
+        // Counter-scale để bù lại container
+        const ownScale = wantedScale / containerScale;
+
+        surroundingItems.forEach((item) => {
+          gsap.set(item, { scale: ownScale });
+        });
+      },
     },
   });
 }
