@@ -1958,10 +1958,20 @@ function clickVideo() {
   });
 }
 function mousetail() {
-  const hiddenImages = document.querySelectorAll(".hidden-images img");
+  const allContainers = document.querySelectorAll(".mouse-trail");
+
+  allContainers.forEach((mouseContainer) => {
+    initTrailForContainer(mouseContainer);
+  });
+}
+
+function initTrailForContainer(mouseContainer) {
+  // Lấy ảnh RIÊNG trong section này, không lấy toàn trang
+  const hiddenImages = mouseContainer.querySelectorAll(".hidden-images img");
   const images = Array.from(hiddenImages).map((img) => img.src);
 
-  const mouseContainer = document.querySelector(".mouse-trail");
+  if (images.length === 0) return; // section không có ảnh thì bỏ qua
+
   let currentImageIndex = 0;
   let lastX = 0;
   let lastY = 0;
@@ -1969,7 +1979,6 @@ function mousetail() {
   const isMobile = window.innerWidth < 991;
   const distanceThreshold = isMobile ? 100 : 140;
 
-  // Kích thước ảnh: mobile giảm còn 1 nửa so với desktop
   const IMG_WIDTH = isMobile ? 130 : 175;
   const IMG_HEIGHT = isMobile ? 220 : 260;
 
@@ -1983,7 +1992,6 @@ function mousetail() {
       img.classList.add("image-trail");
       img.src = images[currentImageIndex];
 
-      // set kích thước trực tiếp cho ảnh (để khớp với IMG_WIDTH/HEIGHT ở mobile)
       img.style.width = `${IMG_WIDTH}px`;
       img.style.height = `${IMG_HEIGHT}px`;
 

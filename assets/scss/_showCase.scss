@@ -296,7 +296,7 @@
     object-fit: cover;
     pointer-events: none;
     opacity: 1;
-    z-index: 1;
+    z-index: -1;
   }
   .box-title {
     margin-bottom: 48px;
