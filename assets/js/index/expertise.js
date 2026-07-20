@@ -143,7 +143,9 @@ function buildABrand() {
   }
 
   // Xử lý sự kiện click tab
-  tab.on("click", function () {
+  const eventType = window.innerWidth > 991 ? "mouseover" : "click";
+
+  tab.on(eventType, function () {
     let thisTab = $(this);
     let dataThisTab = thisTab.data("branding");
 

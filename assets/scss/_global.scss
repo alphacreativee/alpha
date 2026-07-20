@@ -879,7 +879,7 @@ section.theme-light {
   bottom: 60px;
   right: 40px;
   // mix-blend-mode: difference;
-  z-index: 111;
+  z-index: 98;
   display: flex;
   flex-direction: column;
   gap: 24px;
@@ -1055,6 +1055,44 @@ section.theme-light {
     }
     p {
       text-align: justify;
+    }
+  }
+}
+
+.btn-chat-mes {
+  position: fixed;
+  bottom: 144px;
+  right: 40px;
+  z-index: 98;
+
+  @media (max-width: 991px) {
+    right: 20px;
+  }
+
+  .button-general {
+    padding: 0;
+    border-radius: 50%;
+    width: 64px;
+    height: 64px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before {
+      top: 10px;
+      height: 150%;
+      transform: translate3d(0, 70%, 0) scale3d(1, 1, 1);
+    }
+
+    span {
+      text-transform: uppercase;
+    }
+
+    &:hover {
+      &::before {
+        transform: translate3d(0, -15%, 0) scale3d(1, 1, 1);
+      }
     }
   }
 }
