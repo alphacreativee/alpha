@@ -57,7 +57,7 @@
       justify-content: center;
       flex-wrap: wrap;
       gap: 8px;
-      max-width: 60%;
+      max-width: 100%;
       margin: 30px auto 0;
 
       @media (max-width: 991px) {
@@ -77,6 +77,13 @@
 .project-banner-showcase {
   height: 100svh;
   .banner-content {
+    max-width: 950px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .h1-heading {
     max-width: 845px;
   }
   .list-tag {
@@ -197,9 +204,25 @@
       gap: 24px;
     }
   }
+  .content-project-title {
+    font-size: 12px;
+    line-height: 20px;
+    font-weight: 400;
+    color: var(--color-white);
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 80px;
+    @media (max-width: 991px) {
+      margin-bottom: 24px;
+    }
+  }
   .content-project-item {
     width: 100%;
     aspect-ratio: 1062 / 600;
+    max-height: 600px;
+    @media (min-width: 1500px) {
+      max-height: 700px;
+    }
     &.option-video {
       cursor: none;
     }
@@ -265,4 +288,82 @@
   width: 100% !important;
   height: 100% !important;
   border: none;
+}
+.content-project-item.double-image {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 56px !important;
+  @media (max-width: 991px) {
+    gap: 20px !important;
+  }
+}
+.block-three {
+  // max-width: 50%;
+  text-align: center;
+  padding: 40px 0;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  @media (max-width: 991px) {
+  }
+  &-content {
+    max-width: 50%;
+    position: relative;
+    z-index: 10;
+    @media (max-width: 991px) {
+      max-width: 100%;
+    }
+    &.max-width-full {
+      max-width: 100%;
+    }
+  }
+  .image-trail {
+    position: absolute;
+    inset: 0;
+    width: 175px;
+    height: 260px;
+    object-fit: cover;
+    pointer-events: none;
+    opacity: 1;
+    z-index: -1;
+  }
+  .box-title {
+    margin-bottom: 48px;
+    &.big-size {
+      font-family: var(--font-primary);
+      font-size: 80px;
+      line-height: 88px;
+      font-weight: 100;
+      text-transform: none !important;
+      @media (max-width: 991px) {
+        font-size: 32px;
+        line-height: 40px;
+        &.heading-mobile {
+          font-size: 48px;
+          line-height: 56px;
+        }
+      }
+    }
+  }
+  .box-description {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 400;
+    color: var(--color-white);
+  }
+}
+.block-four {
+  margin-bottom: 80px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+.mb-0 {
+  margin-bottom: 0;
+}
+.effect-fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  will-change: opacity, transform;
 }

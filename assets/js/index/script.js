@@ -267,6 +267,22 @@ function effectText() {
         }
       );
     });
+    gsap.utils.toArray(".effect-fade-in").forEach((element) => {
+      const delay = parseFloat(element.dataset.delay) || 0;
+      gsap.to(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: "top 75%",
+          end: "bottom 75%"
+          // markers: true,
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "sine.out",
+        delay: delay
+      });
+    });
     gsap.utils
       .toArray(".effect-fade-content-auto")
       .forEach((element, index) => {
@@ -883,11 +899,14 @@ function galleryZoom() {
   if (document.querySelector(".gallery") == null) return;
 
   const galleryItem = document.querySelectorAll(".gallery .gallery-item");
-  const galleryContainer = document.querySelector(".gallery-container"); // 👈
+  const galleryContainer = document.querySelector(".gallery-container");
+  const surroundingItems = document.querySelectorAll(
+    ".gallery-item:not(.special)"
+  );
+  const SLOW_FACTOR = 0.3; // tune tại đây
 
-  // Add flip to both items AND container
   galleryItem.forEach((el) => el.classList.add("flip"));
-  galleryContainer.classList.add("flip"); // 👈
+  galleryContainer.classList.add("flip");
 
   let state = Flip.getState(
     [
@@ -899,9 +918,8 @@ function galleryZoom() {
     { props: "gap" }
   );
 
-  // Remove from both
   galleryItem.forEach((el) => el.classList.remove("flip"));
-  galleryContainer.classList.remove("flip"); // 👈
+  galleryContainer.classList.remove("flip");
 
   Flip.to(state, {
     scale: true,
@@ -913,7 +931,21 @@ function galleryZoom() {
       scrub: true,
       pin: true,
       lazy: false,
-      anticipate: true
+      anticipate: true,
+      onUpdate: (self) => {
+        const containerScale =
+          gsap.getProperty(galleryContainer, "scaleX") || 1;
+
+        // Visual scale mong muốn = chậm hơn center theo SLOW_FACTOR
+        const wantedScale = 1 + (containerScale - 1) * SLOW_FACTOR;
+
+        // Counter-scale để bù lại container
+        const ownScale = wantedScale / containerScale;
+
+        surroundingItems.forEach((item) => {
+          gsap.set(item, { scale: ownScale });
+        });
+      }
     }
   });
 }
@@ -1941,8 +1973,147 @@ function clickVideo() {
     });
   });
 }
+function mousetail() {
+  const allContainers = document.querySelectorAll(".mouse-trail");
+
+  allContainers.forEach((mouseContainer) => {
+    initTrailForContainer(mouseContainer);
+  });
+}
+
+function initTrailForContainer(mouseContainer) {
+  // Lấy ảnh RIÊNG trong section này, không lấy toàn trang
+  const hiddenImages = mouseContainer.querySelectorAll(".hidden-images img");
+  const images = Array.from(hiddenImages).map((img) => img.src);
+
+  if (images.length === 0) return; // section không có ảnh thì bỏ qua
+
+  let currentImageIndex = 0;
+  let lastX = 0;
+  let lastY = 0;
+
+  const isMobile = window.innerWidth < 991;
+  const distanceThreshold = isMobile ? 100 : 140;
+
+  const IMG_WIDTH = isMobile ? 110 : 175;
+  const IMG_HEIGHT = isMobile ? 150 : 260;
+
+  const OFFSET_RANGE = 0;
+  const ROTATE_RANGE = 0;
+
+  if (isMobile) {
+    // ================= MOBILE =================
+    function createRandomFallingImage() {
+      const img = document.createElement("img");
+      img.classList.add("image-trail");
+      img.src = images[currentImageIndex];
+
+      img.style.width = `${IMG_WIDTH}px`;
+      img.style.height = `${IMG_HEIGHT}px`;
+
+      mouseContainer.appendChild(img);
+      currentImageIndex = (currentImageIndex + 1) % images.length;
+
+      const rect = mouseContainer.getBoundingClientRect();
+      const maxX = Math.max(rect.width - IMG_WIDTH, 0);
+      const maxY = Math.max(rect.height - IMG_HEIGHT, 0);
+
+      const randomX = Math.random() * maxX;
+      const randomY = Math.random() * maxY;
+
+      gsap.set(img, {
+        x: randomX,
+        y: randomY,
+        scale: 0,
+        opacity: 0,
+        rotation: gsap.utils.random(-ROTATE_RANGE, ROTATE_RANGE)
+      });
+
+      gsap.to(img, {
+        scale: 1,
+        opacity: 1,
+        duration: 0.5,
+        ease: "power2.out"
+      });
+
+      gsap.to(img, {
+        scale: 0.2,
+        opacity: 0,
+        duration: 1,
+        delay: 0.8,
+        ease: "power2.in",
+        onComplete: () => img.remove()
+      });
+    }
+
+    function startRandomImageFall() {
+      createRandomFallingImage();
+      const nextDelay = Math.random() * 1000 + 700;
+      setTimeout(startRandomImageFall, nextDelay);
+    }
+
+    startRandomImageFall();
+  } else {
+    // ================= DESKTOP =================
+    mouseContainer.addEventListener("mousemove", (e) => {
+      const rect = mouseContainer.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      const dx = x - lastX;
+      const dy = y - lastY;
+      const distance = Math.sqrt(dx * dx + dy * dy);
+
+      if (distance > distanceThreshold) {
+        createTrail(x, y);
+        lastX = x;
+        lastY = y;
+      }
+    });
+  }
+
+  function createTrail(x, y) {
+    const img = document.createElement("img");
+    img.classList.add("image-trail");
+    img.src = images[currentImageIndex];
+
+    img.style.width = `${IMG_WIDTH}px`;
+    img.style.height = `${IMG_HEIGHT}px`;
+
+    mouseContainer.appendChild(img);
+    currentImageIndex = (currentImageIndex + 1) % images.length;
+
+    const offsetX = gsap.utils.random(-OFFSET_RANGE, OFFSET_RANGE);
+    const offsetY = gsap.utils.random(-OFFSET_RANGE, OFFSET_RANGE);
+
+    gsap.set(img, {
+      x: x - IMG_WIDTH / 2 + offsetX,
+      y: y - IMG_HEIGHT / 2 + offsetY,
+      scale: 0,
+      opacity: 0,
+      rotation: gsap.utils.random(-ROTATE_RANGE, ROTATE_RANGE)
+    });
+
+    gsap.to(img, {
+      scale: 1,
+      opacity: 1,
+      duration: 0.5,
+      ease: "power2.out"
+    });
+
+    gsap.to(img, {
+      scale: 0.2,
+      opacity: 0,
+      duration: 1,
+      delay: 0.3,
+      ease: "power2.in",
+      onComplete: () => img.remove()
+    });
+  }
+}
 document.addEventListener("DOMContentLoaded", () => {
   clickVideo();
+  mousetail();
 });
 const init = () => {
   gsap.registerPlugin(ScrollTrigger);
