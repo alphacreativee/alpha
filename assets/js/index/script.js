@@ -267,6 +267,22 @@ function effectText() {
         },
       );
     });
+    gsap.utils.toArray(".effect-fade-in").forEach((element) => {
+      const delay = parseFloat(element.dataset.delay) || 0;
+      gsap.to(element, {
+        scrollTrigger: {
+          trigger: element,
+          start: "top 75%",
+          end: "bottom 75%",
+          // markers: true,
+        },
+        opacity: 1,
+        y: 0,
+        duration: 0.3,
+        ease: "sine.out",
+        delay: delay,
+      });
+    });
     gsap.utils
       .toArray(".effect-fade-content-auto")
       .forEach((element, index) => {
@@ -1979,8 +1995,8 @@ function initTrailForContainer(mouseContainer) {
   const isMobile = window.innerWidth < 991;
   const distanceThreshold = isMobile ? 100 : 140;
 
-  const IMG_WIDTH = isMobile ? 130 : 175;
-  const IMG_HEIGHT = isMobile ? 220 : 260;
+  const IMG_WIDTH = isMobile ? 110 : 175;
+  const IMG_HEIGHT = isMobile ? 150 : 260;
 
   const OFFSET_RANGE = 0;
   const ROTATE_RANGE = 0;
